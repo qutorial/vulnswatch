@@ -18,6 +18,9 @@ gem 'jquery-turbolinks'
 
 # Devise for auth
 gem 'devise'
+# eliminates easy passwords
+gem 'devise_zxcvbn'
+
 # Bootstrap
 gem 'bootstrap-sass'
 
