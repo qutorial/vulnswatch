@@ -85,6 +85,10 @@ GEM
       railties (>= 4, < 5.2)
     cucumber-rails-training-wheels (1.0.0)
       cucumber-rails (>= 1.1.1)
+    cucumber-websteps (0.10.0)
+      capybara (>= 1.1.2)
+      cucumber (>= 1.1.1)
+      launchy
     cucumber-wire (0.0.1)
     database_cleaner (1.6.1)
     devise (4.3.0)
@@ -245,6 +249,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   cucumber-rails
   cucumber-rails-training-wheels
+  cucumber-websteps
   database_cleaner
   devise
   haml

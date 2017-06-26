@@ -5,6 +5,10 @@ They shall have options to proceed working with it
 
 Scenario: User sees welcome page
   When I go to homepage
-  Then I should see the the welcome message
+  Then I should see the welcome message
+
+Scenario: User sees register link
+  When I go to homepage
+  Then I should see the register link
 
 
