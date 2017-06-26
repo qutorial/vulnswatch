@@ -9,6 +9,22 @@
   </head>
 
   <body>
-    <%= yield %>
+  
+    <div class="container">
+     <% flash.each do |key, value| %>
+       <div class="alert alert-<%= key %>">
+         <%= value %>
+       </div>
+     <% end %>
+    </div>
+    
+    <%= yield :top_content %>
+
+    <div class="container">
+      <h1><%= yield :header %></h1>
+      <%= yield %>
+    </div>
+  
   </body>
+
 </html>
