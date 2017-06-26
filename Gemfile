@@ -13,6 +13,10 @@ gem 'rails', '~> 5.1.1'
 gem 'haml'
 # JQuery
 gem 'jquery-rails'
+# Devise for auth
+gem 'devise'
+# Bootstrap
+gem 'bootstrap-sass'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
