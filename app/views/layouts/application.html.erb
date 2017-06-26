@@ -41,7 +41,7 @@
       </div> <!-- container --!>
     </nav>
 
-    <div class="container">
+    <div class="container"> <!-- flash messages -->
      <% flash.each do |key, value| %>
        <div class="alert alert-<%= key %>">
          <%= value %>
@@ -49,8 +49,10 @@
      <% end %>
     </div>
     
+    <!-- top content -->
     <%= yield :top_content %>
 
+    <!-- main yield -->
     <div class="container">
       <h1><%= yield :header %></h1>
       <%= yield %>
