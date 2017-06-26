@@ -1,1 +1,9 @@
-Hello app
+- content_for :top_content do
+  %div.jumbotron
+    %h1
+      Welcome!
+    %p
+      Register to get started:
+      = link_to 'Register', root_path, class: 'btn btn-primary btn-lg'
+
+      
