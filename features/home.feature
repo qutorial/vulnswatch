@@ -11,10 +11,18 @@ Scenario: User sees register link
   When I go to homepage
   Then I should see the register link
 
-Scenario: Visitor sees no profile
+Scenario: No profile link
   When I go to homepage
   Then I should not see 'Profile' link
 
-Scenario: Visitor sees no profile
+Scenario: No logout link
   When I go to homepage
   Then I should not see 'Log out' link
+
+Scenario: Log in link visible
+  When I go to homepage
+  Then I should see 'Log In' link
+
+Scenario: Sign up link visible
+  When I go to homepage
+  Then I should see 'Sign Up' link

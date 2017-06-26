@@ -11,8 +11,11 @@ gem 'rails', '~> 5.1.1'
 
 # HAML language for views
 gem 'haml'
+
 # JQuery
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
+
 # Devise for auth
 gem 'devise'
 # Bootstrap
