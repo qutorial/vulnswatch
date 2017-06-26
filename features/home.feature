@@ -11,4 +11,10 @@ Scenario: User sees register link
   When I go to homepage
   Then I should see the register link
 
+Scenario: Visitor sees no profile
+  When I go to homepage
+  Then I should not see 'Profile' link
 
+Scenario: Visitor sees no profile
+  When I go to homepage
+  Then I should not see 'Log out' link
