@@ -4,9 +4,15 @@ class VulnerabilitiesController < ApplicationController
   # GET /vulnerabilities
   # GET /vulnerabilities.json
   def index
-    @vulnerabilities = Vulnerability.all
+    @vulnerabilities = Vulnerability.order(modified: :desc).order(updated_at: :desc)
   end
 
+  # GET /vulnerabilities/nvd
+  def nvd
+    Vulnerability.load_new_vulnerabilities_from_nvd()
+    flash[:notice] = "Vulnerabilities Updated from NVD"
+    redirect_to vulnerabilities_path
+  end
   # GET /vulnerabilities/1
   # GET /vulnerabilities/1.json
   def show

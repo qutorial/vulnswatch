@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
+<h1>All  Vulnerabilities</h1>
 
-<h1>Vulnerabilities</h1>
+<%= link_to "Update from NVD", nvd_update_path, class: 'btn btn-primary'%>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Summary</th>
-      <th>Created</th>
-      <th>Modified</th>
+      <th>Originally published</th>
+      <th>Last time modified</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,9 +17,9 @@
     <% @vulnerabilities.each do |vulnerability| %>
       <tr>
         <td><%= vulnerability.name %></td>
-        <td><%= vulnerability.summary %></td>
-        <td><%= vulnerability.created %></td>
-        <td><%= vulnerability.modified %></td>
+        <td><%= vulnerability.summary[0..50] %></td>
+        <td><%= vulnerability.created.to_date %></td>
+        <td><%= vulnerability.modified.to_date %></td>
         <td><%= link_to 'Show', vulnerability %></td>
         <td><%= link_to 'Edit', edit_vulnerability_path(vulnerability) %></td>
         <td><%= link_to 'Destroy', vulnerability, method: :delete, data: { confirm: 'Are you sure?' } %></td>
