@@ -69,6 +69,7 @@ group :test do
   gem 'cucumber-rails-training-wheels'
   gem 'cucumber-websteps'
   gem 'webmock'
+  gem 'sinatra'
 end
 
 group :development do

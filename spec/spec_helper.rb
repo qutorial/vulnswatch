@@ -16,6 +16,7 @@
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
+require 'support/fake_nvd'
 
 
 # Mocking NVF http requests for new CVEs
@@ -24,8 +25,14 @@ require 'webmock/rspec'
 # Allowing connects to local Sinatra fake NVD
 WebMock.disable_net_connect!(allow_localhost: true)
 
+
 RSpec.configure do |config|
   
+  # Stub requests to NVD
+  config.before(:each) do
+#    stub_request(:any, /nvd.nist.gov/).to_rack(FakeNvd)
+  end
+   
   # to use root_path and similar vars
   config.include Rails.application.routes.url_helpers
 
