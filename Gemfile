@@ -68,6 +68,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels'
   gem 'cucumber-websteps'
+  gem 'webmock'
 end
 
 group :development do

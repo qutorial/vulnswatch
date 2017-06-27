@@ -16,6 +16,14 @@
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
+
+
+# Mocking NVF http requests for new CVEs
+require 'webmock/rspec'
+# Disabling network connections first
+# Allowing connects to local Sinatra fake NVD
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
   
   # to use root_path and similar vars
