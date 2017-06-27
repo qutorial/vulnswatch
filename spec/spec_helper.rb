@@ -13,6 +13,9 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+ENV["RAILS_ENV"] ||= 'test'
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
@@ -30,7 +33,7 @@ RSpec.configure do |config|
   
   # Stub requests to NVD
   config.before(:each) do
-#    stub_request(:any, /nvd.nist.gov/).to_rack(FakeNvd)
+    stub_request(:any, /nvd.nist.gov/).to_rack(FakeNvd)
   end
    
   # to use root_path and similar vars
