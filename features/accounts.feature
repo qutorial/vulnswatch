@@ -7,10 +7,20 @@ Scenario: Users gets registration form
   And follow register link
   Then I see registration form
 
+Scenario: There is a login form
+  When I go to login page
+  Then I get a login form
+
 Scenario: Users can login
   Given a user 'Adam Smith' with email 'adam@gmail.com'  and password '123monkeyqwe123' exists
-  When I go to login page
-  And I get a login form
   Then I can login with email 'adam@gmail.com' and password '123monkeyqwe123'
+
+Scenario: Wrong password does not work
+  Given a user 'Adam Smith' with email 'adam@gmail.com'  and password '123monkeyqwe123' exists
+  Then I can not login with email 'adam@gmail.com' and password '123wrong'
+
+Scenario: Wrong email does not work
+  Given a user 'Adam Smith' with email 'adam@gmail.com'  and password '123monkeyqwe123' exists
+  Then I can not login with email 'wrong@gmail.com' and password '123monkeyqwe123'
 
 

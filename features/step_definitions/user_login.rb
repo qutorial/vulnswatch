@@ -22,10 +22,15 @@ When(/^I get a login form$/) do
   expect(page).to have_field("user_password")
 end
 
-Then(/^I can login with email '([^\']*)' and password '([^\']*)'$/) do |email, pass|
+Then(/^I can (not )?login with email '([^\']*)' and password '([^\']*)'$/) do |cannot, email, pass|
+  step "I go to login page"
   fill_in 'user_email', with: email
   fill_in 'user_password', with: pass
   click_link_or_button 'Log in'
-  expect(page).to have_content('Signed in successfully.')
+  if cannot.nil?
+    expect(page).to have_content('Signed in successfully.')
+  else
+    expect(page).to have_content('Invalid Email or password.')
+  end
 end
 
