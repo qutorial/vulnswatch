@@ -13,6 +13,9 @@ gem 'rails', '~> 5.1.1'
 # HAML language for views
 gem 'haml'
 
+# Use rubyzip to unzip data
+gem 'rubyzip'
+
 # JQuery
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
