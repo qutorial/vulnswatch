@@ -13,6 +13,9 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+
 RSpec.configure do |config|
   
   # to use root_path and similar vars
