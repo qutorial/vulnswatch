@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "RUNNING RAILS TESTS"
 bundle exec rails test # simplest unit and ActiveRecord tests
 echo "RUNNING RSPEC TESTS"
