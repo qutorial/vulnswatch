@@ -6,8 +6,19 @@
       %p
         %em
           Sahare is just sugar, coffee will be served later.
-      %p
-        Register to get started:
-        = link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg'
 
+
+- if ! user_signed_in?
+  %p
+    Register or sign in to get started:
+    = link_to 'Register', new_user_registration_path, class: 'btn btn-lg'
+    = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary btn-lg'
+- else
+  %p
+    = "Welcome #{current_user.name.split(' ')[0]}!" 
+  %p
+    Here is your dashboard:
+  %p
+    = link_to "New Vulnerabilities from NVD", nvd_update_path, class: 'btn btn-primary', id: 'update'
+    = link_to "View Vulnerabilities", vulnerabilities_path, class: 'btn'
       
