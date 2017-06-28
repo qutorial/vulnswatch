@@ -15,3 +15,14 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+
+
+ready = function() {
+  $("#update").click(function(){
+    $(this).hide()
+  });
+}
+
+$( document ).ready(ready);
+$( document ).on('page:load', ready);
+$( document ).on('turbolinks:load', ready);
