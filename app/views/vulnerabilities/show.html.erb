@@ -20,4 +20,8 @@
   <%= @vulnerability.modified %>
 </p>
 
+<p>
+  <%= link_to_nvd(@vulnerability) %>
+</p>
+
 <%= link_to 'Back', vulnerabilities_path %>
