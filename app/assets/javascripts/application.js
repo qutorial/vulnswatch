@@ -19,10 +19,9 @@
 
 ready = function() {
   $("#update").click(function(){
-    $(this).hide()
+    $(this).hide();
+    $( "<span>Update is in progress...</span>" ).insertAfter( $(this) );
   });
 }
 
 $( document ).ready(ready);
-$( document ).on('page:load', ready);
-$( document ).on('turbolinks:load', ready);
