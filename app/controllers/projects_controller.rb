@@ -70,7 +70,7 @@ class ProjectsController < ApplicationController
     def set_project
       @project = Project.find(params[:id])
       if @project.user != current_user 
-        flash[:alert] = "Actions on some one else's projects are not allowed"
+        flash[:alert] = "Actions on someone else's projects are not allowed"
         redirect_to projects_path
       end
     end
