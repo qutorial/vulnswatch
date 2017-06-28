@@ -21,6 +21,7 @@
             <li><%= link_to 'Home', root_path %></li>
             <% if user_signed_in? %>
               <li><%= link_to 'Vulnerabilities', vulnerabilities_path %></li>
+              <li><%= link_to 'Projects', projects_path %></li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav pull-right">
