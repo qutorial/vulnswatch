@@ -1,7 +1,5 @@
 <h1>All  Vulnerabilities</h1>
 
-<%= link_to "Update from NVD", nvd_update_path, class: 'btn btn-primary', id: 'update'%>
-
 <table id="vulns">
   <thead>
     <tr>
@@ -23,5 +21,11 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate %>
+
+<br>
+<%= link_to "Update from NVD", nvd_update_path, class: 'btn btn-primary', id: 'update'%>
+
 
 <br>

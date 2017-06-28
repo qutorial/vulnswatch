@@ -16,6 +16,10 @@ gem 'haml'
 # Use rubyzip to unzip data
 gem 'rubyzip'
 
+# Pagination
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+
 # JQuery
 gem 'jquery-rails'
 gem 'jquery-turbolinks'

@@ -4,7 +4,7 @@ class VulnerabilitiesController < ApplicationController
   # GET /vulnerabilities
   # GET /vulnerabilities.json
   def index
-    @vulnerabilities = Vulnerability.order(modified: :desc).order(updated_at: :desc)
+    @vulnerabilities = Vulnerability.order(modified: :desc).paginate(page: params[:page])
   end
 
   # GET /vulnerabilities/nvd
