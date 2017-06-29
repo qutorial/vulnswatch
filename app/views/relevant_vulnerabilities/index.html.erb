@@ -15,7 +15,7 @@
       <tr>
         <td><%= link_to vulnerability.name, vulnerability %></td>
         <td><%= vulnerability.summary[0..40] %> <%= link_to "...", vulnerability, style: "text-decoration: none;" %></td>
-        <td><%= why_relevant(vulnerability, current_user) %></td>
+        <td><%= why_relevant(vulnerability, current_user).html_safe %></td>
         <td><%= vulnerability.modified.to_date %></td>
       </tr>
     <% end %>

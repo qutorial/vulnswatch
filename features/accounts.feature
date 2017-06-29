@@ -23,4 +23,8 @@ Scenario: Wrong email does not work
   Given a user 'Adam Smith' with email 'adam@gmail.com'  and password '123monkeyqwe123' exists
   Then I can not login with email 'wrong@gmail.com' and password '123monkeyqwe123'
 
+Scenario: Wrong email and wrong password do not work
+  Given a user 'Adam Smith' with email 'adam@gmail.com'  and password '123monkeyqwe123' exists
+  Then I can not login with email 'wrong@gmail.com' and password 'wronpassword'
+
 

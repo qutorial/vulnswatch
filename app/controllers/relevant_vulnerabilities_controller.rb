@@ -1,23 +1,15 @@
-require 'set'
-
 class RelevantVulnerabilitiesController < ApplicationController
 
   def index
-    all_projects = current_user.projects
-
-    systems = Set.new
-    
-    all_projects.each do |project|
-      systems.merge(project.systems)
-    end
-
-    condition = ''
+    systems = RelevantVulnerability.users_systems(current_user)
+    conditions =['']
     systems.each do |system|
       newpart = 'summary LIKE ?'
-      condition =  condition.empty? ? newpart : condition + ' OR ' + newpart
+      conditions[0] =  conditions[0].empty? ? newpart : conditions[0] + ' OR ' + newpart
+      conditions.push "%#{system}%"
     end    
-
-    @relevant_vulnerabilities = Vulnerability.where('summary LIKE ?', "%#{systems.first.to_s}%").order(modified: :desc).paginate(page: params[:page])
+    
+    @relevant_vulnerabilities = Vulnerability.where(conditions).order(modified: :desc).paginate(page: params[:page])
     
   end
 
