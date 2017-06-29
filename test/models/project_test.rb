@@ -16,4 +16,17 @@ class ProjectTest < ActiveSupport::TestCase
     @project.user_id = nil
     assert_not @project.valid?
   end
+
+  test "extracting subsystems from description" do
+    @project.description = """ # Open BSD stuff
+OpenBSD
+gcc # the default compiler
+
+# I am a comment
+#another comment
+cyberdiode
+ perl module
+"""
+    assert @project.subsystems == ["OpenBSD", "gcc", "cyberdiode", "perl module"]
+  end
 end
