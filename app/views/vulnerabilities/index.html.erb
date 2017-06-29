@@ -5,7 +5,6 @@
     <tr>
       <th>Name</th>
       <th>Summary</th>
-      <th>Published</th>
       <th>Modified</th>
     </tr>
   </thead>
@@ -15,7 +14,6 @@
       <tr>
         <td><%= link_to vulnerability.name, vulnerability %></td>
         <td><%= vulnerability.summary[0..60] + "..." %></td>
-        <td><%= vulnerability.created.to_date %></td>
         <td><%= vulnerability.modified.to_date %></td>
       </tr>
     <% end %>
