@@ -5,8 +5,14 @@ Rails.application.routes.draw do
     get 'nvd_update', to: 'vulnerabilities#nvd', as: 'nvd_update'
   end
 
-  devise_for :users
+  if Rails.env.production?
+    devise_for :users, :controllers => { :registrations => "registrations" } 
+  else
+    devise_for :users
+  end
+
   root to: 'static#home'
+
   get 'noscript', to: 'static#noscript'
   
 end
