@@ -7,6 +7,7 @@ module RelevantVulnerabilitiesHelper
       res += String.new(h(system)) + " in " + 
         RelevantVulnerability.projects_having_system(system, user).map(  &->(p){ link_to String.new(h(p.name)), p } ).join(' and ')
     end
-    res
+    return res unless res.empty?
+    return '-'
   end
 end
