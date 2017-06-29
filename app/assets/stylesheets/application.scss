@@ -30,3 +30,13 @@ a.btn-primary {
   color: white;
 }
 
+// Place all the styles related to the Vulnerabilities controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table#vulns {
+  td, th {
+    padding-right: 3em;
+  }
+}
+
