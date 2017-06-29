@@ -11,14 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :project_name %>
+    <%= form.text_field :name, id: :project_name, class: "form-control"%>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :description %>
-    <%= form.text_area :description, id: :project_description %>
+    <%= form.text_area :description, id: :project_description, 
+        class: "form-control", rows: "10", 
+        placeholder: "# Your subsystems, one per line. Comments # and blank lines are supported", 
+        title: "Example:\n# Perl and modules\nperl\nlibxml\n\n# OpenBSD and ports\nOpenBSD\nfirefox"  \
+      %>
+      
   </div>
 
   <div class="actions">
