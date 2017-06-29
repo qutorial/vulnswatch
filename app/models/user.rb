@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, 
         #:omniauthable,
-        #:registerable,
+        :registerable,
         #:timeoutable,
   	:recoverable, 
   	:rememberable, 
@@ -10,7 +10,7 @@ class User < ApplicationRecord
   	:validatable, 
   	:lockable,
   	#:confirmable,
-        :zxvbnable
+        :zxcvbnable
         
   has_many :projects, dependent: :destroy
   
