@@ -2,7 +2,7 @@ class Project < ApplicationRecord
   belongs_to :user
   validates :user_id, presence: true
 
-  def subsystems()
+  def systems()
     prepare_description
   end
   

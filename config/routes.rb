@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :vulnerabilities, only: [:index, :show]
     resources :projects
     get 'nvd_update', to: 'vulnerabilities#nvd', as: 'nvd_update'
+    get 'relevant_vulnerabilities', to: 'relevant_vulnerabilities#index', as: 'relevant_vulnerabilities'
   end
 
   if Rails.env.production?

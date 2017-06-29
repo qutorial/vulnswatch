@@ -1,0 +1,31 @@
+<h1>Relevant Vulnerabilities</h1>
+
+<table id="vulns">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Summary</th>
+      <th>Why?</th>
+      <th>Modified</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @relevant_vulnerabilities.each do |vulnerability| %>
+      <tr>
+        <td><%= link_to vulnerability.name, vulnerability %></td>
+        <td><%= vulnerability.summary[0..40] %> <%= link_to "...", vulnerability, style: "text-decoration: none;" %></td>
+        <td><%= why_relevant(vulnerability, current_user) %></td>
+        <td><%= vulnerability.modified.to_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate %>
+
+<br>
+<%= link_to "Update from NVD", nvd_update_path, class: 'btn btn-primary', id: 'update'%>
+
+
+<br>

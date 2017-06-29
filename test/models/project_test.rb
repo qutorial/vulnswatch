@@ -27,6 +27,6 @@ gcc # the default compiler
 cyberdiode
  perl module
 """
-    assert @project.subsystems == ["OpenBSD", "gcc", "cyberdiode", "perl module"]
+    assert @project.systems == ["OpenBSD", "gcc", "cyberdiode", "perl module"]
   end
 end
