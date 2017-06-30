@@ -5,9 +5,10 @@ Rails.application.routes.draw do
     get 'nvd_update', to: 'vulnerabilities#nvd', as: 'nvd_update'
     get 'relevant_vulnerabilities', to: 'relevant_vulnerabilities#index', as: 'relevant_vulnerabilities'
   end
-
-  if Rails.env.production?
-    devise_for :users, :controllers => { :registrations => "registrations" } 
+  
+  @@DisableRegistration = Rails.env.production? && false
+  if @@DisableRegistration
+   devise_for :users, :controllers => { :registrations => "registrations" } 
   else
     devise_for :users
   end
