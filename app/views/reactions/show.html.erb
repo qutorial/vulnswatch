@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @reaction.user %>
+</p>
+
+<p>
+  <strong>Vulnerability:</strong>
+  <%= @reaction.vulnerability %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @reaction.status %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @reaction.title %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @reaction.text %>
+</p>
+
+<%= link_to 'Edit', edit_reaction_path(@reaction) %> |
+<%= link_to 'Back', reactions_path %>

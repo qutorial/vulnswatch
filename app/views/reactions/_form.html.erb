@@ -1,0 +1,42 @@
+<%= form_with(model: reaction, local: true) do |form| %>
+  <% if reaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reaction.errors.count, "error") %> prohibited this reaction from being saved:</h2>
+
+      <ul>
+      <% reaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :reaction_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vulnerability_id %>
+    <%= form.text_field :vulnerability_id, id: :reaction_vulnerability_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status, id: :reaction_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :reaction_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :text %>
+    <%= form.text_area :text, id: :reaction_text %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

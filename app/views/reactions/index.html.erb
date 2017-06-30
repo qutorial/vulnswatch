@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reactions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Vulnerability</th>
+      <th>Status</th>
+      <th>Title</th>
+      <th>Text</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reactions.each do |reaction| %>
+      <tr>
+        <td><%= reaction.user %></td>
+        <td><%= reaction.vulnerability %></td>
+        <td><%= reaction.status %></td>
+        <td><%= reaction.title %></td>
+        <td><%= reaction.text %></td>
+        <td><%= link_to 'Show', reaction %></td>
+        <td><%= link_to 'Edit', edit_reaction_path(reaction) %></td>
+        <td><%= link_to 'Destroy', reaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reaction', new_reaction_path %>

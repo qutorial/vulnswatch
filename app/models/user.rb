@@ -13,5 +13,6 @@ class User < ApplicationRecord
         :zxcvbnable
         
   has_many :projects, dependent: :destroy
+  has_many :reactions, dependent: :destroy
   
 end

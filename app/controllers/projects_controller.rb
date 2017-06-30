@@ -10,7 +10,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    # code to filter only own projects
   end
 
   # GET /projects/new

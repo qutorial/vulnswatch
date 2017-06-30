@@ -8,10 +8,11 @@ class UserTest < ActiveSupport::TestCase
 
   test "associated projects should be destroyed" do
     @user.save
-    @user.projects.create!(name: "Test Project", description: "Lorem ipsum")
+    @user.projects.create!(name: "Test Project", systems_description: "#Lorem ipsum")
     assert_difference 'Project.count', -1 do
       @user.destroy
     end
   end
+
 end
 

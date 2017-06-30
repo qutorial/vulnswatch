@@ -66,6 +66,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'faker'
 end
 
 group :test do

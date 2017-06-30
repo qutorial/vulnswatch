@@ -5,7 +5,7 @@ class ProjectTest < ActiveSupport::TestCase
   def setup
     @user = User.new(name: "Test User", email: "test_user@ema.il", password: "123qwehello123harder", password_confirmation: "123qwehello123harder")
     @user.save!
-    @project = @user.projects.build(name: "Test project", description: "Lorem ipsum")
+    @project = @user.projects.build(name: "Test project", systems_description: "Lorem ipsum")
   end
 
   test "should be valid" do
@@ -18,7 +18,7 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "extracting subsystems from description" do
-    @project.description = """ # Open BSD stuff
+    @project.systems_description = """ # Open BSD stuff
 OpenBSD
 gcc # the default compiler
 
