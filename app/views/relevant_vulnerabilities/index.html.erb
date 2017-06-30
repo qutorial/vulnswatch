@@ -1,4 +1,7 @@
-<h1>Relevant Vulnerabilities</h1>
+<h1>Relevant Vulnerabilities for All Your Projects</h1>
+
+
+<% if @relevant_vulnerabilities.count > 0 %>
 
 <table id="vulns">
   <thead>
@@ -24,5 +27,11 @@
 
 <%= will_paginate %>
 
+<% else %>
+
+<p>No relevant vulnerabilities found in your projects. Try <%= link_to 'loading new vulnerabilities from NVD', nvd_update_path %> or 
+adding systems to <%= link_to 'your projects', projects_path %>.</p>
+
+<% end %>
 
 <br>

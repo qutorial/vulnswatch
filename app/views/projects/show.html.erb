@@ -5,8 +5,18 @@
 
 <p>
   <strong>Description:</strong>
-  <pre><code class="project-description"><%=@project.description%></code></pre>
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>Systems in the project:</strong>
+  <pre><code class="project-systems-description"><%=@project.systems_description%></code></pre>
 </p>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
+
+
+<br>
+<br>
+<%= link_to "View Relevant Vulnerabilities", relevant_vulnerabilities_path, class: "btn btn-primary" %>
