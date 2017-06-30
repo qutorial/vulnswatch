@@ -24,7 +24,7 @@ class ReactionsController < ApplicationController
   # POST /reactions
   # POST /reactions.json
   def create
-    @reaction = Reaction.new(reaction_params)
+    @reaction = current_user.reactions.build(reaction_params)
 
     respond_to do |format|
       if @reaction.save
