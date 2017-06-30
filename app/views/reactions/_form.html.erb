@@ -11,29 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :reaction_user_id %>
-  </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :vulnerability_id %>
-    <%= form.text_field :vulnerability_id, id: :reaction_vulnerability_id %>
+    <%= form.text_field :vulnerability_id, id: :reaction_vulnerability_id, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.number_field :status, id: :reaction_status %>
+    <%= form.number_field :status, id: :reaction_status, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title, id: :reaction_title %>
+    <%= form.text_field :title, id: :reaction_title, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :text %>
-    <%= form.text_area :text, id: :reaction_text %>
+    <%= form.text_area :text, id: :reaction_text, class: "form-control" %>
   </div>
 
   <div class="actions">
