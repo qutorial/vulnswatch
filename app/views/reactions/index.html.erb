@@ -18,10 +18,10 @@
     <% @reactions.each do |reaction| %>
       <tr>
         <td><%= reaction.user.name %></td>
-        <td><%= link_to reaction.vulnerability.name, reaction_vulnerability %></td>
-        <td><%= reaction.status %></td>
+        <td><%= link_to_vulnerability reaction.vulnerability %></td>
+        <td><%= status_to_html(reaction.status) %></td>
         <td><%= reaction.title %></td>
-        <td><%= reaction.text[0..40] %></td>
+        <td><%= reaction.text[0..40] + "..." %></td>
         <td><%= link_to 'Show', reaction %></td>
         <td><%= link_to 'Edit', edit_reaction_path(reaction) %></td>
         <td><%= link_to 'Destroy', reaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
