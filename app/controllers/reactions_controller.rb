@@ -14,7 +14,7 @@ class ReactionsController < ApplicationController
 
   # GET /reactions/new
   def new
-    @reaction = current_user.reactions.build()
+    @reaction = current_user.reactions.build(reaction_params)
   end
 
   # GET /reactions/1/edit
@@ -73,6 +73,10 @@ class ReactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reaction_params
-      params.require(:reaction).permit(:vulnerability_id, :status, :title, :text)
+      res = params.require(:reaction).permit(:vulnerability, :status, :title, :text)      
+      vuln = Vulnerability.find_by(name: params["reaction"]["vulnerability"])
+      res.delete("vulnerability")
+      res["vulnerability_id"] = vuln.nil? ? "" : vuln.id
+      res
     end
 end

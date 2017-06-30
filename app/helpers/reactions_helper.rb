@@ -4,7 +4,7 @@ module ReactionsHelper
     i = Integer(status.to_s)
     return nil if i.nil?
     if i >= 1 and i <= 5
-      return i
+      return i - 1 
     end
     return nil
   end
@@ -26,7 +26,11 @@ module ReactionsHelper
   end
   
   def all_statusses_long()
-    ['-  =unknown', '!  =relevant', '... =in progress', 'ok', 'ok, patched']
+    ['-  =unknown', '!  =relevant', '... =in progress', 'ok - not a problem', 'ok - problem fixed']
+  end
+  
+  def reaction_legend()
+    'Here is what reaction codes mean: ' +  all_statusses_long().join(', ')
   end
   
   def all_statusses_short()
@@ -35,6 +39,15 @@ module ReactionsHelper
 
   def all_statusses_html()
     all_statusses_short
+  end
+
+  def link_to_react(vulnerability)
+   reaction = current_user.reactions.where('vulnerability_id == ?', vulnerability.id).first
+   if reaction.nil?
+     return link_to 'react!', new_reaction_path('reaction[vulnerability]' => vulnerability.name)
+   else
+     return link_to status_to_html(reaction.status), reaction
+   end
   end
   
 

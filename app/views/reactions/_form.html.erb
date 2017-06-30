@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :vulnerability_id %>
-    <%= form.text_field :vulnerability_id, id: :reaction_vulnerability_id, class: "form-control" %>
+    <%= form.label :vulnerability %>
+    <%= form.text_field :vulnerability, id: :reaction_vulnerability, class: "form-control", value: name_or_nil(form.object.vulnerability) %>
   </div>
 
   <div class="field">

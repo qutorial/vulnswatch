@@ -5,7 +5,8 @@
     <tr>
       <th>Name</th>
       <th>Summary</th>
-      <th>Affects</th>
+      <th>Relevance?</th>
+      <th>Reaction</th>
       <th>Modified</th>
     </tr>
   </thead>
@@ -16,6 +17,9 @@
         <td><%= link_to_vulnerability vulnerability %></td>
         <td><%= vulnerability.summary[0..40] %> <%= link_to "...", vulnerability, style: "text-decoration: none;" %></td>
         <td><%= why_relevant(vulnerability, current_user).html_safe %></td>
+        <td>
+           <%= link_to_react(vulnerability) %>            
+        </td>
         <td><%= vulnerability.modified.to_date %></td>
       </tr>
     <% end %>
@@ -23,6 +27,12 @@
 </table>
 
 <%= will_paginate %>
+
+<br>
+<br>
+<p>
+  <%= reaction_legend %>
+</p>
 
 <br>
 <%= link_to "Show Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'%>
