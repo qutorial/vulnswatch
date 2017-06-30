@@ -7,12 +7,12 @@
 
 <p>
   <strong>Vulnerability:</strong>
-  <%= @reaction.vulnerability.name %>
+  <%= link_to_vulnerability @reaction.vulnerability %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= status_to_html(@reaction.status) %>
+  <%= status_to_html_long(@reaction.status - 1) %>
 </p>
 
 <p>

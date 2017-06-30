@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.number_field :status, id: :reaction_status, class: "form-control" %>
+    <%= form.select :status, all_statusses.each_with_index.map {|name, index| [name,index+1]}, id: :reaction_status, class: "form-control" %>
   </div>
 
   <div class="field">
