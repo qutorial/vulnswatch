@@ -23,22 +23,19 @@
 
 
   <div class="form-group">
-    <%= form.label "Systems in the project, one per line, with comments, please." %>
+    <%= form.label "Systems in the project, comma-separated, with comments, please." %>
     
 <br><em>Example:</em>
 <pre><code># Operating system and its components
 OpenBSD
-perl
-gcc
+perl, python, ruby
+gcc, clang
 
 # Libraries actively used
-libxml
-libiberty</code></pre>
+libxml, libiberty</code></pre>
     <%= form.text_area :systems_description, id: :project_systems_description, 
         class: "form-control", rows: "10", 
-        placeholder: "Copy and paste from the example above for starters.", 
-        title: "Example:\n# Perl and modules\nperl\nlibxml\n\n# OpenBSD and ports\nOpenBSD\nfirefox"  \
-      %>
+        placeholder: "Copy and paste from the example above for starters." %>
       
   </div>
 

@@ -29,4 +29,22 @@ cyberdiode
 """
     assert @project.systems == ["OpenBSD", "gcc", "cyberdiode", "perl module"]
   end
+
+  test "extracting subsystems from description with commas" do
+    @project.systems_description = """ # Open BSD stuff
+OpenBSD
+ gcc # the default compiler
+
+# I am a comment
+#another comment
+	  cyberdiode
+ perl module
+
+Ubuntu  Linux, Wireshark
+"""
+    assert @project.systems == ["OpenBSD", "gcc", "cyberdiode", "perl module", "Ubuntu Linux", "Wireshark"]
+  end
+
+  
+
 end
