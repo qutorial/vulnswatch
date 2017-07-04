@@ -2,6 +2,11 @@ class RelevantVulnerabilitiesController < ApplicationController
 
   def index
     systems = RelevantVulnerability.users_systems(current_user)
+    if systems.empty?
+      @relevant_vulnerabilities = []
+      return
+    end
+
     conditions =['']
     systems.each do |system|
       newpart = 'summary LIKE ?'
