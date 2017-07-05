@@ -7,8 +7,14 @@ class VulnerabilitiesController < ApplicationController
     if params[:search].nil?
       @vulnerabilities = Vulnerability.all
     else
-      search_term="%#{params[:search]}%"
-      @vulnerabilities = Vulnerability.where('summary LIKE ? OR name LIKE ?', search_term, search_term)
+      conditions =['']
+      params[:search].split(/\s+/).each do |term|
+        newpart = '(summary LIKE ? OR name LIKE ?)'
+        conditions[0] =  conditions[0].empty? ? newpart : conditions[0] + ' AND ' + newpart
+        conditions.push "%#{term}%"
+        conditions.push "%#{term}%"
+      end      
+      @vulnerabilities = Vulnerability.where(conditions)
     end
       @vulnerabilities = @vulnerabilities.order(modified: :desc).paginate(page: params[:page])
   end

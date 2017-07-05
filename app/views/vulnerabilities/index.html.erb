@@ -8,6 +8,7 @@
    params[:search], id: "vulnerabilities_search", 
    class: "form-control short-search", placeholder: "Search names or words in summary" %>
  <%= submit_tag 'Search', class: 'search-button' %>
+ <%= link_to 'Reset', vulnerabilities_path, class: 'btn reset-search-btn' %>
 <% end %>
 
 </p>

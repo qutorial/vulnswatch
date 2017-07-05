@@ -6,19 +6,29 @@ div.update_vulnerabilities_warning {
   color: red;
 }
 
-form.search input.short-search {
-  width: 100%;
-  padding-right: 8em;
-}
-
-form input.search-button {
-  width: 8em;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 form.search {
   position: relative;
+  
+  input.short-search {
+    width: 100%;
+    padding-right: 14em;
+  }
+
+  input.search-button {
+    width: 8em;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  a.reset-search-btn {
+    width: 6em;
+    position: absolute;
+    top: 0;
+    right: 8em;
+  }
+
 }
+
+
 
