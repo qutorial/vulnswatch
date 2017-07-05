@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630121502) do
+ActiveRecord::Schema.define(version: 20170705080432) do
+
+  create_table "nvd_updates", force: :cascade do |t|
+    t.datetime "last"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"

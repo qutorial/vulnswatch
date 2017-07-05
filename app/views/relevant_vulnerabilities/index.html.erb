@@ -3,31 +3,8 @@
 
 <% if @relevant_vulnerabilities.count > 0 %>
 
-<table id="vulns">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Summary</th>
-      <th>Why?</th>
-      <th>Reaction</th>
-      <th>Modified</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @relevant_vulnerabilities.each do |vulnerability| %>
-      <tr>
-        <td><%= link_to_vulnerability vulnerability %></td>
-        <td><%= vulnerability.summary[0..40] %> <%= link_to "...", vulnerability, style: "text-decoration: none;" %></td>
-        <td><%= why_relevant(vulnerability, current_user).html_safe %></td>
-        <td>
-           <%= link_to_react(vulnerability) %>            
-        </td>
-        <td><%= vulnerability.modified.to_date %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @vulnerabilities = @relevant_vulnerabilities %>
+<%= render 'shared/vulnerabilities' %>
 
 <%= will_paginate %>
 

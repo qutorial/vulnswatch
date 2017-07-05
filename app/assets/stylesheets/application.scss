@@ -26,21 +26,65 @@
   @extend .alert-info;
 }
 
-a.btn-primary {
-  color: white;
-}
-
-a.btn:hover {
-  color: white;
-}
 
 // Place all the styles related to the Vulnerabilities controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-table {
+table.index_table {
   td, th {
     padding-right: 2em;
+    padding-bottom: 5px;
   }
+  td {
+    padding-right: 2em;
+  }
+  margin-top: 2em;  
+}
+
+a.btn {
+  &:hover {
+    color: #000;
+  }
+}
+
+
+a.btn.btn-primary {
+  color: white;
+  &:hover{
+    colort: white;
+  }
+}
+
+.field_with_errors .form-control{
+  border: 1px solid red;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px 7px 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px -7px 0;
+    background-color: #c00;
+    color: #fff;
+  }
+
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+
+td.status {
+  text-align: center;
 }
