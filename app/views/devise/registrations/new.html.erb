@@ -14,24 +14,23 @@
   </div>
 
   <div class="field">
-    <%= f.label :password %>
-    <em>(Please,use a <span style="text-weight: bold;">strong</span> password:
+    <em>Please,use a <span style="font-weight: bold;">strong</span> password:
        <ul>
          <% if @minimum_password_length %>
            <li><%= @minimum_password_length %> characters minimum</li>
          <% end %>
-         <li>no easy passwords: 'monkey123', 'Tor!Tor!Tor!', etc. - will work</li>
+         <li>no easy passwords like: monkey123 and Tor!Tor!Tor!</li>
          <li>use password manager to remember it</li>
          <li>read on here: <a target='_blank' 
             href='https://www.howtogeek.com/195430/how-to-create-a-strong-password-and-remember-it/'>link</a></li>
        </ul>
-     
     <br />
+    <%= f.label :password, "New strong password"%><br>
     <%= f.password_field :password, autocomplete: "off", class: 'form-control'  %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "Confirm your new strong password" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'  %>
   </div>
 
