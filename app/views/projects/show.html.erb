@@ -1,3 +1,4 @@
+<a id="top"></a>
 <p>
   <strong>Name:</strong>
   <%= @project.name %>
@@ -19,7 +20,16 @@
 </p>
 
 <p>
-  <strong>Systems in the project:</strong>
+  <strong>Systems Sorted Alphabetically</strong>
+  <div class="systems_sorted"><%= @project.systems.sort.join(', ') %></div>
+</p>
+
+<p>
+  <strong>Systems as you have described them:</strong>
   <pre><code class="project-systems-description"><%=@project.systems_description%></code></pre>
 </p>
 
+<br>
+<%= link_to 'Edit', edit_project_path(@project), class: 'btn' %> |
+<%= link_to 'Back', projects_path, class: 'btn'%> |
+<a href="#top" class='btn'>Go to top</a>
