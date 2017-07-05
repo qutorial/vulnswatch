@@ -8,15 +8,18 @@
   <%= @project.description %>
 </p>
 
+
+<p>
+<strong>Actions</strong>
+<div class="actions">
+<%= link_to 'Edit', edit_project_path(@project), class: 'btn' %>
+<%= link_to 'Back', projects_path, class: 'btn'%>
+<%= link_to "View Relevant Vulnerabilities", relevant_vulnerabilities_path, class: "btn btn-primary" %>
+</div>
+</p>
+
 <p>
   <strong>Systems in the project:</strong>
   <pre><code class="project-systems-description"><%=@project.systems_description%></code></pre>
 </p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
-
-
-<br>
-<br>
-<%= link_to "View Relevant Vulnerabilities", relevant_vulnerabilities_path, class: "btn btn-primary" %>
