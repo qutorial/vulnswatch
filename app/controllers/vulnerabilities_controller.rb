@@ -4,7 +4,13 @@ class VulnerabilitiesController < ApplicationController
   # GET /vulnerabilities
   # GET /vulnerabilities.json
   def index
-    @vulnerabilities = Vulnerability.order(modified: :desc).paginate(page: params[:page])
+    if params[:search].nil?
+      @vulnerabilities = Vulnerability.all
+    else
+      search_term="%#{params[:search]}%"
+      @vulnerabilities = Vulnerability.where('summary LIKE ? OR name LIKE ?', search_term, search_term)
+    end
+      @vulnerabilities = @vulnerabilities.order(modified: :desc).paginate(page: params[:page])
   end
 
   # GET /vulnerabilities/nvd

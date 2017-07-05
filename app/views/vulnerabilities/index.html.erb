@@ -1,5 +1,17 @@
 <h1>All  Vulnerabilities</h1>
 
+<p>
+
+<%= form_tag vulnerabilities_path, method: :get, class: 'search' do  %>
+ 
+ <%= text_field_tag :search, 
+   params[:search], id: "vulnerabilities_search", 
+   class: "form-control short-search", placeholder: "Search names or words in summary" %>
+ <%= submit_tag 'Search', class: 'search-button' %>
+<% end %>
+
+</p>
+
 <%= render 'shared/vulnerabilities' %>
 
 <%= will_paginate %>
