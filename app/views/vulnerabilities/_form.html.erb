@@ -31,6 +31,12 @@
     <%= form.datetime_select :modified, id: :vulnerability_modified %>
   </div>
 
+  <div class="field">
+    <%= form.label :affected_system %>
+    <%= form.text_field :affected_system, id: :vulnerability_affected_system %>
+  </div>
+
+
   <div class="actions">
     <%= form.submit %>
   </div>

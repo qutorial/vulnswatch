@@ -21,7 +21,15 @@
 </p>
 
 <p>
+  <strong>Affected system:</strong>
+  <%= @vulnerability.affected_system.nil? ? "not explicitly known" : @vulnerability.affected_system %>
+</p>
+
+<p>
   <%= link_to_nvd(@vulnerability) %>
 </p>
 
-<%= link_to 'Back', vulnerabilities_path %>
+<br>
+<%= link_to 'Edit', edit_vulnerability_path(@vulnerability), class: 'btn' %> | 
+<%= link_to 'Back', vulnerabilities_path, class: 'btn' %>
+
