@@ -25,6 +25,22 @@ class VulnerabilitiesController < ApplicationController
     flash[:notice] = "Vulnerabilities Updated from NVD"
     redirect_to vulnerabilities_path
   end
+
+
+  # GET /vulnerabilities/nvd_load_year/:year
+  def nvd_load_year
+    year = params[:year]
+    year = year.to_i unless year.nil?
+    if year.nil? or ! ( year.class == Fixnum ) or ! ( 2012 <= year and year <= Date.today.year.to_i)
+      flash[:alert] = "Year was not properly specified"
+    else
+      flash[:notice] = "Vulnerabilities for year #{year} loaded from NVD"
+      Vulnerability.load_vulnerabilities_from_nvd_for_year(year)
+    end
+    redirect_to vulnerabilities_path
+  end
+
+
   # GET /vulnerabilities/1
   # GET /vulnerabilities/1.json
   def show
