@@ -17,7 +17,7 @@
       <tr>
         <td><%= link_to_vulnerability vulnerability %></td>
         <td class="affected_system">
-            <%= link_to (vulnerability.affected_system.nil? ? 'add' : vulnerability.affected_system) ,
+            <%= link_to (vulnerability.affected_system.nil? or vulnerability.affected_system.empty?) ? 'add' : vulnerability.affected_system ,
 		edit_vulnerability_path(vulnerability)
 		%>
             </td>

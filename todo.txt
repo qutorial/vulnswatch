@@ -1,36 +1,47 @@
+HTTP
 <carsten> http sux
 Make sure the site is only available over https
 
+DOKU
 <carsten> keine doku zum projekt erstellen, ich notiere da systeme, nur was bedeuten diese?
 Explain that systems are components looked up for in the vulnerabilities
 
+UI
 <carsten> remove view relevant vulns whene there is no project
 In the project view do not show the button
 
+UI
 <carsten> relevance -> where
 Relevance shall show a component Where the problem is so where is a good name
 
+UI
 <zaur>
 Rename systems into components?
 
+FEATURE
 <carsten> sort
 Enable sorting functionality in the vulnerability views
 
+UI
 <carsten> name -> cve nummer
 Rename the column potentially
 
+FEATURE
 <carsten> score rein
 Introduce a column telling the cve score
-
 <carsten> mit farbe
 Color the cves depending on the score they have
 
+
+FEATURE
 <carsten> anzeige auch pro projekt mit dropdown
 In the vulnerabilities make a drop down to select One project or all projects
 
+FEATURE
 <carsten> http://www.cvedetails.com/cve-details.php?t=1&cve_id=CVE-2017-1000373 mit rein
 Show links to cvedetails.com website which is more informative than NVD
 
+BUG
 <carsten> back is broken on relevant vulns
 Back usually leads to index. In relevant vulnerabilities it is a wrong index - vulns index.
 Fix it.
@@ -40,32 +51,31 @@ Rename links to indexes to the names of the indexes
 <zaur> 'Back' links on reactions should go to vulnerabilities
 
 
+FEATURE
 <carsten> html validatoren!
 <carsten> html5
 Validate fields on the fly with HTML5
 
+BUG
 <carsten>     Title is too short (minimum is 15 characters)
 <carsten>     Text is too short (minimum is 70 characters)
 Remove this limitations and do not force the user
 
+UI
 <carsten> Status: ! =relevant
 <carsten> status mit icons
 Display status with beautiful icons instead.
 
-<carsten> vulnerability kann veraendert werden?
-In the reaction one can change the vulnerability. It is seen as a problem.
-Should be fixed vulnerability.
-
+UI
 <zaur> add react button to vulnerability
 When viewing vulnerability
 
-<zaur> forbid changing the vulnerabilities, which come from nvd
-Limit edit action only to the affected system.
-
+FEATURE
 <carsten> complete reaction
 <carsten> change pending?
 Add buttons to reactions to change the status quickly
 
+FEATURE
 <carsten> API fuer redmine / CI/CD
 <carsten> link ins redmine / ticket anlegen
 Integrate redmine - for bug tracking and reaction update when a bug is resoved.
@@ -73,63 +83,87 @@ Integrate redmine - for bug tracking and reaction update when a bug is resoved.
 we have status here and status in redmine.
 Integrate CI/CD to update reactions - fixed, when deployed with fix.
 
+
+FEATURE - BUG
 <carsten> shared vulnarabilitys are strange
 <carsten> anpassungen in lokaler kopie?
 Think why the users shall share vulnerabilities.
 How about editing? How about adding a new one?
 
-<carsten> affected system = ""
-A bug. If affected system is '' then it should be treated as not set.
-
+UI
 <carsten> details seite kann weg?
 Shall the show page for vulnerability be removed?
 They are seen better in the NVD or cvedetails
 
+FEATURE
 <carsten> links zu nvd und cve-details in der tabelle?
 Add as little icons for immediate navigation in a new tab.
 
+UI
 <carsten> input und output software (perl -> genugate)
 In vulnerabilities view show which software causes a problem in which project.
 <carsten> in project => eigene spallte
 Important wish! Split the relevance column into many, per project.
 
+FEATURE
 <carsten> notes
 Allow adding notes to reactions.
 
+FEATURE
 <carsten> direkte reaktion auf vulns
 In the vulnerabilities view, I can click and tell that a vulnerability is irrelevant indeed.
 Maybe even a bulk selection - select irrelevant/Relevant. 
 (X) ask carsten or anke again, how to do this better
 
-<carsten> keine zwischenseiten, wo nicht notwendig
-Not important pages can go away, e.g. show vulnerablitiy page.
 
+FEATURE
 <carsten> import von Gemfile, requirements.txt
 In the project one can import a file with dependencies or subsystems.
 This file will describe the systems.
 Let this be done directly by an upload of a ruby Gemfile, python requirements, etc.
 
+
+WORKFLOW
 <carsten> non-login check von Gemfile etc. und dannach subscriben zum tracken
 Let users immediately check their projects. No account is needed to start with.
 They see the result and then if they want to track they can subscribe.
 
+UI
 <carsten> progressbar beim update
 Make a progress bar when clicking update.
 Now it is broken (the button/link) do not even hide.
 
-
+UI
 <carsten> sign up als button neben login
 On the login page make other actions lie on the right from the log in button,
 Or make just Sign Up on the right from the log-in.
 
+
+UI
 <zaur>
 My reaction view might reuse the vulnerabilities view, with reactions.
 
+TIP
+<carsten> keine zwischenseiten, wo nicht notwendig
+Not important pages can go away, e.g. show vulnerablitiy page.
 
-DONE 
+
+BUG - WORKFLOW - UI
+<zaur> How to react on a vulnerability by name? What if it does not exist?
+
+
+####################### DONE 
+
+
 People want comma separated list of systems
 
+<carsten> affected system = ""
+A bug. If affected system is '' then it should be treated as not set.
 
 
+<zaur> forbid changing the vulnerabilities, which come from nvd
+Limit edit action only to the affected system.
 
-
+<carsten> vulnerability kann veraendert werden?
+In the reaction one can change the vulnerability. It is seen as a problem.
+Should be fixed vulnerability.
