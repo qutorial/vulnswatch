@@ -1,8 +1,3 @@
-People want comma separated list of systems
-
-'Back' links on reactions should go to vulnerabilities
-
-
 <carsten> http sux
 Make sure the site is only available over https
 
@@ -39,10 +34,11 @@ Show links to cvedetails.com website which is more informative than NVD
 <carsten> back is broken on relevant vulns
 Back usually leads to index. In relevant vulnerabilities it is a wrong index - vulns index.
 Fix it.
-
 <zaur> Back does not work as back
 Make it a javascript pushing browser back
 Rename links to indexes to the names of the indexes
+<zaur> 'Back' links on reactions should go to vulnerabilities
+
 
 <carsten> html validatoren!
 <carsten> html5
@@ -125,4 +121,15 @@ Now it is broken (the button/link) do not even hide.
 <carsten> sign up als button neben login
 On the login page make other actions lie on the right from the log in button,
 Or make just Sign Up on the right from the log-in.
+
+<zaur>
+My reaction view might reuse the vulnerabilities view, with reactions.
+
+
+DONE 
+People want comma separated list of systems
+
+
+
+
 
