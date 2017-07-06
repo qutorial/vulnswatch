@@ -16,7 +16,11 @@
     <% @vulnerabilities.each do |vulnerability| %>
       <tr>
         <td><%= link_to_vulnerability vulnerability %></td>
-        <td class="affected_system"><%= vulnerability.affected_system.nil? ? "?" : vulnerability.affected_system %></td>
+        <td class="affected_system">
+            <%= link_to (vulnerability.affected_system.nil? ? 'add' : vulnerability.affected_system) ,
+		edit_vulnerability_path(vulnerability)
+		%>
+            </td>
         <td><%= link_to vulnerability.summary[0..45], vulnerability, title: vulnerability.summary, style: 'text-decoration: none; color: black;' %>
             <%= link_to "...", vulnerability, style: "text-decoration: none;" %></td>
         <td><%= why_relevant(vulnerability, current_user).html_safe %></td>

@@ -53,6 +53,7 @@ class VulnerabilitiesController < ApplicationController
 
   # GET /vulnerabilities/1/edit
   def edit
+    render 'change_affected_system'
   end
 
   # POST /vulnerabilities
@@ -103,6 +104,6 @@ class VulnerabilitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vulnerability_params
-      params.require(:vulnerability).permit(:name, :summary, :created, :modified, :affected_system)
+      params.require(:vulnerability).permit(:affected_system)
     end
 end

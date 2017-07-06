@@ -1,4 +1,27 @@
+<p>
+  <strong>Name:</strong>
+  <%= @vulnerability.name %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @vulnerability.summary %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @vulnerability.created %>
+</p>
+
+<p>
+  <strong>Modified:</strong>
+  <%= @vulnerability.modified %>
+</p>
+
+
+<% vulnerability = @vulnerability %>
 <%= form_with(model: vulnerability, local: true) do |form| %>
+
   <% if vulnerability.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(vulnerability.errors.count, "error") %> prohibited this vulnerability from being saved:</h2>
@@ -13,11 +36,11 @@
 
   <div class="field">
     <%= form.label :affected_system %>
-    <%= form.text_field :affected_system, id: :vulnerability_affected_system %>
+    <%= form.text_field :affected_system, id: :vulnerability_affected_system, class: 'form-control' %>
   </div>
 
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit('Save') %>
   </div>
 <% end %>
