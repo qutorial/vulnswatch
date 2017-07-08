@@ -57,7 +57,7 @@ module ReactionsHelper
    if reaction.nil?
      return link_to '', new_reaction_path('reaction[vulnerability]' => vulnerability.name), class: status_to_link_class(nil)
    else
-     return link_to '', reaction, class: status_to_link_class(reaction.status)
+     return link_to '', reaction, class: status_to_link_class(reaction.status), title: reaction.user.name + ': ' + reaction.text
    end
   end
   
