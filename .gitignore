@@ -24,3 +24,6 @@
 
 # Kate swaps
 *.swp
+
+# simplecov report
+coverage
