@@ -13,7 +13,10 @@
       <tr>
         <td class="project_name"><%= link_to project.name, project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete project', project, method: :delete, 
+                 data: { confirm: 'Do you really want to delete ' + project.name + '?  - This can not be undone.' } 
+              %>
+        </td>
       </tr>
     <% end %>
   </tbody>

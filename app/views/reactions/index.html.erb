@@ -20,7 +20,7 @@
         <td class="status"><%= link_to_react reaction.vulnerability %></td>
         <td><%= link_to 'Show', reaction %></td>
         <td><%= link_to 'Edit', edit_reaction_path(reaction) %></td>
-        <td><%= link_to 'Destroy', reaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', reaction, method: :delete, data: { confirm: 'Reaction will be deleted, status will be unkonwn. Is it what you want?' } %></td>
       </tr>
     <% end %>
   </tbody>
