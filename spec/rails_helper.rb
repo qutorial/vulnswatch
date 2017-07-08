@@ -1,3 +1,7 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+# THE TWO LINES above shall be the  first in the file
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)

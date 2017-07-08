@@ -75,6 +75,7 @@ group :test do
   gem 'cucumber-websteps'
   gem 'webmock'
   gem 'sinatra'
+  gem 'simplecov', :require => false
 end
 
 group :development do
