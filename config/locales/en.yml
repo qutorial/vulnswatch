@@ -31,3 +31,17 @@
 
 en:
   hello: "Hello world"
+
+en:
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        # The defaults are "about 1 hour" and "about %{count} hours"
+        one: "1 hour"
+        other: "%{count} hours"
+      about_x_months:
+        one: "1 month"
+        other: "%{count} hours"
+      about_x_years:
+        one: "1 year"
+        other: "%{count} years"

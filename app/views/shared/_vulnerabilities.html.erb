@@ -4,12 +4,12 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Last update</th>
       <th>Component</th>
       <th>Summary</th>
       <th colspan=3>View on</th>
       <th>Relevance</th>
       <th>Reaction</th>
-      <th>Modified</th>
     </tr>
   </thead>
 
@@ -17,6 +17,7 @@
     <% @vulnerabilities.each do |vulnerability| %>
       <tr>
         <td><%= link_to_vulnerability vulnerability %></td>
+        <td><%= time_ago_in_words(vulnerability.modified.to_datetime) + ' ago' %></td>
         <td class="affected_system">
             <%= link_to (vulnerability.affected_system.nil? or vulnerability.affected_system.empty?) ? 'add' : vulnerability.affected_system ,
 		edit_vulnerability_path(vulnerability)
@@ -30,7 +31,6 @@
         <td class="status">
            <%= link_to_react(vulnerability) %>            
         </td>
-        <td><%= vulnerability.modified.to_date %></td>
       </tr>
     <% end %>
   </tbody>
