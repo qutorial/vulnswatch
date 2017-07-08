@@ -10,8 +10,9 @@ class VulnerabilitiesController < ApplicationController
       conditions =['']
       params[:search].split(/\s+/).each do |term|
         term.downcase!
-        newpart = '(LOWER(summary) LIKE ? OR LOWER(name) LIKE ?)'
+        newpart = '(LOWER(summary) LIKE ? OR LOWER(name) LIKE ? OR LOWER(affected_system) LIKE ?)'
         conditions[0] =  conditions[0].empty? ? newpart : conditions[0] + ' AND ' + newpart
+        conditions.push "%#{term}%"
         conditions.push "%#{term}%"
         conditions.push "%#{term}%"
       end      
