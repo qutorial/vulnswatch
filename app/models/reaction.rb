@@ -7,7 +7,4 @@ class Reaction < ApplicationRecord
   validates_inclusion_of :status, :in => 1..5
   validates :title, presence: true
   validates :text, presence: true
-  validates :title, length: { minimum: 15}
-  validates :title, length: { maximum: 60 }
-  validates :text, length: {minimum: 70}
 end
