@@ -13,21 +13,6 @@ class ReactionTest < ActiveSupport::TestCase
     assert @reaction.valid?    
   end
 
-  test "short text not allowed" do
-    @reaction.text = "Too short"
-    assert_not @reaction.valid?    
-  end
-
-  test "short title not allowed" do
-    @reaction.title = "Bug"
-    assert_not @reaction.valid?    
-  end
-
-  test "too long title not allowed" do
-    @reaction.title = "Too long " * 10
-    assert_not @reaction.valid?    
-  end
-
   test "no text not allowed" do
     @reaction.text = nil
     assert_not @reaction.valid?    

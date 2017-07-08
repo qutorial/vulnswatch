@@ -19,7 +19,7 @@
         <td><%= link_to reaction.title, reaction %></td>
         <td><%= reaction.text[0..40] %> <%= link_to "...", reaction %></td>
         <td><%= link_to_vulnerability reaction.vulnerability %></td>
-        <td class="status"><%= link_to status_to_html(reaction.status), reaction %></td>
+        <td class="status"><%= link_to_react reaction.vulnerability %></td>
         <td><%= link_to 'Show', reaction %></td>
         <td><%= link_to 'Edit', edit_reaction_path(reaction) %></td>
         <td><%= link_to 'Destroy', reaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>

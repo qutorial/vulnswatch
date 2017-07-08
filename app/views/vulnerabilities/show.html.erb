@@ -24,7 +24,15 @@
 </p>
 
 <p>
+  <strong>Reaction:</strong>
+  <%= link_to_react(@vulnerability) %>
+</p>
+
+<p>
+  <strong>View on:</strong>
   <%= link_to_nvd(@vulnerability) %>
+  <%= link_to_cve_details(@vulnerability) %>
+  <%= link_to_google(@vulnerability) %>
 </p>
 
 <br>

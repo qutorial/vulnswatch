@@ -32,3 +32,42 @@ form.search {
 
 
 
+a.vuln_link, a.status_link {
+  margin-bottom: -9px;
+  width: 35px;
+  height: 24px;
+  display: inline-block;
+}
+
+a.nvd_link {
+  background: url('nvd.png') no-repeat;
+}
+
+a.cve_details_link {
+  background: url('cved.png') no-repeat;
+}
+
+a.google_link {
+  background: url('g.png') no-repeat;
+}
+
+a.unknown {
+  background: url('dontknow.png') no-repeat;
+}
+
+a.in_progress {
+  background: url('workinprogress.png') no-repeat;
+}
+
+a.ok {
+  background: url('ok.png') no-repeat;
+}
+
+a.fixed {
+  background: url('patched.png') no-repeat;
+}
+
+a.relevant {
+  background: url('relevant.png') no-repeat;
+}
+

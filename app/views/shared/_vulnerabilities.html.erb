@@ -6,7 +6,8 @@
       <th>Name</th>
       <th>Component</th>
       <th>Summary</th>
-      <th>Relevance?</th>
+      <th colspan=3 style="text-align: center">View on</th>
+      <th>Relevance</th>
       <th>Reaction</th>
       <th>Modified</th>
     </tr>
@@ -21,9 +22,11 @@
 		edit_vulnerability_path(vulnerability)
 		%>
             </td>
-        <td><%= link_to vulnerability.summary[0..45], vulnerability, title: vulnerability.summary, style: 'text-decoration: none; color: black;' %>
-            <%= link_to "...", vulnerability, style: "text-decoration: none;" %></td>
-        <td><%= why_relevant(vulnerability, current_user).html_safe %></td>
+        <td><%= link_to vulnerability.summary[0..45]+'...', vulnerability, title: vulnerability.summary, style: 'text-decoration: none; color: black;' %></td>
+        <td><%= link_to_nvd(vulnerability) %></td>
+        <td><%= link_to_cve_details(vulnerability) %></td>
+        <td><%= link_to_google(vulnerability) %></td>
+        <td class="relevance"><%= why_relevant(vulnerability, current_user).html_safe %></td>
         <td class="status">
            <%= link_to_react(vulnerability) %>            
         </td>
