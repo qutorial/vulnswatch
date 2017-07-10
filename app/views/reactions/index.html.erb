@@ -1,5 +1,8 @@
 <h1>Reactions</h1>
 
+
+<% if @reactions.any? %>
+
 <table class="index_table">
   <thead>
     <tr>
@@ -27,10 +30,25 @@
   </tbody>
 </table>
 
+<% else %>
+<p>
+  No reactions yet.
+</p>
+
+<p>With reactions you express your attitude to vulnerabilities.</p>
+
+<p>A good way to create reaction is clicking on a yellow status flag 
+ next to a vulnerability in: 
+    <%= link_to 'Relevant Vulnerabilities', relevant_vulnerabilities_path %> tab.
+</p>
+
+
+<% end %>
 <br>
 
-<%= link_to 'New Reaction', new_reaction_path(:reaction => {:vulnerability => 'CVE-Users'}) %>
+<%= link_to ' + New Reaction', new_reaction_path(:reaction => {:vulnerability => 'CVE-Users'}) %>
 
+<br>
 <br>
 <%= reaction_legend.html_safe %>
 
