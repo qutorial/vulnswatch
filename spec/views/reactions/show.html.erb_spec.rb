@@ -6,7 +6,6 @@ RSpec.describe "reactions/show", type: :view do
       :user => nil,
       :vulnerability => nil,
       :status => 2,
-      :title => "Title",
       :text => "MyText"
     ))
   end
@@ -16,7 +15,6 @@ RSpec.describe "reactions/show", type: :view do
     expect(rendered).to match(//)
     expect(rendered).to match(//)
     expect(rendered).to match(/2/)
-    expect(rendered).to match(/Title/)
     expect(rendered).to match(/MyText/)
   end
 end

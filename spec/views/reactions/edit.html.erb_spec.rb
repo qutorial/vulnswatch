@@ -6,7 +6,6 @@ RSpec.describe "reactions/edit", type: :view do
       :user => nil,
       :vulnerability => nil,
       :status => 1,
-      :title => "MyString",
       :text => "MyText"
     ))
   end
@@ -21,8 +20,6 @@ RSpec.describe "reactions/edit", type: :view do
       assert_select "input[name=?]", "reaction[vulnerability_id]"
 
       assert_select "input[name=?]", "reaction[status]"
-
-      assert_select "input[name=?]", "reaction[title]"
 
       assert_select "textarea[name=?]", "reaction[text]"
     end

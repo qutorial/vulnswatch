@@ -6,7 +6,7 @@ class ReactionTest < ActiveSupport::TestCase
     @user = User.create!(name: "Test User", email: "test_user@ema.il", password: "123qwehello123harder", password_confirmation: "123qwehello123harder")
     @project = @user.projects.create!(name: "Test Project", description: "Lorem ipsum")
     @vulnerability = Vulnerability.create!(name: "CVE-2017-1234", summary: "A huge blow in the OpenBSD kernel", created: DateTime.now, modified: DateTime.now)
-    @reaction = Reaction.new(user_id: @user.id, vulnerability_id: @vulnerability.id, status: 1, title: "This is a real flip!", text: "Veniam omnis architecto aut et.Veniam omnis architecto aut et. " * 2  )
+    @reaction = Reaction.new(user_id: @user.id, vulnerability_id: @vulnerability.id, status: 1, text: "Veniam omnis architecto aut et.Veniam omnis architecto aut et. " * 2  )
   end
 
   test "valid reaction validates" do
@@ -17,12 +17,6 @@ class ReactionTest < ActiveSupport::TestCase
     @reaction.text = nil
     assert_not @reaction.valid?    
   end
-
-  test "no title not allowed" do
-    @reaction.title = nil
-    assert_not @reaction.valid?    
-  end
-
 
   test "user must exist" do
     @reaction.user_id = 666

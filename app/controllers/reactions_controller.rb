@@ -73,7 +73,7 @@ class ReactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reaction_params
-      res = params.require(:reaction).permit(:vulnerability, :status, :title, :text)      
+      res = params.require(:reaction).permit(:vulnerability, :status, :text)      
       vuln = Vulnerability.find_by(name: params["reaction"]["vulnerability"])
       res.delete("vulnerability")
       res["vulnerability_id"] = vuln.nil? ? "" : vuln.id

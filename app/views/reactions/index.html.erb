@@ -3,9 +3,9 @@
 <table class="index_table">
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Text</th>
-      <th>Vulnerability</th>
+      <th colspan="2">Vulnerability</th>
+      <th>Component</th>
+      <th>Reaction Text</th>
       <th>Status</th>
       <th colspan="3"></th>
     </tr>
@@ -14,9 +14,10 @@
   <tbody>
     <% @reactions.each do |reaction| %>
       <tr>
-        <td><%= link_to reaction.title, reaction %></td>
-        <td><%= reaction.text[0..40] %> <%= link_to "...", reaction %></td>
         <td><%= link_to_vulnerability reaction.vulnerability %></td>
+        <td><%= shorten(reaction.vulnerability.summary) %></td>
+        <td class="affected_system"><%= render 'shared/affected_system', vulnerability: reaction.vulnerability %></td>
+        <td><%= link_to shorten(reaction.text, 80), reaction, class: 'black_text_link' %></td>
         <td class="status"><%= link_to_react reaction.vulnerability %></td>
         <td><%= link_to 'Show', reaction %></td>
         <td><%= link_to 'Edit', edit_reaction_path(reaction) %></td>

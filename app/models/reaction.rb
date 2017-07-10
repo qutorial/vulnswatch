@@ -5,6 +5,5 @@ class Reaction < ApplicationRecord
   validates :vulnerability_id, presence: true
   validates :status, numericality: true, presence: true
   validates_inclusion_of :status, :in => 1..5
-  validates :title, presence: true
   validates :text, presence: true
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705131747) do
+ActiveRecord::Schema.define(version: 20170710083541) do
 
   create_table "nvd_updates", force: :cascade do |t|
     t.datetime "last"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20170705131747) do
     t.integer "user_id"
     t.integer "vulnerability_id"
     t.integer "status"
-    t.string "title"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

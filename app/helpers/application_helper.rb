@@ -9,4 +9,10 @@ module ApplicationHelper
     return object.name.to_s
   end
 
+  def shorten(text, length=50)
+    return '' if text.nil? or text.empty?
+    return text if text.length <= length 
+    return text[0..length-4] + '...'
+  end
+
 end
