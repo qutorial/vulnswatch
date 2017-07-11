@@ -8,8 +8,8 @@ Rails.application.routes.draw do
     get 'relevant_vulnerabilities', to: 'relevant_vulnerabilities#index', as: 'relevant_vulnerabilities'
   end
   
-  @@DisableRegistration = Rails.env.production? && false
-  if @@DisableRegistration
+  DisableRegistration = Rails.env.production? && false
+  if DisableRegistration
     devise_for :users, :controllers => { :registrations => "registrations" } 
   else
     devise_for :users
