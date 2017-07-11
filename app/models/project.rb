@@ -8,8 +8,9 @@ class Project < ApplicationRecord
     prepare_description
   end
   
+  @@huge_project = RelevantVulnerability.many_systems
   def huge?()
-    return systems().count > 100
+    return systems().count > @@huge_project
   end
   
   private
