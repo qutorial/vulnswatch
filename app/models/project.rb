@@ -8,6 +8,10 @@ class Project < ApplicationRecord
     prepare_description
   end
   
+  def huge?()
+    return systems().count > 100
+  end
+  
   private
   
   #shall return a list of strings with subsystems out of description
