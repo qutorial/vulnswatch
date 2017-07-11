@@ -8,11 +8,6 @@ class Project < ApplicationRecord
     prepare_description
   end
   
-  @@huge_project = RelevantVulnerability.many_systems
-  def huge?()
-    return systems().count > @@huge_project
-  end
-  
   private
   
   #shall return a list of strings with subsystems out of description
