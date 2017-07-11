@@ -7,7 +7,8 @@ class LargeProjectTest < ActiveSupport::TestCase
     @user = User.new(name: "Test User", email: "test_user@ema.il", password: "123qwehello123harder", password_confirmation: "123qwehello123harder")
     @user.save!
     @project = @user.projects.build(name: "First project", systems_description: LargeProject.systems().join("\n"))
-    Vulnerability.load_new_vulnerabilities_from_nvd()
+    @v = Vulnerability.new(name: "v1", summary: "Summary")
+    @v.save!
   end
 
   test "one large test" do
