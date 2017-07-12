@@ -82,7 +82,7 @@ class VulnerabilitiesController < ApplicationController
         format.html { redirect_to @vulnerability, notice: 'Vulnerability was successfully updated.' }
         format.json { render :show, status: :ok, location: @vulnerability }
       else
-        format.html { render :edit }
+        format.html { render 'change_affected_system' }
         format.json { render json: @vulnerability.errors, status: :unprocessable_entity }
       end
     end
