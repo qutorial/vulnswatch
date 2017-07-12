@@ -1,4 +1,42 @@
-HTTP
+FEATURE
+<anke>
+Sorting, filtering
+<anke>
+Drop down for projects
+
+UI
+<anke>
+Color table rows with Bootstrap
+
+BUG BUG BUG
+Duplicate vulnerabilities
+
+
+<arne>
+Filtering and sorting - gem?
+
+Saving sorting and filtering settings in database
+
+Searching like in gooogle with operators and "exact terms"
+
+Bulk reaction, especially for a wrong components
+
+Reaction without text
+
+Reports for customers - a printable/emailable form about vulnerability reaction
+
+Make mail work
+
+How about mobile version?
+
+Make non JS version better - not showing pages at all
+
+Make people vote for features?
+
+Show stuff to Kai?
+
+
+BUG
 <carsten> http sux
 Make sure the site is only available over https
 
@@ -167,3 +205,4 @@ Limit edit action only to the affected system.
 <carsten> vulnerability kann veraendert werden?
 In the reaction one can change the vulnerability. It is seen as a problem.
 Should be fixed vulnerability.
+
