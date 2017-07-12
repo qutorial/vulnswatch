@@ -60,26 +60,25 @@ class VulnerabilitiesController < ApplicationController
 
   # POST /vulnerabilities
   # POST /vulnerabilities.json
-  def create
-    @vulnerability = Vulnerability.new(vulnerability_params)
-
-    respond_to do |format|
-      if @vulnerability.save
-        format.html { redirect_to @vulnerability, notice: 'Vulnerability was successfully created.' }
-        format.json { render :show, status: :created, location: @vulnerability }
-      else
-        format.html { render :new }
-        format.json { render json: @vulnerability.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+#  def create
+#    @vulnerability = Vulnerability.new(vulnerability_params)
+#
+#    respond_to do |format|
+#      if @vulnerability.save
+#        format.html { redirect_to @vulnerability, notice: 'Vulnerability was successfully created.' }
+#        format.json { render :show, status: :created, location: @vulnerability }
+#      else
+#        format.html { render :new }
+#        format.json { render json: @vulnerability.errors, status: :unprocessable_entity }
+#      end
+#    end
+#  end
 
   # PATCH/PUT /vulnerabilities/1
   # PATCH/PUT /vulnerabilities/1.json
   def update
-    puts vulnerability_params
     respond_to do |format|
-      if @vulnerability.update(vulnerability_params)
+      if @vulnerability.update_parameter(affected_systems: vulnerability_params["vulnerability"]["affected_system"])
         format.html { redirect_to @vulnerability, notice: 'Vulnerability was successfully updated.' }
         format.json { render :show, status: :ok, location: @vulnerability }
       else
