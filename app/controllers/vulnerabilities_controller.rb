@@ -78,7 +78,7 @@ class VulnerabilitiesController < ApplicationController
   # PATCH/PUT /vulnerabilities/1.json
   def update
     respond_to do |format|
-      if @vulnerability.update_parameter(affected_systems: vulnerability_params["vulnerability"]["affected_system"])
+      if @vulnerability.update_parameter(affected_system: vulnerability_params["vulnerability"]["affected_system"])
         format.html { redirect_to @vulnerability, notice: 'Vulnerability was successfully updated.' }
         format.json { render :show, status: :ok, location: @vulnerability }
       else
