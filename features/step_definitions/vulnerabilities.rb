@@ -26,6 +26,11 @@ When(/^I go to vulnerabilities page$/) do
   visit vulnerabilities_path
 end
 
+When(/^I go to relevant vulnerabilties page$/) do
+  visit relevant_vulnerabilities_path
+end
+
+
 Then(/^I should (not )?see vulnerability (.*)$/) do |notsee, vuln|
   if notsee.nil?
     expect(page).to have_content(vuln)

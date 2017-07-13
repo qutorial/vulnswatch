@@ -29,3 +29,9 @@ Background: vulnerabilities added, user created and logged in
 Scenario: All vulnerabilities can be seen
   When I go to vulnerabilities page
   Then I should see vulnerabilities: CVE-2017-1, CVE-2017-2, CVE-2017-2, CVE-2017-3, CVE-2017-4, CVE-2017-5, CVE-2017-6
+
+Scenario: Relevant vulnerabilities are displayed
+  When I go to relevant vulnerabilties page
+  Then I should see vulnerabilities: CVE-2017-1, CVE-2017-2, CVE-2017-4, CVE-2017-5, CVE-2017-6
+  And I should not see vulnerability CVE-2017-3
+
