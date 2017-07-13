@@ -1,3 +1,6 @@
+BUG
+Raimund: reaction name double escaped
+
 FEATURE
 <anke>
 Sorting, filtering
