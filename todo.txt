@@ -1,3 +1,6 @@
+UI
+Anke: by each save shall also be cancel, check creating reaction
+
 BUG
 Raimund: reaction name double escaped
 
