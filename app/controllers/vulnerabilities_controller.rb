@@ -4,9 +4,10 @@ class VulnerabilitiesController < ApplicationController
   # GET /vulnerabilities
   # GET /vulnerabilities.json
   def index
-    if params[:search].nil?
-      @vulnerabilities = Vulnerability.all
-    else
+
+    @vulnerabilities = Vulnerability.filter(filtering_params) 
+
+    if params[:search].present?
       conditions =['']
       params[:search].split(/\s+/).each do |term|
         term.downcase!
@@ -16,9 +17,10 @@ class VulnerabilitiesController < ApplicationController
         conditions.push "%#{term}%"
         conditions.push "%#{term}%"
       end      
-      @vulnerabilities = Vulnerability.where(conditions)
+      @vulnerabilities = @vulnerabilities.where(conditions)
     end
-      @vulnerabilities = @vulnerabilities.order(modified: :desc).paginate(page: params[:page])
+ 
+    @vulnerabilities = @vulnerabilities.order(modified: :desc).paginate(page: params[:page])
   end
 
   # GET /vulnerabilities/nvd
@@ -107,5 +109,9 @@ class VulnerabilitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def vulnerability_params
       params.require(:vulnerability).permit(:affected_system)
+    end
+
+    def filtering_params
+      params.permit(:name, :summary, :affected_system)
     end
 end

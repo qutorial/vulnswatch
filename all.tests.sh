@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "CLEARING COVERAGE"
 rm -rf coverage && mkdir coverage
 echo "RUNNING RSPEC TESTS"
 bundle exec rspec spec/models/vulnerability_spec.rb # RSpec unit tests
