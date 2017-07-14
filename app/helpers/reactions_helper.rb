@@ -29,6 +29,14 @@ module ReactionsHelper
     ['unknown', 'relevant', 'work in progress', 'ok - not a problem', 'ok - problem fixed']
   end
 
+  def all_explanations_short()
+    ['unknown', 'relevant', 'in progress', 'not a problem', 'problem fixed']
+  end
+
+  def explanations_collection_short()
+    (0..4).map(&->(status){ [all_explanations_short[status], status+1] } )
+  end
+
   def all_statusses_names()
     ['unknown', 'relevant', 'in_progress', 'ok', 'fixed']
   end

@@ -2,13 +2,42 @@
 
 <p>
 
-<%= form_tag vulnerabilities_path, method: :get, class: 'search' do  %>
+<%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
  
  <%= text_field_tag :search, 
    params[:search], id: "vulnerabilities_search", 
    class: "form-control short-search", placeholder: "Search in names, components or summary" %>
+ 
  <%= submit_tag 'Search', class: 'search-button' %>
- <%= link_to 'Reset', vulnerabilities_path, class: 'btn reset-search-btn' %>
+ 
+ <%= link_to 'Clear',\
+       '#', class: 'btn reset-search-btn',\
+       onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
+ 
+ <br>
+ <span class:'form-control'>
+ <%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'Name?'%>
+ <%= text_field_tag :affected_system, params[:affected_system], id: "affected_system_filter", placeholder: 'Component?'%>
+ Project:
+ <%= select_tag :project,\
+                  options_from_collection_for_select(current_user.projects, "id", "name", params[:project].to_i),\
+                  id: "project_filter",\
+                  include_blank: true,\
+                  onchange: "this.form.submit();"
+                %>
+
+ Reaction:
+ <%= select_tag :reaction,\
+                  options_for_select(explanations_collection_short, params[:reaction].to_i),\
+                  id: "reaction_filter",\
+                  include_blank: true,\
+                  onchange: "this.form.submit();"
+                %>
+                
+ <%= link_to 'Reset', vulnerabilities_path, class: 'btn' %>
+ <%= submit_tag 'Go', class: 'btn' %>
+</span>
+
 <% end %>
 
 </p>

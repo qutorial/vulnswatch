@@ -4,9 +4,15 @@ class VulnerabilitiesController < ApplicationController
   # GET /vulnerabilities
   # GET /vulnerabilities.json
   def index
+    # TODO:  This method shall be split in many!!
+    # TODO: This method should go into relevant vulnerability model
 
+    # First we do everything in the database
+  
+    # prefilter on fields
     @vulnerabilities = Vulnerability.filter(filtering_params) 
 
+    # fulfil search
     if params[:search].present?
       conditions =['']
       params[:search].split(/\s+/).each do |term|
@@ -19,8 +25,25 @@ class VulnerabilitiesController < ApplicationController
       end      
       @vulnerabilities = @vulnerabilities.where(conditions)
     end
- 
-    @vulnerabilities = @vulnerabilities.order(modified: :desc).paginate(page: params[:page])
+
+    # sort
+    case sorting_param
+      when 'reaction'
+        #pass : we can not sort on reaction yet
+      when nil
+        #pass : no sorting wanted
+      else
+        @vulnerabilities = @vulnerabilities.order(sorting_param.to_sym => sorting_way_param)
+    end
+
+    # Second in-memory procedures might start
+    relevance = relevance_filter_params
+    if relevance.has_key?(:project)
+      # here we do relevance sorting
+    end
+    
+    # finally paginate
+    @vulnerabilities = @vulnerabilities.paginate(page: params[:page])
   end
 
   # GET /vulnerabilities/nvd
@@ -118,4 +141,34 @@ class VulnerabilitiesController < ApplicationController
     def filtering_params
       params.permit(:name, :summary, :affected_system)
     end
+
+    def relevance_filter_params
+      params.permit(:project)
+    end
+    
+    def allowed_sorting_params
+      return ['name', 'modified', 'affected_system', 'reaction']
+    end
+
+    def sorting_way_param
+      par = params.permit(:sorting_way)
+      if par.has_key?(:sorting_way)
+        case par[:sorting_way]
+          when 'asc'
+            return :asc
+          when 'desc'
+            return :desc
+        end
+      end
+      return :desc
+    end
+        
+    def sorting_param
+      par = params.permit(:sorting)
+      if par.has_key?(:sorting) and (allowed_sorting_params.include? par[:sorting])
+        return par[:sorting]
+      end
+      return nil      
+    end
+
 end
