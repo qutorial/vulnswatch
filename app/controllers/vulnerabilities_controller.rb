@@ -26,10 +26,18 @@ class VulnerabilitiesController < ApplicationController
       @vulnerabilities = @vulnerabilities.where(conditions)
     end
 
+    # filter on reaction
+    rfp = reaction_filter_param
+    if rfp.nil?
+      # pass, no filtering requested
+    else
+ #     @vulnerabilities = @vulnerabilities.where(reaction_id: Reaction.where(status: rfp))    
+    end    
+
     # sort
     case sorting_param
       when 'reaction'
-        #pass : we can not sort on reaction yet
+        #TODO: implement sorting on reaction
       when nil
         #pass : no sorting wanted
       else
@@ -39,7 +47,14 @@ class VulnerabilitiesController < ApplicationController
     # Second in-memory procedures might start
     relevance = relevance_filter_params
     if relevance.has_key?(:project)
-      # here we do relevance sorting
+      project =  Project.find_by(id: relevance[:project].to_i)
+      if project.nil?
+        # pass: no project selected
+      elsif project.user != current_user
+        flash[:alert] = "You have selected a wrong project for filtering."
+      else
+        @vulnerabilities = RelevantVulnerability.pick_relevant_for_project(@vulnerabilities, project)
+      end
     end
     
     # finally paginate
@@ -169,6 +184,14 @@ class VulnerabilitiesController < ApplicationController
         return par[:sorting]
       end
       return nil      
+    end
+
+    def reaction_filter_param
+      par = params.permit(:reaction)
+      if par.has_key?(:reaction) and (1..5).include? par[:reaction].to_i
+        return par[:reaction].to_i
+      end
+      return nil
     end
 
 end
