@@ -18,5 +18,10 @@
   <%= @reaction.text %>
 </p>
 
-<%= link_to 'Edit', edit_reaction_path(@reaction) %> |
-<%= link_to 'Back', reactions_path %>
+<%= link_to 'Edit', edit_reaction_path(@reaction) %>
+
+
+<div class='back-links'>
+<%= link_to 'My Reactions', reactions_path %>
+<%= render 'shared/back_links' %>
+</div>

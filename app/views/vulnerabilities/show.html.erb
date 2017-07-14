@@ -20,7 +20,9 @@
 
 <p>
   <strong>Component:</strong>
-  <%= @vulnerability.affected_system.nil? ? "not explicitly known" : @vulnerability.affected_system %>
+  <%= (@vulnerability.affected_system.nil? or @vulnerability.affected_system.blank?) ? "not explicitly known" : @vulnerability.affected_system %>
+  <%= link_to 'Edit', edit_vulnerability_path(@vulnerability)  %>
+
 </p>
 
 <p>
@@ -35,7 +37,6 @@
   <%= link_to_google(@vulnerability) %>
 </p>
 
-<br>
-<%= link_to 'Edit', edit_vulnerability_path(@vulnerability), class: 'btn' %> | 
-<%= link_to 'Back', vulnerabilities_path, class: 'btn' %>
-
+<div class='back-links'>
+<%= render 'shared/back_links' %>
+</div>

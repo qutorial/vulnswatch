@@ -2,7 +2,12 @@
 
 <%= render 'form', reaction: @reaction %>
 
-<%= link_to 'Show', @reaction %> |
+<br>
+
+<%= link_to 'Cancel', @reaction %>
+
+
+<div class='back-links'>
 <%= link_to 'My Reactions', reactions_path %>
-<%= link_to 'All Vulnerabilities', vulnerabilities_path %>
-<%= link_to 'Relevant Vulnerabilities', relevant_vulnerabilities_path %>
+<%= render 'shared/back_links' %>
+</div>
