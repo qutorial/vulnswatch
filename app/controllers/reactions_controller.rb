@@ -64,7 +64,14 @@ class ReactionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reaction
-      @reaction = Reaction.find(params[:id])
+      @reaction = Reaction.find_by(id: params[:id])
+
+      if @reaction.nil? 
+        flash[:alert] = "Invalid reaction specified"
+        redirect_to reactions_path
+        return 
+      end     
+
       if @reaction.user != current_user 
         flash[:alert] = "Manipulating someone else's reactions is not allowed"
         redirect_to relevant_vulnerabilities_path

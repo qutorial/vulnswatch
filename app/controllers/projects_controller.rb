@@ -67,7 +67,14 @@ class ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @project = Project.find_by(id: params[:id])
+
+      if @project.nil? 
+        flash[:alert] = "Invalid project specified"
+        redirect_to projects_path
+        return 
+      end     
+ 
       if @project.user != current_user 
         flash[:alert] = "Actions on someone else's projects are not allowed"
         redirect_to projects_path

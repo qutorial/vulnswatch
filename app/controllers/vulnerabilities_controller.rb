@@ -106,7 +106,7 @@ class VulnerabilitiesController < ApplicationController
       @vulnerability = Vulnerability.find_by(id: params[:id])
       if @vulnerability.nil? 
         flash[:alert] = "Invalid vulnerability specified"
-        redirect_to root_path 
+        redirect_to vulnerabilities_path
       end
     end
 
