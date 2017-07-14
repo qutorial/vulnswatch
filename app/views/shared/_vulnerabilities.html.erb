@@ -3,13 +3,13 @@
 <table id="vulns" class="index_table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Last update</th>
-      <th>Component</th>
-      <th>Summary</th>
-      <th colspan=3>View on</th>
-      <th>Relevance</th>
-      <th>Reaction</th>
+      <th><%= sorting_link_to 'Name', 'name' %></th>
+      <th><%= sorting_link_to 'Last update', 'modified' %></th>
+      <th><%= sorting_link_to 'Component', 'affected_system' %></th>
+      <th title='No sorting on Summary'>Summary</th>
+      <th title='No sorting on "View on"' colspan=3>View on</th>
+      <th title='Pick a project above instead of sorting'>Relevance</th>
+      <th><%= sorting_link_to 'Reaction', 'reaction' %></th>
     </tr>
   </thead>
 
@@ -17,7 +17,7 @@
     <% @vulnerabilities.each do |vulnerability| %>
       <tr>
         <td><%= link_to_vulnerability vulnerability %></td>
-        <td><%= time_ago_in_words(vulnerability.modified.to_datetime) + ' ago' %></td>
+        <td><%= ago_helper(vulnerability.modified) %></td>
         <td class="affected_system">
           <%= render 'shared/affected_system', vulnerability: vulnerability %>
         </td>

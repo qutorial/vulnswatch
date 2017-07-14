@@ -28,4 +28,39 @@ module VulnerabilitiesHelper
     link_to vulnerability.name, vulnerability, title: vulnerability.summary
   end
 
+  def ago_helper(modified)
+   if modified.nil?
+    return "?"
+   end
+   return time_ago_in_words(modified.to_datetime) + ' ago' 
+  end
+
+  def flip_sorting_way()
+    par = request.query_parameters["sorting_way"]
+    if par.nil? or par == 'desc'
+      return 'asc'
+    else
+      return 'desc'
+    end
+  end
+
+  def class_for_sorting_link(sorting_param)
+    par = request.query_parameters["sorting"]
+    if par.nil? or par.blank? or  par != sorting_param 
+      return 'sorting-link unsorted'
+    end
+    if par == sorting_param
+      case flip_sorting_way
+        when 'asc'
+          return 'sorting-link descending'
+        else
+          return 'sorting-link ascending'
+      end
+    end
+  end
+
+  def sorting_link_to(title, sorting_param)
+    return link_to title, request.query_parameters.merge({:sorting => sorting_param, :sorting_way => flip_sorting_way }), class: class_for_sorting_link(sorting_param)
+  end
+
 end

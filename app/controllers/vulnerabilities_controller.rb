@@ -26,18 +26,24 @@ class VulnerabilitiesController < ApplicationController
       @vulnerabilities = @vulnerabilities.where(conditions)
     end
 
+    @vulnerabilities = @vulnerabilities.joins('LEFT JOIN reactions ON vulnerabilities.id = reactions.vulnerability_id')
+
     # filter on reaction
     rfp = reaction_filter_param
     if rfp.nil?
       # pass, no filtering requested
     else
- #     @vulnerabilities = @vulnerabilities.where(reaction_id: Reaction.where(status: rfp))    
-    end    
+      if rfp == 1 # unknown
+        @vulnerabilities = @vulnerabilities.where('reactions.id is NULL OR reactions.status = 1', current_user.id)
+      else
+        @vulnerabilities = @vulnerabilities.where('reactions.user_id = ?', current_user.id).where('reactions.status = ?', rfp)   
+      end   
+     end    
 
     # sort
     case sorting_param
       when 'reaction'
-        #TODO: implement sorting on reaction
+        @vulnerabilities = @vulnerabilities.order("reactions.status #{sorting_way_param}")
       when nil
         #pass : no sorting wanted
       else

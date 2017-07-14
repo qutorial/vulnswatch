@@ -72,3 +72,14 @@ a.relevant {
   background: url(<%= asset_path('relevant.png') %>) no-repeat;
 }
 
+
+a.sorting-link {
+  color: black;
+  text-decoration: none;
+  &.descending:after {
+    content: '▼';
+  }
+  &.ascending:after {
+    content: '▲';
+  }
+}
