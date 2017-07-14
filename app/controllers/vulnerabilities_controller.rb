@@ -103,7 +103,11 @@ class VulnerabilitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vulnerability
-      @vulnerability = Vulnerability.find(params[:id])
+      @vulnerability = Vulnerability.find_by(id: params[:id])
+      if @vulnerability.nil? 
+        flash[:alert] = "Invalid vulnerability specified"
+        redirect_to root_path 
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
