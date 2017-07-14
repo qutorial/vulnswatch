@@ -60,5 +60,13 @@ class ReactionTest < ActiveSupport::TestCase
     end
   end
 
+  test "duplicate reactions not allowed" do
+    @reaction.save!
+    second_reaction = @user.reactions.build( vulnerability_id: @vulnerability.id, status: 1, text: "Bla bla" )
+    assert_not second_reaction.valid?
+    assert_raises(Exception) {
+      second_reaction.save!
+    }
+  end
 end
 

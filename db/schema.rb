@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713095418) do
+ActiveRecord::Schema.define(version: 20170714081222) do
 
   create_table "nvd_updates", force: :cascade do |t|
     t.datetime "last"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20170713095418) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_reactions_on_user_id"
+    t.index ["vulnerability_id", "user_id"], name: "index_reactions_on_vulnerability_id_and_user_id", unique: true
     t.index ["vulnerability_id"], name: "index_reactions_on_vulnerability_id"
   end
 
