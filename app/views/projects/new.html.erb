@@ -2,4 +2,8 @@
 
 <%= render 'form', project: @project %>
 
-<%= link_to 'Back', projects_path %>
+<div class='back-links'>
+<%= link_to 'Projects', projects_path %>
+<%= render 'shared/back_links' %>
+</div>
+

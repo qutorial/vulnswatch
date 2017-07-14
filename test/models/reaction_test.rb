@@ -13,9 +13,9 @@ class ReactionTest < ActiveSupport::TestCase
     assert @reaction.valid?    
   end
 
-  test "no text not allowed" do
+  test "no text allowed" do
     @reaction.text = nil
-    assert_not @reaction.valid?    
+    assert @reaction.valid?    
   end
 
   test "user must exist" do

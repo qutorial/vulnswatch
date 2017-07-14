@@ -1,6 +1,10 @@
 <h1>Editing Project</h1>
 
 <%= render 'form', project: @project %>
+<br>
+<%= link_to 'Cancel', @project, class: 'cancel-link' %> 
 
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<div class='back-links'>
+<%= link_to 'Projects', projects_path %>
+<%= render 'shared/back_links' %>
+</div>
