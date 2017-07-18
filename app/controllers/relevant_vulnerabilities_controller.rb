@@ -14,7 +14,6 @@ class RelevantVulnerabilitiesController < ApplicationController
 
     @relevant_vulnerabilities = RelevantVulnerability.relevant_vulnerabilities(current_user).paginate(page: params[:page])    
 
-    flash[:notice] = "Sorting and filtering is possible in the Vulnerabilities tab now"
   end
 
 end
