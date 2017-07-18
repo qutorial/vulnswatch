@@ -1,5 +1,5 @@
 module VulnerabilitiesHelper
-
+  
   def link_to_google(vulnerability)
     link_to '', url_to_google(vulnerability), class: 'vuln_link google_link', target: '_blank'
   end
@@ -61,6 +61,10 @@ module VulnerabilitiesHelper
 
   def sorting_link_to(title, sorting_param)
     return link_to title, request.query_parameters.merge({:sorting => sorting_param, :sorting_way => flip_sorting_way }), class: class_for_sorting_link(sorting_param)
+  end
+
+  def projects_filter_collection()
+    [['any project', 0]].concat( current_user.projects.map(&->(p){[p.name, p.id]}) )
   end
 
 end

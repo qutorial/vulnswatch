@@ -27,15 +27,15 @@ module ReactionsHelper
   end
   
   def all_explanations()
-    ['relevant', 'work in progress', 'ok - not a problem', 'ok - problem fixed']
+    ['no reaction', 'relevant', 'work in progress', 'ok - not a problem', 'ok - problem fixed']
   end
 
   def all_explanations_short()
-    ['relevant', 'in progress', 'not a problem', 'problem fixed']
+    ['no reaction','relevant', 'in progress', 'not a problem', 'problem fixed']
   end
 
   def explanations_collection_short()
-    (0..3).map(&->(status){ [all_explanations_short[status], status+1] } )
+    (0..4).map(&->(status){ [all_explanations_short[status], status+1] } )
   end
 
   def all_statusses_names()
@@ -44,7 +44,7 @@ module ReactionsHelper
   
   def reaction_legend()
     legend = 'Reaction codes: ' + 
-       (0..4).map(&->(status){ (link_to '', '#', class: status_to_link_class(status)) + ' ' + ['unknown'].concat(all_explanations())[status]}).join(', ')
+       (0..4).map(&->(status){ (link_to '', '', class: status_to_link_class(status)) + ' - ' + all_explanations_short()[status] }).join('  ')
     return legend   
   end
   

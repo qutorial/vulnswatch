@@ -12,7 +12,7 @@ class RelevantVulnerabilitiesController < ApplicationController
       flash[:alert] = "You have too many system in your projects. Please, reduce their count."
     end
 
-    @relevant_vulnerabilities = RelevantVulnerability.relevant_vulnerabilities(current_user).paginate(page: params[:page])    
+    @relevant_vulnerabilities = RelevantVulnerability.all_relevant_vulnerabilities_for_user(current_user).paginate(page: params[:page])    
 
   end
 

@@ -30,13 +30,13 @@ class VulnerabilitiesController < ApplicationController
 
     # filter on reaction
     rfp = reaction_filter_param
-    if rfp.nil?
+    if rfp.nil? 
       # pass, no filtering requested
     else
-      if rfp == 1 # unknown
-        @vulnerabilities = @vulnerabilities.where('reactions.id is NULL OR reactions.status = 1', current_user.id)
+      if rfp == 1 # no reaction
+        @vulnerabilities = @vulnerabilities.where('reactions.id is NULL', current_user.id)
       else
-        @vulnerabilities = @vulnerabilities.where('reactions.user_id = ?', current_user.id).where('reactions.status = ?', rfp)   
+        @vulnerabilities = @vulnerabilities.where('reactions.user_id = ?', current_user.id).where('reactions.status = ?', rfp - 1)   
       end   
      end    
     
@@ -51,15 +51,18 @@ class VulnerabilitiesController < ApplicationController
     end
 
     # Second in-memory procedures might start
-    relevance = relevance_filter_params
-    if relevance.has_key?(:project)
-      project =  Project.find_by(id: relevance[:project].to_i)
+    relevant_project = relevance_filter_params
+    if relevant_project == 0
+        #any project
+        @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_user(@vulnerabilities, current_user)
+    else
+      project =  Project.find_by(id: relevant_project)
       if project.nil?
         # pass: no project selected
       elsif project.user != current_user
         flash[:alert] = "You have selected a wrong project for filtering."
       else
-        @vulnerabilities = RelevantVulnerability.pick_relevant_for_project(@vulnerabilities, project)
+        @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
       end
     end
     
@@ -164,7 +167,15 @@ class VulnerabilitiesController < ApplicationController
     end
 
     def relevance_filter_params
-      params.permit(:project)
+      par = params.permit(:project)
+      if not par.has_key?(:project) or not par[:project].present?
+        return nil
+      elsif par[:project].to_i == 0 
+        return 0 # any project
+      elsif current_user.projects.map(&->(p){p.id}).include? par[:project].to_i
+        return par[:project].to_i
+      end
+      return nil
     end
     
     def allowed_sorting_params
@@ -194,7 +205,9 @@ class VulnerabilitiesController < ApplicationController
 
     def reaction_filter_param
       par = params.permit(:reaction)
-      if par.has_key?(:reaction) and (1..5).include? par[:reaction].to_i
+      if not par.has_key?(:reaction) or not par[:reaction].present?
+        return nil
+      elsif par.has_key?(:reaction) and (1..5).include? par[:reaction].to_i
         return par[:reaction].to_i
       end
       return nil
