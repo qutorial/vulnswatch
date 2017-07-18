@@ -54,7 +54,7 @@ class ReactionTest < ActiveSupport::TestCase
     assert_not @reaction.valid?
     @reaction.status = 100
     assert_not @reaction.valid?
-    (1..5).each do |s|
+    (1..4).each do |s|
       @reaction.status = s
       assert @reaction.valid?
     end

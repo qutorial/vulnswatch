@@ -3,7 +3,7 @@ module ReactionsHelper
     return nil if status.nil?     
     i = Integer(status.to_s)
     return nil if i.nil?
-    if i >= 1 and i <= 5
+    if i >= 1 and i <= 4
       return i - 1 
     end
     return nil
@@ -16,8 +16,9 @@ module ReactionsHelper
   end
   
   def status_to_link_class(status)
+    i = status
+    return 'status_link no_reaction' if i.nil? or i == 0
     i = status_to_integer_index(status)
-    i = 0 if i.nil?
     return 'status_link ' + all_statusses_names()[i]
   end
 
@@ -26,24 +27,24 @@ module ReactionsHelper
   end
   
   def all_explanations()
-    ['unknown', 'relevant', 'work in progress', 'ok - not a problem', 'ok - problem fixed']
+    ['relevant', 'work in progress', 'ok - not a problem', 'ok - problem fixed']
   end
 
   def all_explanations_short()
-    ['unknown', 'relevant', 'in progress', 'not a problem', 'problem fixed']
+    ['relevant', 'in progress', 'not a problem', 'problem fixed']
   end
 
   def explanations_collection_short()
-    (0..4).map(&->(status){ [all_explanations_short[status], status+1] } )
+    (0..3).map(&->(status){ [all_explanations_short[status], status+1] } )
   end
 
   def all_statusses_names()
-    ['unknown', 'relevant', 'in_progress', 'ok', 'fixed']
+    ['relevant', 'in_progress', 'ok', 'fixed']
   end
   
   def reaction_legend()
     legend = 'Reaction codes: ' + 
-       (1..5).map(&->(status){ (link_to '', '#', class: status_to_link_class(status)) + ' ' + all_explanations()[status-1]}).join(', ')
+       (0..4).map(&->(status){ (link_to '', '#', class: status_to_link_class(status)) + ' ' + ['unknown'].concat(all_explanations())[status]}).join(', ')
     return legend   
   end
   
@@ -57,7 +58,7 @@ module ReactionsHelper
    if reaction.nil?
      return link_to '', new_reaction_path('reaction[vulnerability]' => vulnerability.name), class: status_to_link_class(nil), title: 'Click to react on it'
    else
-     return link_to '', reaction, class: status_to_link_class(reaction.status), title: reaction.user.name + ': ' + reaction.text
+     return link_to '', edit_reaction_path(reaction), class: status_to_link_class(reaction.status), title: reaction.user.name + ': ' + reaction.text
    end
   end
   
