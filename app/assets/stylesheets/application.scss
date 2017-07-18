@@ -109,7 +109,7 @@ div.back-links{
  a {
   padding-right: 1em;
   padding-left: 1em;
-  @exted .btn
+  @extend .btn;
  }
 
 }
@@ -120,3 +120,8 @@ a.cancel-link {
 }
 
 
+a#edit-button {
+  @extend .btn;
+  @extend .btn-primary;
+  width: 7em;
+}
