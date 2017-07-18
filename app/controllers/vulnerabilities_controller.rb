@@ -39,11 +39,11 @@ class VulnerabilitiesController < ApplicationController
         @vulnerabilities = @vulnerabilities.where('reactions.user_id = ?', current_user.id).where('reactions.status = ?', rfp)   
       end   
      end    
-
+    
     # sort
     case sorting_param
       when 'reaction'
-        @vulnerabilities = @vulnerabilities.order("reactions.status #{sorting_way_param}")
+        @vulnerabilities = @vulnerabilities.order("CASE WHEN reactions.id IS NULL THEN 1 END, reactions.status  #{sorting_way_param}")
       when nil
         #pass : no sorting wanted
       else
