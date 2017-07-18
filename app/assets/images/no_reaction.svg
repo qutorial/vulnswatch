@@ -15,10 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   inkscape:export-filename="/home/zaur/sahare/app/assets/images/dontknow.png"
+   inkscape:export-filename="/home/zaur/sahare/app/assets/images/no_reaction.png"
    inkscape:export-xdpi="231.96001"
    inkscape:export-ydpi="231.96001"
-   sodipodi:docname="dontknow.svg">
+   sodipodi:docname="no_reaction.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -28,7 +28,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.627417"
+     inkscape:zoom="16"
      inkscape:cx="-4.7123379"
      inkscape:cy="8.7561945"
      inkscape:document-units="px"
@@ -55,7 +55,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -72,7 +72,7 @@
        x="4.7227702"
        y="1043.9653" />
     <path
-       style="opacity:0.772;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:2.53999996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:0.772;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.14000001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 5.1819801,1043.9319 5.9249389,2.6849 -5.9249389,2.6849 z"
        id="rect4164"
        inkscape:connector-curvature="0"
@@ -80,13 +80,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.39318776px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="7.8084121"
-       y="1051.3899"
+       x="6.1290331"
+       y="1047.7218"
        id="text4827"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4829"
-         x="7.8084121"
-         y="1051.3899">?</tspan></text>
+         x="6.1290331"
+         y="1047.7218">?</tspan></text>
   </g>
 </svg>
