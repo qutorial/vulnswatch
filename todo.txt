@@ -1,4 +1,34 @@
 UI
+Before any sorting is selected.
+Sorting originally is not displayed in the Last update.
+Correct it.
+
+UI
+Click on reaction -> Show -> Edit button big and blue
+
+UI
+Relevant vulnerabilities have to go away
+
+FEATURE
+Save the filtering and searching parameters
+
+FEATURE:
+Default sorting on name shall sort with CVE-2017 on the first place
+
+BUG:
+Sorting is independent from filtering, that is why we click
+filtering, pick project, than sort, and filtering 
+is forgotten after it.
+
+FEATURE!!!:
+Reaction pro project!!
+
+
+UI
+After save go back to the list
+
+
+UI
 Anke: by each save shall also be cancel, check creating reaction
 
 BUG
@@ -26,6 +56,10 @@ Saving sorting and filtering settings in database
 Searching like in gooogle with operators and "exact terms"
 
 Bulk reaction, especially for a wrong components
++1 bluhm
+Set component bulk?
+
+
 
 Reaction without text
 
