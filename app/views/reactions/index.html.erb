@@ -17,7 +17,7 @@
   <tbody>
     <% @reactions.each do |reaction| %>
       <tr>
-        <td><%= link_to_vulnerability reaction.vulnerability %></td>
+        <td><%= link_to reaction.vulnerability.name, edit_reaction_path(reaction) %></td>
         <td><%= shorten(reaction.vulnerability.summary) %></td>
         <td class="affected_system"><%= render 'shared/affected_system', vulnerability: reaction.vulnerability %></td>
         <td><%= link_to shorten(reaction.text, 80), reaction, class: 'black_text_link' %></td>
