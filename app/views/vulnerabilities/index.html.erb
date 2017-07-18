@@ -18,7 +18,7 @@
  <%= text_field_tag :affected_system, params[:affected_system], id: "affected_system_filter", placeholder: 'Component?'%>
  Project:
  <%= select_tag :project,\
-                  options_for_select(projects_filter_collection, params[:project].to_i),\
+                  options_for_select(projects_filter_collection, params[:project]),\
                   id: "project_filter",\
                   include_blank: true,\
                   onchange: "this.form.submit();"
