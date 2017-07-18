@@ -4,6 +4,6 @@ class Reaction < ApplicationRecord
   validates :user_id, presence: true
   validates :vulnerability_id, presence: true
   validates :status, numericality: true, presence: true
-  validates_inclusion_of :status, :in => 1..5
+  validates_inclusion_of :status, :in => 1..4
   validates :vulnerability_id, uniqueness: { scope: :user_id }
 end
