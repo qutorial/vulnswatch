@@ -1,6 +1,9 @@
 class VulnerabilitiesController < ApplicationController
   before_action :set_vulnerability, only: [:show, :edit, :update, :destroy]
 
+  def relevant
+    redirect_to vulnerabilities_path(project: 0)
+  end
   # GET /vulnerabilities
   # GET /vulnerabilities.json
   def index
