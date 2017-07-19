@@ -59,8 +59,10 @@ module VulnerabilitiesHelper
     end
   end
 
-  def sorting_link_to(title, sorting_param)
-    return link_to title, request.query_parameters.merge({:sorting => sorting_param, :sorting_way => flip_sorting_way }), class: class_for_sorting_link(sorting_param)
+  def sorting_link_to(title, sorting_param, other = {})
+    other = {} if other.nil? or other.class != Hash
+    other[:class] = class_for_sorting_link(sorting_param)
+    return link_to title, request.query_parameters.merge({:sorting => sorting_param, :sorting_way => flip_sorting_way }), other
   end
 
   def projects_filter_collection()

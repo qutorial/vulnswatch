@@ -1,6 +1,9 @@
 <h3>Your projects</h3>
 
 <div class="container">
+
+<% if current_user.projects.count > 0 %>
+
 <table class="index_table table-striped">
   <thead>
     <tr>
@@ -32,4 +35,13 @@
 <br>
 <br>
 <%= link_to "View Relevant Vulnerabilities", relevant_vulnerabilities_path, class: "btn btn-primary" %>
+
+<% else %>
+<p>You do not have any projects yet.</p>
+<p>Please, create a project to track vulnerabilities within its components.</p>
+
+<%= link_to 'Create First Project', new_project_path, class: 'btn btn-primary' %>
+<% end %>
+
+
 </div>

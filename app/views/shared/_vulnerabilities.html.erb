@@ -13,10 +13,14 @@ or add more systems to your projects.</p>
     <tr>
       <th><%= sorting_link_to 'Name', 'name' %></th>
       <th><%= sorting_link_to 'Last update', 'modified' %></th>
-      <th><%= sorting_link_to 'Component', 'affected_system' %></th>
-      <th title='No sorting on Summary'>Summary</th>
-      <th title='No sorting on "View on"' colspan=3>View on</th>
-      <th title='Pick a project above instead of sorting'>Relevance</th>
+      <th><%= sorting_link_to 'Component', 'affected_system', 
+title: 'Vulnerabilities are tagged with the affected system\'s name.
+Please, add the affected system\'s name here, if you know it.' %></th>
+      <th title='Focus on a field, or click an icon in the next column to learn more.'>Summary</th>
+      <th title='' colspan=3>Read more details on</th>
+      <th title='Select a project above.
+
+Estimated affected component in a project.'>Relevance</th>
       <th><%= sorting_link_to 'Reaction', 'reaction' %></th>
     </tr>
   </thead>

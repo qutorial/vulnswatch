@@ -1,24 +1,3 @@
-How about mobile version?
-
-Make non JS version better - not showing pages at all
-
-Make people vote for features?
-
-Show stuff to Kai?
-
-
-BUG
-<carsten> http sux
-Make sure the site is only available over https
-
-DOKU
-<carsten> keine doku zum projekt erstellen, ich notiere da systeme, nur was bedeuten diese?
-Explain that systems are components looked up for in the vulnerabilities
-
-UI
-<carsten> remove view relevant vulns whene there is no project
-In the project view do not show the button
-
 UI
 <carsten> relevance -> where
 Relevance shall show a component Where the problem is so where is a good name
