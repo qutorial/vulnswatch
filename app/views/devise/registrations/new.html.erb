@@ -25,18 +25,18 @@
             href='https://www.howtogeek.com/195430/how-to-create-a-strong-password-and-remember-it/'>link</a></li>
        </ul>
     <br />
-    <%= f.label :password, "New strong password"%><br>
+    <%= f.label :password, "Password, really strong, please:"%><br>
     <%= f.password_field :password, autocomplete: "off", class: 'form-control'  %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, "Confirm your new strong password" %><br />
+    <%= f.label :password_confirmation, "Confirm:" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'  %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up", class: 'btn btn-primary' %>
+    <%= f.submit "Sign up", class: 'btn btn-primary', style: 'margin-right: 2em; margin-bottom: 1em;' %>
+    <%= render "devise/shared/links" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
