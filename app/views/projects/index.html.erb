@@ -1,9 +1,10 @@
-<h1>Projects</h1>
+<h3>Your projects</h3>
 
-<table class="index_table">
+<div class="container">
+<table class="index_table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
+      <th><!--Name--></th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -24,8 +25,11 @@
 
 <br>
 
-<%= link_to 'New Project', new_project_path %>
-
+<%= link_to ' + New Project', new_project_path %>
+<br>
+<br>
+<br>
 <br>
 <br>
 <%= link_to "View Relevant Vulnerabilities", relevant_vulnerabilities_path, class: "btn btn-primary" %>
+</div>
