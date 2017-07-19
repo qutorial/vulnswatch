@@ -4,7 +4,7 @@ end
 
 Then /^I should see the (.*)$/ do |e|
   if /welcome message/ =~ e
-    expect(page).to have_content("ζάχαρη")
+    expect(page).to have_content('vulnswatch')
   elsif /register link/ =~ e
     expect(page).to have_selector(:link_or_button, 'Register')    
   else

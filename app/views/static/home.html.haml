@@ -1,34 +1,46 @@
 - content_for :top_content do
   %div.jumbotron
     %div.container
-      - if ! user_signed_in?
+      - if not user_signed_in?
         %h1
-          ζάχαρη - Καφές έρχεται αργότερα
+          vulnswatch - vulnerability management software
         %p
           %em
-            Sahare is just sugar, coffee will be served later.
+            vulnswatch lets you manage known vulnerabilities in your projects
+        %br
+        %ul{ style: 'font-size: 130%'}
+          %li
+            Plenty of systems are affected by vulnerabilities every day.
+          
+          %li
+            With vulnswatch you can easily learn which of your projects 
+            might have been affected. 
+          
+          %li
+            Afterwards you can manage the discovered
+            vulnerabilities by tracking their fixing process.
+        %br
+        %p
+          Follow this simple workflow for starters:
+        %p
+          Register ⇨ Create a project ⇨ Manage vulnerabilities
+          
+
+      - if ! user_signed_in?
+        %p
+          = link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg'
+          = link_to 'Sign in', new_user_session_path, class: 'btn btn-lg'
       - else
         %p
-          Sahare vulnerability manager helps you track known vulnerabilities in your projects.
-
-
-- if ! user_signed_in?
-  %p
-    Register or sign in to get started:
-    = link_to 'Register', new_user_registration_path, class: 'btn btn-lg'
-    = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary btn-lg'
-- else
-  %p
-    = "Welcome #{current_user.name.split(' ')[0]}!" 
-  %p
-    Here is the way to go:
-  %p
-    - if current_user.projects.count == 0
-      = link_to "Create your first project", new_project_path, class: 'btn btn-primary'
-    - else
-      = link_to "View my Projects", projects_path, class: 'btn'
-      = link_to "Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'
-      = link_to "All Vulnerabilities", vulnerabilities_path, class: 'btn'
-      = link_to "My Reactions", reactions_path, class: 'btn'
-      = link_to "New Vulnerabilities from NVD", nvd_update_path, class: 'btn', id: 'update'
+          = "Welcome #{current_user.name.split(' ')[0]}!" 
+        %p
+          Here is the way to go:
+        %p
+          - if current_user.projects.count == 0
+            = link_to "Create your first project", new_project_path, class: 'btn btn-primary'
+          - else
+            = link_to "View my Projects", projects_path, class: 'btn'
+            = link_to "Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'
+            = link_to "All Vulnerabilities", vulnerabilities_path, class: 'btn'
+            = link_to "My Reactions", reactions_path, class: 'btn'
       

@@ -1,5 +1,13 @@
 <%= render 'shared/last_update_nvd' %>
 
+<% if @vulnerabilities.count == 0 %>
+
+<p>No vulnerabilities were found.</p>
+<p>Try to make the search criteria softer, update vulnerabilities
+or add more systems to your projects.</p>
+
+<% else %>
+
 <table id="vulns" class="index_table">
   <thead>
     <tr>
@@ -34,3 +42,5 @@
     <% end %>
   </tbody>
 </table>
+
+<% end %>
