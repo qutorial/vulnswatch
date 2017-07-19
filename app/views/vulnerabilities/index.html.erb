@@ -58,13 +58,21 @@ Estimated affected component in a project.'>Project</th>
   
   <tbody>
   <tr class='filters'>
-  <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'Search by name?'%> </td>
-  <td></td>
-  <td>
-    <%= text_field_tag :affected_system, params[:affected_system], id: "affected_system_filter", placeholder: 'Affected system?'%>
-  </td>
-  <td></td>
-  <td colspan=3></td>
+  
+    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2017-'%> </td>
+  
+    <td></td>
+  
+    <td>
+      <%= text_field_tag :affected_system, params[:affected_system], id: "affected_system_filter", placeholder: 'e.g. BSD'%>
+    </td>
+  
+    <td>
+      <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2'%>
+    </td>
+  
+    <td colspan=3></td>
+  
   <td>
 
       <%= select_tag :project,\

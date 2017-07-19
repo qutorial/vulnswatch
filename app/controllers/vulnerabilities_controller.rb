@@ -31,6 +31,10 @@ class VulnerabilitiesController < ApplicationController
 
     @vulnerabilities = @vulnerabilities.joins('LEFT JOIN reactions ON vulnerabilities.id = reactions.vulnerability_id').where('reactions.user_id = ? OR reactions.id IS NULL', current_user.id)
 
+    # remove dupes from joins
+    @vulnerabilities = @vulnerabilities.group('vulnerabilities.id')
+
+
     # filter on reaction
     rfp = reaction_filter_param
     if rfp.nil? 
@@ -68,9 +72,6 @@ class VulnerabilitiesController < ApplicationController
         @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
       end
     end
-
-    # remove dupes from joins
-    @vulnerabilities = @vulnerabilities.group('vulnerabilities.id')
 
     # finally paginate
     @vulnerabilities = @vulnerabilities.paginate(page: params[:page])
@@ -185,7 +186,7 @@ class VulnerabilitiesController < ApplicationController
     end
     
     def allowed_sorting_params
-      return ['name', 'modified', 'affected_system', 'reaction']
+      return ['name', 'modified', 'affected_system', 'reaction', 'summary']
     end
 
     def sorting_way_param
