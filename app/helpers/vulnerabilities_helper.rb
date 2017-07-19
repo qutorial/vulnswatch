@@ -32,15 +32,15 @@ module VulnerabilitiesHelper
    if modified.nil?
     return "?"
    end
-   return time_ago_in_words(modified.to_datetime) + ' ago' 
+   return (time_ago_in_words(modified.to_datetime).sub(' ', '&nbsp') + '&nbspago').to_s.html_safe 
   end
 
   def flip_sorting_way()
     par = request.query_parameters["sorting_way"]
-    if par.nil? or par == 'desc'
-      return 'asc'
-    else
+    if par.nil? or par == 'asc'
       return 'desc'
+    else
+      return 'asc'
     end
   end
 
