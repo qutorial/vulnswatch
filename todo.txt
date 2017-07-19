@@ -1,10 +1,3 @@
-FEATURE
-<carsten> links zu nvd und cve-details in der tabelle?
-Add as little icons for immediate navigation in a new tab.
-
-UI
-<carsten> input und output software (perl -> genugate)
-In vulnerabilities view show which software causes a problem in which project.
 <carsten> in project => eigene spallte
 Important wish! Split the relevance column into many, per project.
 

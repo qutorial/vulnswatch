@@ -12,35 +12,103 @@
        '#', class: 'btn reset-search-btn',\
        onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
  
- <br>
- <span class:'form-control'>
- <%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'Name?'%>
- <%= text_field_tag :affected_system, params[:affected_system], id: "affected_system_filter", placeholder: 'Component?'%>
- Project:
- <%= select_tag :project,\
+
+
+
+
+
+           
+<%= will_paginate %>
+
+<%= render 'shared/last_update_nvd' %>
+
+<% if @vulnerabilities.count == 0 %>
+
+<p>No vulnerabilities were found.</p>
+<p>Try to make the search criteria softer, update vulnerabilities
+or add more systems to your projects.</p>
+
+<% else %>
+
+<table id="vulns" class="index_table table-striped">
+  <thead>
+    <tr>
+      <th><%= sorting_link_to 'Name', 'name' %></th>
+      
+      <th><%= sorting_link_to 'Updated', 'modified' %>
+      </th>
+      
+      <th><%= sorting_link_to 'Component', 'affected_system', 
+title: 'Vulnerabilities are tagged with the affected system\'s name.
+Please, add the affected system\'s name here, if you know it.' %>
+      </th>
+      
+      <th title='Focus on a field, or click an icon in the next column to learn more.'>Summary</th>
+      <th title='' colspan=3>Read more details on</th>
+      <th title='Select a project.
+
+Estimated affected component in a project.'>Project</th>
+
+      <th><%= sorting_link_to 'Reaction', 'reaction' %>
+
+
+      </th>
+    </tr>
+  </thead>
+  
+  <tbody>
+  <tr class='filters'>
+  <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'Search by name?'%> </td>
+  <td></td>
+  <td>
+    <%= text_field_tag :affected_system, params[:affected_system], id: "affected_system_filter", placeholder: 'Affected system?'%>
+  </td>
+  <td></td>
+  <td colspan=3></td>
+  <td>
+
+      <%= select_tag :project,\
                   options_for_select(projects_filter_collection, params[:project]),\
                   id: "project_filter",\
                   include_blank: true,\
                   onchange: "this.form.submit();"
                 %>
 
- Reaction:
- <%= select_tag :reaction,\
+  </td>
+  <td>
+         <%= select_tag :reaction,\
                   options_for_select(explanations_collection_short, params[:reaction].to_i),\
                   id: "reaction_filter",\
                   include_blank: true,\
                   onchange: "this.form.submit();"
                 %>
-                
- <%= link_to 'Reset', vulnerabilities_path, class: 'btn' %>
- <%= submit_tag 'Go', class: 'btn' %>
-</span>
+
+  </td>
+  </tr>
+
+    <% @vulnerabilities.each do |vulnerability| %>
+      <tr>
+        <td><%= link_to_vulnerability vulnerability %></td>
+        <td><%= ago_helper(vulnerability.modified) %></td>
+        <td class="affected_system">
+          <%= render 'shared/affected_system', vulnerability: vulnerability %>
+        </td>
+        <td class='vulnerability-summary'><%= link_to shorten(vulnerability.summary, 70), vulnerability, title: vulnerability.summary, 
+                 class: 'black_text_link' %></td>
+        <td><%= link_to_nvd(vulnerability) %></td>
+        <td><%= link_to_cve_details(vulnerability) %></td>
+        <td><%= link_to_google(vulnerability) %></td>
+        <td class="relevance"><%= why_relevant(vulnerability, current_user).html_safe %></td>
+        <td class="status">
+           <%= link_to_react(vulnerability) %>            
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <% end %>
 
-</p>
-
-<%= render 'shared/vulnerabilities' %>
 
 <%= will_paginate %>
 
@@ -54,3 +122,8 @@
 <%= link_to "Show Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'%>
 
 <br>
+
+<% end %>
+
+</p>
+
