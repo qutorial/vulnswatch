@@ -13,7 +13,7 @@
 
   <div class="form-group">
     <%= form.label :vulnerability %>
-    <%= form.text_field :vulnerability, id: :reaction_vulnerability, class: "form-control", value: name_or_nil(form.object.vulnerability) %>
+    <%= form.text_field :vulnerability, id: :reaction_vulnerability, class: "form-control", value: name_or_nil(form.object.vulnerability), placeholder: 'CVE-2017-1234' %>
   </div>
 
   <div class="field">
