@@ -1,3 +1,5 @@
+<div class="container">
+
 <p>
   <strong>Name:</strong>
   <%= @vulnerability.name %>
@@ -5,8 +7,19 @@
 
 <p>
   <strong>Summary:</strong>
-  <%= @vulnerability.summary %>
+  <div class="vulnerability-summary">
+  <pre><code><%= @vulnerability.summary %></code></pre>
+  </div>
 </p>
+
+
+<div class="continue-research">
+  <strong>Continue research on:</strong>
+  <%= link_to_nvd(@vulnerability) %>
+  <%= link_to_cve_details(@vulnerability) %>
+  <%= link_to_google(@vulnerability) %>
+</div>
+
 
 <p>
   <strong>Published:</strong>
@@ -21,7 +34,7 @@
 <p>
   <strong>Component:</strong>
   <%= (@vulnerability.affected_system.nil? or @vulnerability.affected_system.blank?) ? "not explicitly known" : @vulnerability.affected_system %>
-  <%= link_to 'Edit', edit_vulnerability_path(@vulnerability)  %>
+  &nbsp; - &nbsp;  <%= link_to 'add', edit_vulnerability_path(@vulnerability), class: 'add-component-link'  %>
 
 </p>
 
@@ -30,13 +43,9 @@
   <%= link_to_react(@vulnerability) %>
 </p>
 
-<p>
-  <strong>View on:</strong>
-  <%= link_to_nvd(@vulnerability) %>
-  <%= link_to_cve_details(@vulnerability) %>
-  <%= link_to_google(@vulnerability) %>
-</p>
 
 <div class='back-links'>
 <%= render 'shared/back_links' %>
+</div>
+
 </div>
