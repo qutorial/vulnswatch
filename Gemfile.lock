@@ -52,6 +52,7 @@ GEM
       will_paginate
     builder (3.2.3)
     byebug (9.0.6)
+    cancancan (2.0.0)
     capybara (2.14.3)
       addressable
       mime-types (>= 1.16)
@@ -285,6 +286,7 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap-will_paginate
   byebug
+  cancancan
   capybara
   coffee-rails (~> 4.2)
   cucumber-rails
@@ -324,4 +326,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.15.1
+   1.15.2

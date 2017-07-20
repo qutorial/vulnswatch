@@ -24,10 +24,13 @@ gem 'bootstrap-will_paginate'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 
-# Devise for auth
+# Devise for authentications
 gem 'devise'
 # eliminates easy passwords
 gem 'devise_zxcvbn'
+
+# CanX3 for Authorization
+gem 'cancancan'
 
 # Bootstrap
 gem 'bootstrap-sass'
