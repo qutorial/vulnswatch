@@ -15,7 +15,7 @@
 
 <div class="actions">
   <%= link_to 'Edit', edit_project_path(@project), class: 'btn' %>
-  <%= link_to "View Relevant Vulnerabilities", relevant_vulnerabilities_path, class: "btn btn-primary" %>
+  <%= link_to "View Relevant Vulnerabilities", relevant_vulnerabilities_path(project: @project.id), class: "btn btn-primary" %>
 </div>
 
 <div class='back-links'>
