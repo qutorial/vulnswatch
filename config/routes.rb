@@ -18,5 +18,10 @@ Rails.application.routes.draw do
   root to: 'static#home'
 
   get 'noscript', to: 'static#noscript'
+  get 'about', to: 'static#about'
+  get 'terms', to: 'static#terms'
+  get 'impressum,', to: 'static#impressum', as: 'impressum'
+  get 'datenschutz,', to: 'static#datenschutz', as: 'datenschutz'
+  get 'contact,', to: 'static#contact', as: 'contact'
   
 end

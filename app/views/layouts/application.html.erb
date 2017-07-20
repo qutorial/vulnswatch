@@ -43,10 +43,6 @@
             <% end %>
           </ul>
           <ul class="nav navbar-nav pull-right">
-            <li><%= link_to 'Report a Bug', 'https://github.com/qutorial/vulnswatch/issues', target: '_blank', 
-                 data: {confirm: 
-'You will be redirected to github Issues now.
-Please, check if there is an issue already.'} %></li>
             <% if user_signed_in? %>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -84,6 +80,19 @@ Please, check if there is an issue already.'} %></li>
       <%= yield %>
     </div>
   
+  <div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container footer">
+      <ul class="nav navbar-nav">
+        <li><%= link_to 'Impressum', impressum_path %></li>
+        <li><%= link_to 'Contact', contact_path %></li>
+        <li><%= link_to 'Datenschutz', datenschutz_path %></li>
+        <li><%= link_to 'Terms of Use', terms_path %></li>
+        <li><%= link_to_issues %></li>
+        <li><%= link_to 'About', about_path %></li>
+      </ul>
+    </div>
+  </div>
+
   </body>
 
 </html>

@@ -1,0 +1,49 @@
+=render 'disclaimer'
+
+%div.container
+
+  %h2
+    About vulnswatch
+  %p
+    This software is designed to help you manage existing and known vulnerabilities
+    in your project.
+  
+  %h2
+    Resources
+  %p
+    Important resources behind this project:
+    %ul
+      %li 
+        Genua mbh is the company where the software is developed:
+        =link_to_genua
+      %li
+        Github repository: 
+        =link_to_github
+      %li
+        Reporting bugs, tickets:
+        =link_to_issues 'Issues on github'
+      %li 
+        Contacts:
+        =link_to 'link', contact_path  
+
+  %h2
+    Contributors
+  %p
+    These people influenced the idea and development of this project.
+    %br
+    We say thank you to:
+  %p
+    =list_people ['Jan Klemkow', 'Istvan Podmaniczky', 'Zaur Molotnikov', 'Raimund Specht', 'Viktor Ulrich', 'Kai Dörnemann', 'Florian Albrecht', 'Carsten Arzig', 'Anke Schipke', 'Alexander Bluhm', 'Matthias Pitzl', 'Arne Becker']
+
+  %h3
+    Technical Contributors
+  %h4
+    Requirements
+  %p
+    =list_people ['Alexander Bluhm', 'Kai Dörnemann', 'Zaur Molotnikov']
+  %h4
+    Architecture and Software Engineering
+  %p
+    =list_people ['Zaur Molotnikov']
+  
+

@@ -34,6 +34,9 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'  %>
   </div>
 
+
+  <p><em>By signing up you agree to the terms of service: <%= link_to 'link', terms_path %>.</em></p>
+
   <div class="actions">
     <%= f.submit "Sign up", class: 'btn btn-primary', style: 'margin-right: 2em; margin-bottom: 1em;' %>
     <%= render "devise/shared/links" %>
