@@ -1,0 +1,27 @@
+<%= form_with(model: tag, local: true) do |form| %>
+  <% if tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+      <ul>
+      <% tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :component %>
+    <%= form.text_field :component, id: :tag_component, class: "form-control", placeholder: 'e.g. perl'  %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :vulnerability %>
+    <%= form.text_field :vulnerability, id: :tag_vulnerability, class: "form-control", value: name_or_nil(form.object.vulnerability), placeholder: 'CVE-2017-1234' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

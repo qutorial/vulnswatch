@@ -35,8 +35,16 @@
   <strong>Component:</strong>
   <%= (@vulnerability.affected_system.nil? or @vulnerability.affected_system.blank?) ? "not explicitly known" : @vulnerability.affected_system %>
   &nbsp; - &nbsp;  <%= link_to 'add', edit_vulnerability_path(@vulnerability), class: 'add-component-link'  %>
-
 </p>
+
+<p>
+  <strong>Tags:</strong>
+    <div class='vulnerability-tags'>
+      <%= render @vulnerability.tags %>
+      <%= link_to_tag(@vulnerability, style: 'display: inline-block; margin-left: 2em;') %>
+    </div>
+</p>
+
 
 <p>
   <strong>Reaction:</strong>

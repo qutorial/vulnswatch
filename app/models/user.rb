@@ -14,5 +14,6 @@ class User < ApplicationRecord
         
   has_many :projects, dependent: :destroy
   has_many :reactions, dependent: :destroy
+  has_many :tags
   
 end

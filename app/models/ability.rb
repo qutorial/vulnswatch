@@ -6,6 +6,10 @@ class Ability
     
     # Permissions for projects
     can :manage, Project, user_id: user.id
+    
+    # Permissions for tags
+    can :manage, Tag, user_id: user.id
+    can :show, Tag
 
 
     # Define abilities for the passed in user here. For example:

@@ -1,0 +1,44 @@
+<h3>Your Tags</h3>
+
+<div class='container'>
+
+<% if @tags.any? %>
+
+<table class="index_table table-striped">
+  <thead>
+    <tr>
+      <th colspan='2'>Vulnerability</th>
+      <th>Component</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tags.each do |tag| %>
+      <tr>
+        <td><%= link_to tag.vulnerability.name, edit_tag_path(tag) %></td>
+        <td><%= shorten(tag.vulnerability.summary) %></td>
+        <td><%= tag.component %></td>
+        <td><%= link_to 'Show', tag %></td>
+        <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
+        <td><%= link_to_delete_tag(tag) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% else %>
+<p>
+  No tags yet.
+</p>
+
+<p>With tags you can mark vulnerabilities with components they affect.</p>
+
+<% end %>
+
+
+<br>
+
+<%= link_to ' + New Tag', new_tag_path %>
+
+</div>

@@ -1,0 +1,32 @@
+// Place all the styles related to the Tags controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.vulnerability-tags {
+  display: block;
+  padding: 1em;
+  margin: 1em;
+  clear: right;
+}
+
+div.vulnerability-tag {
+  display: inline-block;
+  margin-left: 9px;
+  float: left;
+  padding-left: 1em;
+  padding-right: 1em;
+  background: #eee;
+  border-radius: 5px;
+  border: 1px solid #555;
+}
+
+a.tag-link, a.delete-tag, a.delete-tag-x {
+  text-decoration: none;
+  color: #444;
+}
+
+a.delete-tag-x {
+  font-family: monospace;
+  margin-left: 1em;
+
+}

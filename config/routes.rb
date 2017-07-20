@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  resources :tags
   authenticate :user do
     resources :reactions
+    resources :tags
     resources :vulnerabilities, only: [:index, :show, :update, :edit]
     resources :projects
     get 'nvd_update', to: 'vulnerabilities#nvd', as: 'nvd_update'

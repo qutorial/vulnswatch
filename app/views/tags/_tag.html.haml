@@ -1,0 +1,4 @@
+%div.vulnerability-tag
+  =link_to tag.component, tag, class: 'tag-link'
+  -if tag.user == current_user
+    =link_to_delete_tag tag, 'x', class: 'delete-tag-x'

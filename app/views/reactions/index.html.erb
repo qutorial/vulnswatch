@@ -1,5 +1,6 @@
 <h3>Your reactions</h3>
 
+<div class='container'>
 
 <% if @reactions.any? %>
 
@@ -46,9 +47,10 @@
 <% end %>
 <br>
 
-<%= link_to ' + New Reaction', new_reaction_path(:reaction => {:vulnerability => 'CVE-Users'}) %>
+<%= link_to ' + New Reaction', new_reaction_path %>
 
 <br>
 <br>
 <%= reaction_legend.html_safe %>
 
+</div>

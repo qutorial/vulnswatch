@@ -1,0 +1,23 @@
+<h3>Tag</h3>
+<p>
+  <strong>Component:</strong>
+  <%= @tag.component %>
+</p>
+
+<p>
+  <strong>Vulnerability:</strong>
+  <%= link_to_vulnerability @tag.vulnerability %>
+</p>
+
+<p>
+  <strong>By:</strong>
+  <%= @tag.user.name %>
+</p>
+
+<% if can? :edit, @tag %>
+<%= link_to 'Edit', edit_tag_path(@tag) %>
+<% end %>
+
+<div class='back-links'>
+<%= render 'shared/back_links' %>
+</div>
