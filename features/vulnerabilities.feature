@@ -36,9 +36,19 @@ Scenario: All vulnerabilities can be seen
   And I should see vulnerabilities: CVE-2017-5, CVE-2017-6, CVE-2017-7, CVE-2017-8, CVE-2017-9
   And I should see vulnerabilities: CVE-2017-10
 
-Scenario: Relevant vulnerabilities are displayed
+Scenario: Relevant vulnerabilities are displayed right
   When I go to relevant vulnerabilties page
   Then I should see vulnerabilities: CVE-2017-1, CVE-2017-2, CVE-2017-4, CVE-2017-5, CVE-2017-6, 
   And I should see vulnerabilities: CVE-2017-7, CVE-2017-8, CVE-2017-9
-  And I should not see vulnerability CVE-2017-3, CVE-2017-10
+  And I should not see vulnerabilities: CVE-2017-3, CVE-2017-10
 
+Scenario: Search works, and it searches tags or summary despite tags
+  When I go to vulnerabilities page
+  And I search for OpenBSD
+  Then I should see vulnerabilities: CVE-2017-1, CVE-2017-4, CVE-2017-8
+  And I should not see vulnerabilities: CVE-2017-2, CVE-2017-3, CVE-2017-5, CVE-2017-6
+  And I should not see vulnerabilities: CVE-2017-7, CVE-2017-9, CVE-2017-10
+  When I search for Python
+  Then I should see vulnerabilities: CVE-2017-5, CVE-2017-7
+  And I should see vulnerability CVE-2017-10
+  And I should see vulnerability CVE-2017-9

@@ -27,8 +27,9 @@ class VulnerabilitiesController < ApplicationController
       params[:search].split(/\s+/).each do |term|
         term.downcase!
         # tags shall come here
-        newpart = '(LOWER(summary) LIKE ? OR LOWER(name) LIKE ?)'
+        newpart = '(LOWER(summary) LIKE ? OR LOWER(name) LIKE ? OR LOWER(tags.component) LIKE ?)'
         conditions[0] =  conditions[0].empty? ? newpart : conditions[0] + ' AND ' + newpart
+        conditions.push "%#{term}%"
         conditions.push "%#{term}%"
         conditions.push "%#{term}%"
       end      

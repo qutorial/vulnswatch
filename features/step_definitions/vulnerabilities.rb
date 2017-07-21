@@ -51,6 +51,11 @@ Then(/^I should (not )?see vulnerabilities: (.*)$/) do |notsee, vulns|
   end
 end
 
+When(/^I search for (.*)$/) do |search|
+  fill_in 'search', with: search
+  click_link_or_button 'Search' 
+end
+
 
 #When(/^follow register link$/) do
 #  click_link('Register')
