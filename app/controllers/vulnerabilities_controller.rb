@@ -4,8 +4,7 @@ class VulnerabilitiesController < ApplicationController
   def relevant
     redirect_to vulnerabilities_path(project: params[:project] || 0)
   end
-  # GET /vulnerabilities
-  # GET /vulnerabilities.json
+
   def index
     # TODO:  This method shall be split in many!!
     # TODO: This method should go into relevant vulnerability model
@@ -36,7 +35,7 @@ class VulnerabilitiesController < ApplicationController
       @vulnerabilities = @vulnerabilities.where(conditions)
     end
 
-    @vulnerabilities = @vulnerabilities.joins('LEFT JOIN reactions ON vulnerabilities.id = reactions.vulnerability_id').where('reactions.user_id = ? OR reactions.id IS NULL', current_user.id)
+    @vulnerabilities = @vulnerabilities.joins('LEFT JOIN reactions ON vulnerabilities.id = reactions.vulnerability_id')
 
     # remove dupes from joins
     @vulnerabilities = @vulnerabilities.group('vulnerabilities.id')
