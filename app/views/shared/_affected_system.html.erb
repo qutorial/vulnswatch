@@ -1,3 +1,3 @@
-<%= link_to (vulnerability.affected_system.nil? or vulnerability.affected_system.empty?) ? 'add' : vulnerability.affected_system ,
- edit_vulnerability_path(vulnerability)
-%>
+<div class="component-in-table">
+<%=render vulnerability.tags%>
+</div>

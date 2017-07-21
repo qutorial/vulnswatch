@@ -7,17 +7,26 @@ div.vulnerability-tags {
   padding: 1em;
   margin: 1em;
   clear: right;
+  div.vulnerability-tag {
+    display: inline-block;
+    margin-left: 9px;
+    float: left;
+    padding-left: 1em;
+    padding-right: 1em;
+    background: #eee;
+    border-radius: 5px;
+    border: 1px solid #555;
+    a.delete-tag-x {
+      font-family: monospace;
+      margin-left: 1em;
+      display: inline;
+    }
+
+  }
 }
 
-div.vulnerability-tag {
-  display: inline-block;
-  margin-left: 9px;
-  float: left;
-  padding-left: 1em;
-  padding-right: 1em;
-  background: #eee;
-  border-radius: 5px;
-  border: 1px solid #555;
+div.component-in-table a.delete-tag-x {
+  display: none;
 }
 
 a.tag-link, a.delete-tag, a.delete-tag-x {
@@ -25,8 +34,3 @@ a.tag-link, a.delete-tag, a.delete-tag-x {
   color: #444;
 }
 
-a.delete-tag-x {
-  font-family: monospace;
-  margin-left: 1em;
-
-}

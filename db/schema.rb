@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720163504) do
+ActiveRecord::Schema.define(version: 20170721084201) do
 
   create_table "nvd_updates", force: :cascade do |t|
     t.datetime "last"
@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(version: 20170720163504) do
     t.datetime "modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "affected_system"
     t.index ["name"], name: "index_vulnerabilities_on_name", unique: true
   end
 
