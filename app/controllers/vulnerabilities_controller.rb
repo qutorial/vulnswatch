@@ -14,6 +14,12 @@ class VulnerabilitiesController < ApplicationController
   
     # prefilter on fields
     @vulnerabilities = Vulnerability.filter(filtering_params) 
+    
+    # filter on affected systems using tags
+    @vulnerabilities = @vulnerabilities.joins('LEFT JOIN tags ON vulnerabilities.id = tags.vulnerability_id')
+    if not affected_system_filter_param.nil?
+      @vulnerabilities = @vulnerabilities.where("LOWER(tags.component) = ?", affected_system_filter_param.to_s.downcase) 
+    end
 
     # fulfil search
     if params[:search].present?
@@ -130,10 +136,24 @@ class VulnerabilitiesController < ApplicationController
     end
 
     def filtering_params
-      params.permit(:name, :summary, :affected_system)
+      params.permit(:name, :summary)
+    end
+
+    def extract_parameter(parameter, default = nil)
+      par = params.permit(parameter)
+      if not par.has_key?(parameter) or not par[parameter].present?
+        return default
+      else
+        return par[parameter]
+      end      
+    end
+    
+    def affected_system_filter_param
+      return extract_parameter(:affected_system)
     end
 
     def relevance_filter_params
+      # TODO use extract_parameter here
       par = params.permit(:project)
       if not par.has_key?(:project) or not par[:project].present?
         return nil

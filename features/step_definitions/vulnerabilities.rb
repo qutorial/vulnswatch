@@ -1,6 +1,11 @@
 Given(/^the following vulnerabilities exist:$/) do |table|
   table.hashes.each do |vuln|
-    Vulnerability.create(vuln)
+    vulnerability = Vulnerability.create(vuln.except "components")
+    vuln["components"].split(/, ?/).each do |component|
+      component, username = component.scan(/(\w*)\s+by\s+(\w*)/)[0]
+      theuser = User.where("name LIKE ?", "%#{username}%")[0]
+      vulnerability.tags.build(component: component, user: theuser).save!
+    end
   end
 end
 
