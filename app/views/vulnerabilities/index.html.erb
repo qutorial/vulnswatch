@@ -98,7 +98,7 @@ Estimated affected component in a project.'>Project</th>
         <td class="component">
           <%= render 'shared/component', vulnerability: vulnerability %>
         </td>
-        <td class='vulnerability-summary'><%= link_to shorten(vulnerability.summary, 70), vulnerability, title: vulnerability.summary, 
+        <td class='vulnerability-summary'><%= link_to shorten(vulnerability.summary, 88), vulnerability, title: vulnerability.summary, 
                  class: 'black_text_link' %></td>
         <td><%= link_to_nvd(vulnerability) %></td>
         <td><%= link_to_cve_details(vulnerability) %></td>
