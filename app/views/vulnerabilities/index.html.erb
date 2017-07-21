@@ -61,7 +61,7 @@ Estimated affected component in a project.'>Project</th>
     <td></td>
   
     <td>
-      <%= text_field_tag :affected_system, params[:affected_system], id: "affected_system_filter", placeholder: 'e.g. BSD'%>
+      <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD'%>
     </td>
   
     <td>
@@ -95,8 +95,8 @@ Estimated affected component in a project.'>Project</th>
       <tr>
         <td><%= link_to_vulnerability vulnerability %></td>
         <td><%= ago_helper(vulnerability.modified) %></td>
-        <td class="affected_system">
-          <%= render 'shared/affected_system', vulnerability: vulnerability %>
+        <td class="component">
+          <%= render 'shared/component', vulnerability: vulnerability %>
         </td>
         <td class='vulnerability-summary'><%= link_to shorten(vulnerability.summary, 70), vulnerability, title: vulnerability.summary, 
                  class: 'black_text_link' %></td>

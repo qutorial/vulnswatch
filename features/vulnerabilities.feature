@@ -37,7 +37,7 @@ Scenario: All vulnerabilities can be seen
   And I should see vulnerabilities: CVE-2017-10
 
 Scenario: Relevant vulnerabilities are displayed right
-  When I go to relevant vulnerabilties page
+  When I go to relevant vulnerabilities page
   Then I should see vulnerabilities: CVE-2017-1, CVE-2017-2, CVE-2017-4, CVE-2017-5, CVE-2017-6, 
   And I should see vulnerabilities: CVE-2017-7, CVE-2017-8, CVE-2017-9
   And I should not see vulnerabilities: CVE-2017-3, CVE-2017-10
@@ -52,3 +52,26 @@ Scenario: Search works, and it searches tags or summary despite tags
   Then I should see vulnerabilities: CVE-2017-5, CVE-2017-7
   And I should see vulnerability CVE-2017-10
   And I should see vulnerability CVE-2017-9
+
+Scenario: Search works in combination with relevance
+  When I go to relevant vulnerabilities page
+  And I search for Python
+  Then I should see vulnerabilities: CVE-2017-5, CVE-2017-7, CVE-2017-9
+  But I should not see vulnerability: CVE-2017-10
+  And I should not see vulnerability: CVE-2017-8
+
+Scenario: Filtering works, part one
+  When I go to vulnerabilities page
+  And I filter name to be CVE-2017-1
+  Then I should see vulnerabilities: CVE-2017-1, CVE-2017-10
+  And I should not see vulnerability CVE-2017-2
+  When I filter component to be libpy
+  Then I should see vulnerability CVE-2017-10
+  And I should not see vulnerability CVE-2017-1
+
+Scenario: Filtering works, part two
+  When I go to vulnerabilities page
+  And I filter summary to be OpenBSD
+  Then I should see vulnerabilities: CVE-2017-1, CVE-2017-4, CVE-2017-8
+  When I filter component to be OpenBSD
+  Then I should not see vulnerability CVE-2017-1

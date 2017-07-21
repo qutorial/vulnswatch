@@ -15,10 +15,10 @@ class VulnerabilitiesController < ApplicationController
     # prefilter on fields
     @vulnerabilities = Vulnerability.filter(filtering_params) 
     
-    # filter on affected systems using tags
+    # filter on component using tags
     @vulnerabilities = @vulnerabilities.joins('LEFT JOIN tags ON vulnerabilities.id = tags.vulnerability_id')
-    if not affected_system_filter_param.nil?
-      @vulnerabilities = @vulnerabilities.where("LOWER(tags.component) = ?", affected_system_filter_param.to_s.downcase) 
+    if not component_filter_param.nil?
+      @vulnerabilities = @vulnerabilities.where("LOWER(tags.component) = ?", component_filter_param.to_s.downcase) 
     end
 
     # fulfil search
@@ -106,19 +106,7 @@ class VulnerabilitiesController < ApplicationController
   end
 
 
-  # GET /vulnerabilities/1
-  # GET /vulnerabilities/1.json
   def show
-  end
-
-  # GET /vulnerabilities/new
-  def new
-    @vulnerability = Vulnerability.new
-  end
-
-  # GET /vulnerabilities/1/edit
-  def edit
-    render 'change_affected_system'
   end
 
   private
@@ -149,8 +137,8 @@ class VulnerabilitiesController < ApplicationController
       end      
     end
     
-    def affected_system_filter_param
-      return extract_parameter(:affected_system)
+    def component_filter_param
+      return extract_parameter(:component)
     end
 
     def relevance_filter_params

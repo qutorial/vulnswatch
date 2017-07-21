@@ -31,16 +31,17 @@ When(/^I go to vulnerabilities page$/) do
   visit vulnerabilities_path
 end
 
-When(/^I go to relevant vulnerabilties page$/) do
+When(/^I go to relevant vulnerabilities page$/) do
   visit relevant_vulnerabilities_path
 end
 
 
-Then(/^I should (not )?see vulnerability (.*)$/) do |notsee, vuln|
+Then(/^I should (not )?see vulnerability:? (.*)$/) do |notsee, vuln|
+  re = /^#{vuln}$/
   if notsee.nil?
-    expect(page).to have_content(vuln)
+    expect(page).to have_link(text: re)
   else
-    expect(page).not_to have_content(vuln)
+    expect(page).not_to have_link(text: re)
   end
 end
 
@@ -51,9 +52,18 @@ Then(/^I should (not )?see vulnerabilities: (.*)$/) do |notsee, vulns|
   end
 end
 
+When(/^go$/) do
+  click_link_or_button 'Search' 
+end
+
 When(/^I search for (.*)$/) do |search|
   fill_in 'search', with: search
-  click_link_or_button 'Search' 
+  step "go"
+end
+
+When(/^I filter (\w+) to be (.*)$/) do |column, filter|
+  fill_in column + '_filter', with: filter
+  step "go"
 end
 
 
