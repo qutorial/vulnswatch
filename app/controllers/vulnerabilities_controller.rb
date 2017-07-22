@@ -15,7 +15,8 @@ class VulnerabilitiesController < ApplicationController
     @vulnerabilities = Vulnerability.filter(filtering_params) 
     
     # filter on component using tags
-    @vulnerabilities = @vulnerabilities.joins('LEFT JOIN tags ON vulnerabilities.id = tags.vulnerability_id')
+    @vulnerabilities = Vulnerability.join_tags_and_reactions(@vulnerabilities)
+
     if not component_filter_param.nil?
       @vulnerabilities = @vulnerabilities.where("LOWER(tags.component) = ?", component_filter_param.to_s.downcase) 
     end
@@ -34,12 +35,6 @@ class VulnerabilitiesController < ApplicationController
       end      
       @vulnerabilities = @vulnerabilities.where(conditions)
     end
-
-    @vulnerabilities = @vulnerabilities.joins('LEFT JOIN reactions ON vulnerabilities.id = reactions.vulnerability_id')
-
-    # remove dupes from joins
-    @vulnerabilities = @vulnerabilities.group('vulnerabilities.id')
-
 
     # filter on reaction
     rfp = reaction_filter_param

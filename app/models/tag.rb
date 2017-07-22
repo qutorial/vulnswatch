@@ -5,4 +5,9 @@ class Tag < ApplicationRecord
   validates :vulnerability_id, presence: true
   validates_uniqueness_of :component, scope: :vulnerability_id
   validates :component, presence: true, allow_blank: false
+
+  def component=(val)
+    write_attribute(:component, val.gsub(/^\s+/, '').gsub(/\s+$/, ''))
+  end
+
 end
