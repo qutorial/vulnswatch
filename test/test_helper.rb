@@ -16,3 +16,8 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+def tag(vulnerability, component, user = @user1)
+  vulnerability.tags.build(component: component, user: user).save!
+end
+  
