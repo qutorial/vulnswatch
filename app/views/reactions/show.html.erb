@@ -19,7 +19,7 @@
 </p>
 
 <%= link_to 'Edit', edit_reaction_path(@reaction), id: 'edit-button' %>
-
+<%= link_to 'Delete', @reaction, method: :delete, data: { confirm: 'Reaction will be deleted, status will be unkonwn. Is it what you want?' }, id: 'delete-button' %>
 
 <div class='back-links'>
 <%= link_to 'My Reactions', reactions_path %>

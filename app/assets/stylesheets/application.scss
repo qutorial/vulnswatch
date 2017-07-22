@@ -129,6 +129,12 @@ a#edit-button {
   width: 7em;
 }
 
+a#delete-button {
+  @extend .btn;
+  @extend .btn-danger;
+  width: 7em;
+}
+
 
 // footer
 
