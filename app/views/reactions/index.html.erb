@@ -20,7 +20,7 @@
       <tr>
         <td><%= link_to reaction.vulnerability.name, edit_reaction_path(reaction) %></td>
         <td><%= shorten(reaction.vulnerability.summary) %></td>
-        <td class="affected_system"><%= render 'shared/affected_system', vulnerability: reaction.vulnerability %></td>
+        <td class="component"><%= render 'shared/component', vulnerability: reaction.vulnerability %></td>
         <td><%= link_to shorten(reaction.text, 80), reaction, class: 'black_text_link' %></td>
         <td class="status"><%= link_to_react reaction.vulnerability %></td>
         <td><%= link_to 'Show', reaction %></td>
