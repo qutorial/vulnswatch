@@ -1,4 +1,7 @@
-<p>
+<div class="container">
+
+    <%= will_paginate %>
+
 
 <%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
  
@@ -12,23 +15,8 @@
        '#', class: 'btn reset-search-btn',\
        onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
  
-
-
-
-
-
            
-<%= will_paginate %>
-
 <%= render 'shared/last_update_nvd' %>
-
-<% if @vulnerabilities.count == 0 %>
-
-<p>No vulnerabilities were found.</p>
-<p>Try to make the search criteria softer, update vulnerabilities
-or add more systems to your projects.</p>
-
-<% else %>
 
 <table id="vulns" class="index_table table-striped">
   <thead>
@@ -54,6 +42,7 @@ Estimated affected component in a project.'>Project</th>
   </thead>
   
   <tbody>
+
   <tr class='filters'>
   
     <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2017-'%> </td>
@@ -90,6 +79,20 @@ Estimated affected component in a project.'>Project</th>
 
   </td>
   </tr>
+  
+
+<% if @vulnerabilities.count == 0 %>
+
+</tbody>
+</table>
+
+
+<p class='alert alert-notice'>No vulnerabilities were found.<br>
+Try to relax the search criteria, update vulnerabilities
+or add more systems to your projects.</p>
+
+
+<% else %>
 
     <% @vulnerabilities.each do |vulnerability| %>
       <tr>
@@ -112,23 +115,29 @@ Estimated affected component in a project.'>Project</th>
   </tbody>
 </table>
 
+
+    <%= will_paginate %>
+
+
+
+
+
+<br>
+<br>
+<br>
+<%= link_to "Show Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'%>
+
 <% end %>
-
-
-<%= will_paginate %>
-
 <br>
 <br>
+
 <p>
   <%= reaction_legend.html_safe %>
 </p>
 
-<br>
-<%= link_to "Show Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'%>
 
-<br>
 
 <% end %>
 
-</p>
+</div>
 

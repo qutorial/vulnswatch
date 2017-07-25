@@ -9,8 +9,9 @@ class VulnerabilitiesController < ApplicationController
     # TODO:  This method shall be split in many!!
     # TODO: This method should go into relevant vulnerability model
 
+
     # First we do everything in the database
-  
+
     # prefilter on fields
     @vulnerabilities = Vulnerability.filter(filtering_params) 
     
