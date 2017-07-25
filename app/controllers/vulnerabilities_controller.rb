@@ -15,7 +15,7 @@ class VulnerabilitiesController < ApplicationController
     @vulnerabilities = Vulnerability.filter(filtering_params) 
     
     # filter on component using tags
-    @vulnerabilities = Vulnerability.join_tags_and_reactions(@vulnerabilities)
+    @vulnerabilities = Vulnerability.join_tags_and_reactions(current_user, @vulnerabilities)
 
     if not component_filter_param.nil?
       @vulnerabilities = @vulnerabilities.where("LOWER(tags.component) = ?", component_filter_param.to_s.downcase) 
