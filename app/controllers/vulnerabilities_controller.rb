@@ -51,7 +51,7 @@ class VulnerabilitiesController < ApplicationController
     # sort
     case sorting_param
       when 'reaction'
-        @vulnerabilities = @vulnerabilities.order("CASE WHEN reactions.id IS NULL THEN 1 END, reactions.status  #{sorting_way_param}")
+        @vulnerabilities = @vulnerabilities.order("reactions.status  #{sorting_way_param}")
       when nil
         @vulnerabilities = @vulnerabilities.order("name DESC")
       else
