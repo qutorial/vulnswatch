@@ -3,7 +3,6 @@ require 'set'
 module RelevantVulnerabilitiesHelper
   def why_relevant(vulnerability, user)
     res = ''
-    return 'explanations disabled'
     RelevantVulnerability.affected_systems(vulnerability, user).each do |system|
       res += (res.empty? ? '' : '<br/> and ') + 
             String.new(h(system)) + 

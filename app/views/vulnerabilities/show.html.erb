@@ -46,6 +46,12 @@
 </p>
 
 
+<p>
+  <strong>Relevance for you:</strong>
+  <%= why_relevant(@vulnerability, current_user).html_safe %>
+</p>
+
+
 <div class='back-links'>
 <%= render 'shared/back_links' %>
 </div>
