@@ -1,7 +1,7 @@
 <div class="container">
 
-    <%= will_paginate %>
-
+<% pager = will_paginate %>
+<%= pager%>
 
 <%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
  
@@ -116,7 +116,7 @@ or add more systems to your projects.</p>
 </table>
 
 
-    <%= will_paginate %>
+<%= pager %>
 
 
 

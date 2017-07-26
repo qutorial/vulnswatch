@@ -53,7 +53,7 @@ module ReactionsHelper
   end
 
   def link_to_react(vulnerability)
-   reaction = current_user.reactions.find_by(vulnerability_id: vulnerability.id)
+   reaction = vulnerability.reactions.find_by(user_id: current_user.id)
  
    if reaction.nil?
      return link_to '', new_reaction_path('reaction[vulnerability]' => vulnerability.name), class: status_to_link_class(nil), title: 'Click to react on it'

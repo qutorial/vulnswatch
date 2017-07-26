@@ -74,8 +74,6 @@ class VulnerabilitiesController < ApplicationController
         @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
       end
     end
-
-    # finally paginate
     @vulnerabilities = @vulnerabilities.paginate(page: params[:page])
   end
 
