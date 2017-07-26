@@ -66,7 +66,7 @@ module VulnerabilitiesHelper
   end
 
   def projects_filter_collection()
-    [['any', 0]].concat( current_user.projects.map(&->(p){[p.name, p.id]}) )
+    [['at least one', 0]].concat( current_user.projects.map(&->(p){[p.name, p.id]}) )
   end
 
 end
