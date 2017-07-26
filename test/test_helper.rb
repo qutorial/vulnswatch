@@ -20,4 +20,12 @@ end
 def tag(vulnerability, component, user = @user1)
   vulnerability.tags.build(component: component, user: user).save!
 end
+
+def react(vulnerability, status = 1, comment = "Test reaction", user = @user1)
+  vulnerability.reactions.build(status: status, text: comment, user: user).save!
+end
+  
+def affects?(v, s)
+  return RelevantVulnerability.vulnerability_affects_system?(v, s)
+end
   
