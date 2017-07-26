@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource  
+  before_action :alert_on_huge_projects
 
   def index
   end

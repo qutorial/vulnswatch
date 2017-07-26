@@ -1,5 +1,6 @@
 class VulnerabilitiesController < ApplicationController
   before_action :set_vulnerability, only: [:show, :edit, :update, :destroy]
+  before_action :alert_on_huge_projects, only: [:index]
 
   def relevant
     redirect_to vulnerabilities_path(project: params[:project] || 0)
