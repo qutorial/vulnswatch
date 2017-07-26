@@ -14,7 +14,8 @@
  <%= link_to 'Clear',\
        '#', class: 'btn reset-search-btn',\
        onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
- 
+
+<% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
            
 <%= render 'shared/last_update_nvd' %>
 
@@ -106,7 +107,7 @@ or add more systems to your projects.</p>
         <td><%= link_to_nvd(vulnerability) %></td>
         <td><%= link_to_cve_details(vulnerability) %></td>
         <td><%= link_to_google(vulnerability) %></td>
-        <td class="relevance"><%= why_relevant(vulnerability, current_user).html_safe %></td>
+        <td class="relevance"><%= render('explanations', explanation: @explanations[vulnerability] )%></td>
         <td class="status">
            <%= link_to_react(vulnerability) %>            
         </td>

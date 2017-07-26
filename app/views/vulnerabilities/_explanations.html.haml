@@ -1,0 +1,5 @@
+- explanation.each do |expl|
+  %span
+    =expl[0] + ' in '
+    =expl[1].map(&->(proj){link_to proj.name, proj}).join(', ').html_safe
+  %br
