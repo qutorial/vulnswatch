@@ -1,6 +1,9 @@
 <div class="container">
 
 <% pager = will_paginate %>
+<% @vulnerabilities = @greedy %>
+<% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
+
 <%= pager%>
 
 <%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
@@ -15,7 +18,6 @@
        '#', class: 'btn reset-search-btn',\
        onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
 
-<% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
            
 <%= render 'shared/last_update_nvd' %>
 

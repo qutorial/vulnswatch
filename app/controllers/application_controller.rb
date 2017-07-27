@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   def alert_on_huge_projects
     current_user.projects.each do |project|
       if RelevantVulnerability.is_a_huge_project?(project)
-        flash[:alert] = "The #{project.name} project is to big, we support #{RelevantVulnerability.many_systems} systems only."
+        flash[:alert] = "The #{project.name} project is too big, we support #{RelevantVulnerability.many_systems} systems only."
       end
     end
   end

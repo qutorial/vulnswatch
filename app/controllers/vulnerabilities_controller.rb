@@ -75,7 +75,10 @@ class VulnerabilitiesController < ApplicationController
         @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
       end
     end
-    @vulnerabilities = @vulnerabilities.paginate(page: params[:page])
+
+    # This is the end result, but we will also greedy load more
+    @vulnerabilities = @vulnerabilities.paginate(page: params[:page], :per_page => 15)
+    @greedy = Vulnerability.where(id: @vulnerabilities.to_a.map(&:id)).includes(:tags).includes(:reactions)
   end
 
   # GET /vulnerabilities/nvd
