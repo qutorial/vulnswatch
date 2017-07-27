@@ -1,7 +1,6 @@
 <div class="container">
 
 <% pager = will_paginate %>
-<% @vulnerabilities = @greedy %>
 <% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
 
 <%= pager%>
