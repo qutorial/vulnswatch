@@ -50,16 +50,6 @@ class VulnerabilitiesController < ApplicationController
       end   
      end    
     
-    # sort
-    case sorting_param
-      when 'reaction'
-        @vulnerabilities = @vulnerabilities.order("reactions.status  #{sorting_way_param}")
-      when nil
-        @vulnerabilities = @vulnerabilities.order("name DESC")
-      else
-        @vulnerabilities = @vulnerabilities.order(sorting_param.to_sym => sorting_way_param)
-    end
-
     # Second in-memory procedures might start
     relevant_project = relevance_filter_params
     if relevant_project == 0
@@ -74,6 +64,16 @@ class VulnerabilitiesController < ApplicationController
       else
         @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
       end
+    end
+
+    # sort
+    case sorting_param
+      when 'reaction'
+        @vulnerabilities = @vulnerabilities.order("reactions.status  #{sorting_way_param}")
+      when nil
+        @vulnerabilities = @vulnerabilities.order("name DESC")
+      else
+        @vulnerabilities = @vulnerabilities.order(sorting_param.to_sym => sorting_way_param)
     end
 
     @vulnerabilities = @vulnerabilities.paginate(page: params[:page], :per_page => 15)

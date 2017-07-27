@@ -66,6 +66,21 @@ When(/^I filter (\w+) to be (.*)$/) do |column, filter|
   step "go"
 end
 
+When(/^I sort (\w+) on (\w+)$/) do |sorting_way, sorting_column|
+  link = find_link(sorting_column.capitalize)
+  i = 0
+  while i <= 3 and link[:class] != "sorting-link #{sorting_way}" do
+    link.click
+    link = find_link(sorting_column.capitalize)
+  end
+  
+  expect(link[:class]).to eq "sorting-link #{sorting_way}"
+end
+
+When(/^vulnerability ([^\s]+) should stand before ([^\s]+)$/) do |v1, v2|
+  expect(page.text).to match(/#{v1}.*#{v2}/)
+  expect(page.text).not_to match(/#{v2}.*#{v1}/)
+end
 
 #When(/^follow register link$/) do
 #  click_link('Register')

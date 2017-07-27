@@ -75,3 +75,17 @@ Scenario: Filtering works, part two
   Then I should see vulnerabilities: CVE-2017-1, CVE-2017-4, CVE-2017-8
   When I filter component to be OpenBSD
   Then I should not see vulnerability CVE-2017-1
+
+Scenario: Sorting on name works on vulnerabilities
+  When I go to vulnerabilities page
+  And I sort descending on name
+  Then vulnerability CVE-2017-2 should stand before CVE-2017-1
+  When I sort ascending on name
+  Then vulnerability CVE-2017-1 should stand before CVE-2017-2
+
+Scenario: Sorting on name works on vulnerabilities
+  When I go to relevant vulnerabilities page
+  And I sort descending on name
+  Then vulnerability CVE-2017-2 should stand before CVE-2017-1
+  When I sort ascending on name
+  Then vulnerability CVE-2017-1 should stand before CVE-2017-2
