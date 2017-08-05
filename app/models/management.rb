@@ -12,7 +12,7 @@ class Management < ApplicationRecord
     end
 
     vulns_to_delete = Vulnerability.where('modified <= ?', date_threshold).left_outer_joins(:tags).left_outer_joins(:reactions).where('reactions.id IS NULL').where('tags.id IS NULL')
-    vulns_to_delete.deatroy_all
+    vulns_to_delete.destroy_all
 
   end
 
