@@ -11,7 +11,7 @@ class Management < ApplicationRecord
       raise ArgumentError, "Trying to delete not so old records, use force if you really want it."
     end
 
-    vulns_to_delete = Vulnerability.where('modified <= ?', date_threshold).joins(:tags).joins(reactions).where('reactions.id IS NULL').where('tags.id IS NULL')
+    vulns_to_delete = Vulnerability.where('modified <= ?', date_threshold).left_outer_joins(:tags).left_outer_joins(:reactions).where('reactions.id IS NULL').where('tags.id IS NULL')
     vulns_to_delete.find_each(batch_size: 10) do |vuln|
       next if User.any?(&->(user){RelevantVulnerability.affects_user?(vuln,user)})
       vuln.destroy!
