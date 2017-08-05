@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::StatementInvalid do |exception|
       respond_to do |format|
         message = "The app encountered and error, please, report to the maintainer"
-        if exception.message.include?("PG::InsufficientPrivilege: ERROR: permission denied for relation")
+        if exception.message.to_s.include?("PG::InsufficientPrivilege")
           message = "The app reached Heroku's limit on the database size, please, report it to the maintainer of the app"
         end
         logger.debug exception.message
