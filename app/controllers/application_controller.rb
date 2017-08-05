@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
         message = "The app encountered and error, please, report to the maintainer"
         if exception.message.include?("PG::InsufficientPrivilege: ERROR: permission denied for relation")
           message = "The app reached Heroku's limit on the database size, please, report it to the maintainer of the app"
-        else
+        end
         logger.debug exception.message
         format.html { redirect_to main_app.root_url, notice: message}
       end
