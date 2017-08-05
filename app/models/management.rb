@@ -12,7 +12,7 @@ class Management < ApplicationRecord
     end
 
     vulns_to_delete = Vulnerability.where('modified <= ?', date_threshold).includes(:tags).includes(:reactions)
-    vulns_to_delete.find_each do |vuln|
+    vulns_to_delete.find_each(batch_size: 20) do |vuln|
       next if vuln.tags.count > 0
       next if vuln.reactions.count > 0
       next if User.any?(&->(user){RelevantVulnerability.affects_user?(vuln,user)})
