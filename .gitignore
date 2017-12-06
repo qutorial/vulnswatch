@@ -25,6 +25,7 @@
 # Kate swaps
 *.swp
 *.save
+*.kate-swp
 
 # simplecov report
 coverage
