@@ -65,4 +65,12 @@ end
 
 ##
 
+view_code = view_for_systems ["Apache", "MySQL"]
+
 r = put_view "u1p1", view_code
+
+###
+
+TBD: Update the design doc properly
+curl 'http://localhost:5984/cves/_design/VulnsWatch'{"_id":"_design/VulnsWatch","_rev":"7-7f7e5fd21bb29c6b0b313821b882f8c3","views":{"u1p1":{"map":"function (doc) {\n  var re = /\\bApache\\b|\\bMySQL\\b/i;\n  if (re.test(doc.summary)) {\n    emit(doc.id, doc.summary)\n  }\n  \n}"}}}
+
