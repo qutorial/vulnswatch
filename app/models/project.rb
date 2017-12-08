@@ -1,8 +1,11 @@
 require 'set'
+require 'couch'
 
 class Project < ApplicationRecord
   belongs_to :user
   validates :user_id, presence: true
+
+  after_save {|project| Couch.update_view_for_project project}
 
   def systems()
     prepare_description
