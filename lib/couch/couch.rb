@@ -15,14 +15,35 @@ def address
     return { port: 5984, host: "127.0.0.1", db: "cves" }
 end
 
-def put_json (path, body)
+def do_request(req)
     port = address[:port]
     host = address[:host]
+    req.basic_auth ENV["COUCH_ADMIN"], ENV["COUCH_ADMIN_PASSWORD"]
+    return Net::HTTP.new(host, port).start {|http| http.request(req) }
+end
+
+def build_path(path)
     path = "/" + address[:db] + "/" + path
+end
+
+def put_json (path, body)
+    path = build_path(path)
     req = Net::HTTP::Put.new(path, initheader = { 'Content-Type' => 'application/json'})
     req.body = body
-    req.basic_auth 'admin', 'admin'
-    return Net::HTTP.new(host, port).start {|http| http.request(req) }
+    response = do_request(req)
+    return [response.code == "201", response]
+end
+
+def get_json(path)
+    path = build_path(path)
+    req = Net::HTTP::Get.new(path, initheader = { 'Content-Type' => 'application/json'})
+    response = do_request(req)
+    if response.code == "200"
+        res = JSON.parse(response.body)
+        return [true, res, response]
+    else
+        return [false, nil, response]
+    end
 end
 
 def save_vuln vuln
@@ -48,29 +69,34 @@ def view_for_systems systems
     return res.sub("$RE$", re)
 end
 
-def view_json (name, code)
-    return {views: {
-             "#{name}": {
-                 "map": "#{code}"
-                         }
-             }
-    }.to_json
-end
 
 def put_view name, code
     path = "_design/VulnsWatch"
-    body = view_json name, code
-    return put_json path, body
+    res = get_json(path)
+    if ! res[0]
+        return [false, "Error getting design doc from couchdb", res[2]]
+    end
+    body = res[1]
+    view = body["views"][name]
+    if ! view.nil?
+        old_code = body["views"][name]["map"]
+        if !old_code.nil? && old_code == code
+            return [true, "No need to update the view", res[2]]
+        end
+    end
+
+    body["views"][name] = {"map": code}
+    
+    res = put_json path, body.to_json
+    
+    if ! res[0]
+        return [false, "Error when putting a new view in the couchdb", res[1]]
+    else
+        return [true, "Updated the view successfully", res[1]]
+    end
 end
 
-##
 
-view_code = view_for_systems ["Apache", "MySQL"]
+#r = put_view "u1p1", view_code
 
-r = put_view "u1p1", view_code
-
-###
-
-TBD: Update the design doc properly
-curl 'http://localhost:5984/cves/_design/VulnsWatch'{"_id":"_design/VulnsWatch","_rev":"7-7f7e5fd21bb29c6b0b313821b882f8c3","views":{"u1p1":{"map":"function (doc) {\n  var re = /\\bApache\\b|\\bMySQL\\b/i;\n  if (re.test(doc.summary)) {\n    emit(doc.id, doc.summary)\n  }\n  \n}"}}}
 
