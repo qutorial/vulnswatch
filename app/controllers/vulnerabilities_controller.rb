@@ -7,6 +7,9 @@ class VulnerabilitiesController < ApplicationController
   end
 
   def index
+    @couch_db_busy = false
+    @couch_db_down = false
+    @couch_exception = nil
     # TODO:  This method shall be split in many!!
     # TODO: This method should go into relevant vulnerability model
 
@@ -50,20 +53,44 @@ class VulnerabilitiesController < ApplicationController
       end   
      end    
     
-    # Second in-memory procedures might start
-    relevant_project = relevance_filter_params
-    if relevant_project == 0
-        #any project
-        @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_user(@vulnerabilities, current_user)
-    else
-      project =  Project.find_by(id: relevant_project)
-      if project.nil?
-        # pass: no project selected
-      elsif project.user != current_user
-        flash[:alert] = "You have selected a wrong project for filtering."
-      else
-        @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
+     begin # talkin to couch inside exception block
+
+      # Second in-memory procedures might start
+      relevant_project = relevance_filter_params
+
+      if relevant_project == 0 || ! Project.find_by(id: relevant_project).nil?
+        # relevance is requested project selected
+        @couch_status = Couch.get_couchdb_status
+        if !@couch_status[:success]
+          @couch_db_down = true
+          return
+        elsif @couch_status[:busy]
+          @couch_db_busy = true
+          return
+        end
       end
+        
+
+      
+
+      if relevant_project == 0
+          #any project
+          @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_user(@vulnerabilities, current_user)
+      else
+        project =  Project.find_by(id: relevant_project)
+        if project.nil?
+          # pass: no project selected
+        elsif project.user != current_user
+          flash[:alert] = "You have selected a wrong project for filtering."
+        else
+          @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
+        end
+      end
+
+    rescue RelevantVulnerability::CouchException => exception
+      logger.error exception
+      @couch_db_down = true
+      @couch_exception = exception
     end
 
     # sort

@@ -1,5 +1,37 @@
 <div class="container">
 
+<% if @couch_db_down || @couch_db_busy %>
+
+  <img src="<%= asset_path("wait#{rand(1..8)}.gif") %>" style="margin: auto; display: block; width: 60%;">
+
+  <% if @couch_db_down %>
+    <% if @couch_exception && @couch_exception.results %>
+       Seems that Couch DB is very busy at the moment, please,
+       give it a moment or two and try again. 
+
+    <% else %>
+      Couch DB seems to be down or very busy. 
+      Please, try again in a minute, and then contact the administrator
+      if it is still not working.
+    <% end %>
+  
+  <% elsif @couch_db_busy %>
+    
+    
+      <div class="container"> Couch DB is busy indexing at the moment. Please, come back in a minute. </div>
+    
+
+
+
+    <% @couch_status[:details].each do |process| %>
+      <div class="container alert alert-info">
+        <%= "Indexer started on #{process[:started_on].to_s(:time)} is now at #{process[:progress]}%" %>
+      </div>
+    <% end %>
+
+  <% end %>
+
+<% else %>
 <% pager = will_paginate %>
 <% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
 
@@ -11,7 +43,7 @@
    params[:search], id: "vulnerabilities_search", 
    class: "form-control short-search", placeholder: "Search in names, components or summary" %>
  
- <%= submit_tag 'Search', class: 'search-button' %>
+ <%= submit_tag 'Search', class: 'search-button btn btn-primary' %>
  
  <%= link_to 'Clear',\
        '#', class: 'btn reset-search-btn',\
@@ -47,16 +79,16 @@ Estimated affected component in a project.'>Project</th>
 
   <tr class='filters'>
   
-    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2017-'%> </td>
+    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2017-',  class: "form-control"%> </td>
   
     <td></td>
   
     <td>
-      <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD'%>
+      <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD',  class: "form-control"%>
     </td>
   
     <td>
-      <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2'%>
+      <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2',  class: "form-control"%>
     </td>
   
     <td colspan=3></td>
@@ -67,7 +99,8 @@ Estimated affected component in a project.'>Project</th>
                   options_for_select(projects_filter_collection, params[:project]),\
                   id: "project_filter",\
                   include_blank: true,\
-                  onchange: "this.form.submit();"
+                  onchange: "this.form.submit();",\
+                  class: "form-control"
                 %>
 
   </td>
@@ -76,7 +109,8 @@ Estimated affected component in a project.'>Project</th>
                   options_for_select(explanations_collection_short, params[:reaction].to_i),\
                   id: "reaction_filter",\
                   include_blank: true,\
-                  onchange: "this.form.submit();"
+                  onchange: "this.form.submit();",\
+                  class: "form-control"
                 %>
 
   </td>
@@ -143,3 +177,4 @@ or add more systems to your projects.</p>
 
 </div>
 
+<% end %>

@@ -3,10 +3,20 @@ require 'json'
 require 'net/http'
 require 'logger'
 require 'uri'
-
+require 'date'
 
 
 module Couch
+
+    class TimeoutException < RuntimeError
+        def code
+            0
+        end
+        
+        def body
+            ""
+        end
+    end
 
     @@logger = Logger.new(STDOUT)
     
@@ -22,11 +32,18 @@ module Couch
         return { port: 5984, host: "127.0.0.1", db: "cves" }
     end
 
-    def self.do_request(req)
+    def self.do_request(req, timeout = 5)
         port = address[:port]
         host = address[:host]
         req.basic_auth ENV["COUCH_ADMIN"], ENV["COUCH_ADMIN_PASSWORD"]
-        return Net::HTTP.new(host, port).start {|http| http.request(req) }
+        http = Net::HTTP.new(host, port)
+        http.read_timeout= timeout
+        begin 
+            res = http.start {|http| http.request(req) }
+            return res
+        rescue Net::ReadTimeout
+            return TimeoutException.new
+        end
     end
 
     def self.build_path(path)
@@ -48,16 +65,46 @@ module Couch
         return response
     end
 
-    def self.get_json(path)
-        path = build_path(path)
+    def self.get_json(path, absolute = false, timeout = 5)
+        if ! absolute
+            path = build_path(path)
+        end
         req = Net::HTTP::Get.new(path, initheader = { 'Content-Type' => 'application/json'})
-        response = do_request(req)
+        response = do_request(req, timeout)
         if response.code == "200"
             res = JSON.parse(response.body)
             return [true, res, response]
         else
             return [false, nil, response]
         end
+    end
+
+    # returns {success, message, busy?, [details] }
+    def self.get_couchdb_status
+        res = get_json '/_active_tasks', true, 2
+        if !res[0]
+            return {success: false, message: "Couchdb is not responding timely, please, wait", busy: nil, details: []}
+        end
+
+        busy = false
+        message = "Ready for queries"
+        details = []
+
+        res[1].each do |process|
+            if process["type"] == "indexer" 
+                busy = true
+                message = "Indexing in progress"
+                details += [{started_on: Time.at(process["started_on"]), progress: process["progress"] }]
+            end
+        end
+
+        
+
+        res = {success: true, message: message, busy: busy, details: details}
+
+        @@logger.debug "Couch DB status now: #{res} "
+
+        return res
     end
 
     def self.save_vuln vuln
@@ -111,36 +158,69 @@ module Couch
         
     end
 
-    def self.design_doc_path
-        "_design/VulnsWatch"
+    def self.design_doc_path view_name
+        view_name = URI.escape(view_name)
+        "_design/#{view_name}"
     end
 
-    def self.views_path
-        design_doc_path + "/_view"
+    def self.views_path view_name
+        view_name = URI.escape(view_name)
+        design_doc_path(view_name) + "/_view"
     end
 
     def self.view_path view_name
         view_name = URI.escape(view_name)
-        views_path + "/#{view_name}"
+        views_path(view_name) + "/#{view_name}"
+    end
+    
+    def self.design_doc_template name 
+        template="{
+            \"_id\" : \"_design/example\",
+            \"views\" : {
+            }
+          }"
+
+          return template.gsub('example', URI.escape(name))
     end
 
     def self.put_view name, code
-        path = design_doc_path
+
+        name = URI.escape(name)
+
+        path = design_doc_path name
         res = get_json(path)
+
+        new_views = {
+            "#{name}": {
+                "map": code
+            }}
+        
         if ! res[0]
-            return [false, "Error getting design doc from couchdb", res[2]]
+            json = {"_id": "_design/#{name}", "views": new_views}.to_json
+            res = put_json design_doc_path(name), json
+            if ! res[0]
+                return [false, "Failed to create a design document #{name}", res[2]]
+            else
+                return [true, "Created a new design document #{name}", res[2]]
+            end
+        
         end
+        
         body = res[1]
-        view = body["views"][name]
-        if ! view.nil?
-            old_code = body["views"][name]["map"]
-            if !old_code.nil? && old_code == code
+        views = body["views"]
+
+        if views.nil?
+            body["views"] = new_views
+        else
+            if views == new_views
                 return [true, "No need to update the view", res[2]]
+            else
+                body["views"] = new_views
             end
         end
 
-        body["views"][name] = {"map": code}
-        
+        @@logger.debug "Creating view: #{body[0..100]}..."
+
         res = put_json path, body.to_json
         
         if ! res[0]
@@ -166,20 +246,43 @@ module Couch
         return [view_name_for_user(user), view_for_systems(RelevantVulnerability.users_systems(user))]
     end
 
-    def self.update_view_for_user user
-        view = view_for_user user
-        put_view view[0], view[1]
-    end
-
-    def self.update_view_for_project project
+    def self.update_view_for_project_no_user project
         res = []
         view = view_for_project project
         res[0] = put_view view[0], view[1]
 
-        view = view_for_user project.user
-        res[1] = put_view view[0], view[1]
+        @@logger.debug "Updated a view for project##{project.id} #{project.name}: #{res}"
+
+        return res
+    end
+
+    def self.update_view_for_user user
+        res = []
+        view = view_for_user user
+        res[0] = put_view view[0], view[1]
+
+        @@logger.debug "Updated a view for user##{user.id}: #{res}"
+
+        return res
+    end
+
+    def self.update_view_for_project project
+        res = []
+
+        res += update_view_for_project_no_user project
+     
+        res += update_view_for_user project.user
     
         return res
+    end
+
+    def self.update_all_views
+        Project.all.each do |project|
+            update_view_for_project_no_user project
+        end
+        User.all.each do |user|
+            update_view_for_user user
+        end
     end
 
     def self.update_vulnerabilities_in_couchdb
@@ -200,11 +303,17 @@ module Couch
     end
 
     def self.get_relevant_vulnerabilities_for_user user
-        get_relevant_vulnerabilities view_name_for_user user
+        @@logger.debug "Getting vulnerabilities for user##{user.id} #{user.name} from couchdb"
+        res = get_relevant_vulnerabilities view_name_for_user user
+        @@logger.debug "Got: #{res}"
+        return res
     end
 
     def self.get_relevant_vulnerabilities_for_project project
-        get_relevant_vulnerabilities view_name_for_project project
+        @@logger.debug "Getting vulnerabilities for project##{project.id} \"#{project.name}\" from couchdb..."
+        res = get_relevant_vulnerabilities view_name_for_project project
+        @@logger.debug "Got: #{res}"
+        return res
     end
 
     def self.get_relevant_vulnerabilities view_name
