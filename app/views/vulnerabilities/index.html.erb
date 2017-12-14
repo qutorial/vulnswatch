@@ -2,17 +2,24 @@
 
 <% if @couch_db_down || @couch_db_busy %>
 
-  <img src="<%= asset_path("wait#{rand(1..8)}.gif") %>" style="margin: auto; display: block; width: 60%;">
+  <img src="<%= asset_path("wait#{rand(1..6)}.gif") %>" style="margin: auto; display: block; width: 60%; margin-bottom: 3em;">
 
   <% if @couch_db_down %>
-    <% if @couch_exception && @couch_exception.results %>
-       Seems that Couch DB is very busy at the moment, please,
+
+  <% if @couch_exception && @couch_exception.results %>
+
+<p class="alert alert-warning">
+        Seems that Couch DB is very busy at the moment, please,
        give it a moment or two and try again. 
+</p>
 
     <% else %>
-      Couch DB seems to be down or very busy. 
+
+    <p class="alert alert-warning">
+    Couch DB seems to be down or very busy. 
       Please, try again in a minute, and then contact the administrator
       if it is still not working.
+        </p>
     <% end %>
   
   <% elsif @couch_db_busy %>
@@ -79,16 +86,16 @@ Estimated affected component in a project.'>Project</th>
 
   <tr class='filters'>
   
-    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2017-',  class: "form-control"%> </td>
+    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2017-',  class: "form-control table-search"%> </td>
   
     <td></td>
   
     <td>
-      <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD',  class: "form-control"%>
+      <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD',  class: "form-control table-search"%>
     </td>
   
     <td>
-      <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2',  class: "form-control"%>
+      <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2',  class: "form-control table-search"%>
     </td>
   
     <td colspan=3></td>
@@ -100,7 +107,7 @@ Estimated affected component in a project.'>Project</th>
                   id: "project_filter",\
                   include_blank: true,\
                   onchange: "this.form.submit();",\
-                  class: "form-control"
+                  class: "form-control table-search"
                 %>
 
   </td>
@@ -110,7 +117,7 @@ Estimated affected component in a project.'>Project</th>
                   id: "reaction_filter",\
                   include_blank: true,\
                   onchange: "this.form.submit();",\
-                  class: "form-control"
+                  class: "form-control table-search"
                 %>
 
   </td>

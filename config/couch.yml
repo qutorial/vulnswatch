@@ -1,0 +1,20 @@
+default: &default
+  database: cves
+  host: 127.0.0.1
+  port: 5984
+  user: <%= ENV["COUCH_ADMIN"] %>
+  password: <%= ENV["COUCH_ADMIN_PASSWORD"] %>
+  protocol: http
+
+development:
+  <<: *default
+
+test: &test
+  <<: *default
+  database: cves_test
+
+production:
+  <<: *default
+
+cucumber:
+  <<: *test

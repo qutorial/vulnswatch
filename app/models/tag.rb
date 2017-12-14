@@ -6,6 +6,8 @@ class Tag < ApplicationRecord
   validates_uniqueness_of :component, scope: :vulnerability_id
   validates :component, presence: true, allow_blank: false
 
+  after_save{|tag| Couch.put_vulnerability tag.vulnerability}
+
   def component=(val)
     write_attribute(:component, val.gsub(/^\s+/, '').gsub(/\s+$/, ''))
   end

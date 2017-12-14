@@ -18,7 +18,8 @@ class ActiveSupport::TestCase
 end
 
 def tag(vulnerability, component, user = @user1)
-  vulnerability.tags.build(component: component, user: user).save!
+  the_tag  = vulnerability.tags.build(component: component, user: user)
+  the_tag.save!
 end
 
 def react(vulnerability, status = 1, comment = "Test reaction", user = @user1)

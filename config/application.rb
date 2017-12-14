@@ -12,7 +12,7 @@ module Sahare
     config.load_defaults 5.1
     config.serve_static_assets = true
     config.time_zone = "Berlin"
-    
+    config.couch = config_for(:couch)
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

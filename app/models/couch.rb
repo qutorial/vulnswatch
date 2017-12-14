@@ -19,23 +19,47 @@ module Couch
     end
 
     @@logger = Logger.new(STDOUT)
+
+    def self.address 
+        config = Rails.configuration.couch
+        return { port: config["port"], host: config["host"], db: config["database"], 
+                 protocol: config["protocol"] }
+    end
+
+
+    def  self.couch_user
+        return Rails.configuration.couch["user"]
+    end
+
+    def  self.couch_password
+        return Rails.configuration.couch["password"]
+    end
     
+    def self.couch_uri
+        return URI::HTTP.build(scheme: address[:protocol], 
+        userinfo:"#{couch_user}:#{couch_password}", host: address[:host], 
+        port: address[:port])
+    end
+
+    def self.couch_address
+        couch_uri.to_s
+    end
+    
+
     def self.uuid
-        uri = URI('http://127.0.0.1:5984/_uuids')
+        uri = URI(couch_address + '/_uuids')
         response = Net::HTTP.get(uri)
         res = JSON.parse(response)
         uuid = res["uuids"].first
         return uuid
     end
 
-    def self.address 
-        return { port: 5984, host: "127.0.0.1", db: "cves" }
-    end
+
 
     def self.do_request(req, timeout = 5)
         port = address[:port]
         host = address[:host]
-        req.basic_auth ENV["COUCH_ADMIN"], ENV["COUCH_ADMIN_PASSWORD"]
+        req.basic_auth couch_user, couch_password
         http = Net::HTTP.new(host, port)
         http.read_timeout= timeout
         begin 
@@ -48,6 +72,10 @@ module Couch
 
     def self.build_path(path)
         path = "/" + address[:db] + "/" + path
+    end
+
+    def self.db_path()
+        return build_path('')
     end
 
     def self.put_json (path, body)
@@ -79,6 +107,23 @@ module Couch
         end
     end
 
+    def self.delete_database(force = false)
+        if ! force && ! address[:db] == "cves_test"
+            return [false, "not forced, not deleting", nil]
+        end
+
+        req = Net::HTTP::Delete.new(db_path)
+        response = do_request(req)
+        return [response.code == "200", "Sent request", response]
+    end
+
+    def self.create_database()
+        path = db_path
+        req = Net::HTTP::Put.new(path, initheader = { 'Content-Type' => 'application/json'})
+        response = do_request(req)
+        return [response.code == "201", "Request sent", response]
+    end
+
     # returns {success, message, busy?, [details] }
     def self.get_couchdb_status
         res = get_json '/_active_tasks', true, 2
@@ -107,10 +152,9 @@ module Couch
         return res
     end
 
-    def self.save_vuln vuln
-        path = "#{vuln.id}"
-        response = put_json address path vuln.to_json
-        puts response
+    def self.get_vuln id
+        path = id.to_s
+        get_json path
     end
 
     def self.view_template
@@ -144,7 +188,7 @@ module Couch
         else
             old_body = res[1]
             new_body  = old_body.merge vulnerability.cve_to_json
-            if ! old_body == new_body
+            if ! (old_body == new_body)
                 res = put_json path, new_body.to_json
                 if res[0]
                     return [true, "Update a vulnerability in couchdb", res[1]]

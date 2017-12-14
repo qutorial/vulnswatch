@@ -72,7 +72,6 @@ class VulnerabilitiesController < ApplicationController
         
 
       
-
       if relevant_project == 0
           #any project
           @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_user(@vulnerabilities, current_user)
@@ -87,10 +86,10 @@ class VulnerabilitiesController < ApplicationController
         end
       end
 
-    rescue RelevantVulnerability::CouchException => exception
-      logger.error exception
+    rescue RelevantVulnerability::CouchException => exc
+      logger.error exc
       @couch_db_down = true
-      @couch_exception = exception
+      @couch_exception = exc
     end
 
     # sort
