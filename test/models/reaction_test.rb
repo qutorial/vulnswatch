@@ -4,9 +4,13 @@ class ReactionTest < ActiveSupport::TestCase
 
   def setup
     @user = User.create!(name: "Test User", email: "test_user@ema.il", password: "123qwehello123harder", password_confirmation: "123qwehello123harder")
+    @user.save!
     @project = @user.projects.create!(name: "Test Project", description: "Lorem ipsum")
+    @project.save!
     @vulnerability = Vulnerability.create!(name: "CVE-2017-1234", summary: "A huge blow in the OpenBSD kernel", created: DateTime.now, modified: DateTime.now)
+    @vulnerability.save!
     @reaction = Reaction.new(user_id: @user.id, vulnerability_id: @vulnerability.id, status: 1, text: "Veniam omnis architecto aut et.Veniam omnis architecto aut et. " * 2  )
+    @reaction.save!
   end
 
   test "valid reaction validates" do
