@@ -66,20 +66,15 @@ class ManagementTest < ActiveSupport::TestCase
 
   test "delete old and unused works" do
     assert_difference 'Vulnerability.count', -1 do
-      Management.delete_old_unused_vulnerabilities(DateTime.new(2016))
-    end
-  end
-
-  test "delete old and unused reacts on date" do
-    assert_difference 'Vulnerability.count', -2 do
-      Management.delete_old_unused_vulnerabilities(DateTime.new(2017))
+      Management.delete_old_unused_vulnerabilities(DateTime.new(2014))
     end
   end
 
   test "delete old and unused force works" do
-    assert_difference 'Vulnerability.count', -3 do
-      Management.delete_old_unused_vulnerabilities(DateTime.now, true)
+    assert_difference 'Vulnerability.count', -8 do
+      Management.delete_old_unused_vulnerabilities(DateTime.new(2017), true)
     end
+    
   end
 
 end

@@ -108,6 +108,7 @@ module Couch
     end
 
     def self.delete_database(force = false)
+        #@@logger.info "Deleting Couch DB"
         if ! force && ! address[:db] == "cves_test"
             return [false, "not forced, not deleting", nil]
         end
@@ -118,6 +119,7 @@ module Couch
     end
 
     def self.create_database()
+        #@@logger.info "Creating Couch DB"
         path = db_path
         req = Net::HTTP::Put.new(path, initheader = { 'Content-Type' => 'application/json'})
         response = do_request(req)
@@ -147,7 +149,7 @@ module Couch
 
         res = {success: true, message: message, busy: busy, details: details}
 
-        @@logger.debug "Couch DB status now: #{res} "
+        #@@logger.info "Couch DB status now: #{res} "
 
         return res
     end
@@ -160,8 +162,17 @@ module Couch
     def self.view_template
         template="function (doc) {
     var re = /$RE$/i;
+    if(doc.tags) {
+        if (doc.tags.length > 0){
+            if(re.test(doc.tags.join())){
+                emit(doc.id, 1);
+            }
+            // not matching on summary then
+            return;
+        }
+    }
     if (re.test(doc.summary)) {
-        emit(doc.id, 1)
+        emit(doc.id, 1);
     }
     
     }"
@@ -172,6 +183,12 @@ module Couch
         res = view_template
         re = systems.collect{ |x| "\\b" + Regexp.escape(x) + "\\b" }.join("|")
         return res.sub("$RE$", re)
+    end
+
+    def self.delete_vulnerability vulnerability
+        path = "#{vulnerability.id}"
+        res = delete path
+        return {success: res.code == "200", message: "Delete requested", response: res}
     end
 
     def self.put_vulnerability vulnerability
@@ -263,7 +280,7 @@ module Couch
             end
         end
 
-        @@logger.debug "Creating view: #{body[0..100]}..."
+        #@@logger.debug "Creating view: #{body[0..100]}..."
 
         res = put_json path, body.to_json
         
@@ -295,7 +312,7 @@ module Couch
         view = view_for_project project
         res[0] = put_view view[0], view[1]
 
-        @@logger.debug "Updated a view for project##{project.id} #{project.name}: #{res}"
+        #@@logger.debug "Updated a view for project##{project.id} #{project.name}: #{res}"
 
         return res
     end
@@ -305,7 +322,7 @@ module Couch
         view = view_for_user user
         res[0] = put_view view[0], view[1]
 
-        @@logger.debug "Updated a view for user##{user.id}: #{res}"
+        #@@logger.debug "Updated a view for user##{user.id}: #{res}"
 
         return res
     end
@@ -347,16 +364,16 @@ module Couch
     end
 
     def self.get_relevant_vulnerabilities_for_user user
-        @@logger.debug "Getting vulnerabilities for user##{user.id} #{user.name} from couchdb"
+        #@@logger.debug "Getting vulnerabilities for user##{user.id} #{user.name} from couchdb"
         res = get_relevant_vulnerabilities view_name_for_user user
-        @@logger.debug "Got: #{res}"
+        #@@logger.debug "Got: #{res}"
         return res
     end
 
     def self.get_relevant_vulnerabilities_for_project project
-        @@logger.debug "Getting vulnerabilities for project##{project.id} \"#{project.name}\" from couchdb..."
+        #@@logger.debug "Getting vulnerabilities for project##{project.id} \"#{project.name}\" from couchdb..."
         res = get_relevant_vulnerabilities view_name_for_project project
-        @@logger.debug "Got: #{res}"
+        #@@logger.debug "Got: #{res}"
         return res
     end
 

@@ -8,7 +8,9 @@ require 'rails/test_help'
 require 'webmock/test_unit'
 require 'support/fake_nvd'
 WebMock.stub_request(:any, /nvd.nist.gov/).to_rack(FakeNvd)
-
+WebMock.disable_net_connect!(:allow => "#{Couch::address[:host]}:#{Couch::address[:port]}")
+Couch::delete_database
+Couch::create_database
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

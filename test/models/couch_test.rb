@@ -5,8 +5,8 @@ class CouchTest < ActiveSupport::TestCase
   def setup
 
    # Sad, but it works with a real couch db
-   WebMock.disable!
-   assert Couch::create_database[0] == true
+#   WebMock.disable!
+#   assert Couch::create_database[0] == true
    
    @user1 = User.new(name: "Test User", email: "test_user@ema.il", password: "123qwehello123harder", password_confirmation: "123qwehello123harder")
    @user1.save!
@@ -28,8 +28,8 @@ class CouchTest < ActiveSupport::TestCase
 
 
   def teardown
-    assert Couch::delete_database[0] == true
-    WebMock.enable!
+#    assert Couch::delete_database[0] == true
+#    WebMock.enable!
   end
 
   test "couch uri building works" do
