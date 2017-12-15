@@ -60,3 +60,11 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+
+def allow_couch_in_tests!
+  WebMock.disable_net_connect!(:allow => "#{Couch::address[:host]}:#{Couch::address[:port]}")
+  Couch::delete_database
+  Couch::create_database
+end
+
+allow_couch_in_tests!
