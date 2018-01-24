@@ -16,6 +16,8 @@
          window.location.replace("<%= root_url %>")
        </script>
     <% end %>
+    
+    <%= favicon_link_tag 'vulnswatch.64.png' %>
 
   </head>
 
@@ -27,40 +29,39 @@
        </noscript>
     <% end %>
  
-    <nav class="navbar navbar-inverse">
-      <div class="container">
-        <div class="navbar-header">
-          <%= link_to 'vulnswatch', root_path, class: 'navbar-brand' %>
-        </div>
+    <nav class="navbar navbar-light navbar-expand-lg">
+      <%= link_to root_path, class: 'navbar-brand' do %>
+        <%= image_tag 'vulnswatch.32.png' %>
+        <%= 'vulnswatch' %>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
   
-        <div id="navbar">
-          <ul class="nav navbar-nav">
-            <% if user_signed_in? %>
-              <li><%= link_to 'Vulnerabilities', vulnerabilities_path %></li>
-              <li><%= link_to 'Projects', projects_path %></li>
-              <li><%= link_to 'Relevant Vulnerabilities', relevant_vulnerabilities_path %></li>
-              <li><%= link_to 'Reactions', reactions_path %></li>
-            <% end %>
-          </ul>
-          <ul class="nav navbar-nav pull-right">
-            <% if user_signed_in? %>
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <div class="navbar-collapse collapse" id="navbarNav">
+        <ul class='navbar-nav mr-auto'>
+          <% if user_signed_in? %>
+              <li class='nav-item'><%= link_to 'Vulnerabilities', vulnerabilities_path, class: 'nav-link' %></li>
+              <li class='nav-item'><%= link_to 'Projects', projects_path, class: 'nav-link' %></li>
+              <li class='nav-item'><%= link_to 'Relevant Vulnerabilities', relevant_vulnerabilities_path, class: 'nav-link' %></li>
+              <li class='nav-item'><%= link_to 'Reactions', reactions_path, class: 'nav-link' %></li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <%= current_user.name %>
-                  <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><%= link_to 'Profile', edit_user_registration_path %></li>
-                  <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
-                </ul>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <%= link_to 'Profile', edit_user_registration_path, class: 'dropdown-item' %>
+                  <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+                </div>
               </li>
             <% else %>
-              <li><%= link_to 'Log In', new_user_session_path  %></li>
-              <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+              <li class='nav-item'><%= link_to 'Log In', new_user_session_path, class: 'nav-link' %></li>
+              <li class='nav-item'><%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %></li>
             <% end %>
-          </ul>
-        </div> <!-- nav bar --!>
-      </div> <!-- container --!>
+        </ul>
+      </div> <!-- nav bar --!>
     </nav>
 
     <div class="container"> <!-- flash messages -->

@@ -18,7 +18,8 @@ gem 'rubyzip'
 
 # Pagination
 gem 'will_paginate'
-gem 'bootstrap-will_paginate'
+#gem 'bootstrap-will_paginate'
+gem 'will_paginate-bootstrap4'
 
 # JQuery
 gem 'jquery-rails'
@@ -33,7 +34,7 @@ gem 'devise_zxcvbn'
 gem 'cancancan'
 
 # Bootstrap
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 4.0.0'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
