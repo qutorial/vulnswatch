@@ -1,52 +1,21 @@
 - content_for :top_content do
-  %div.jumbotron
-    %div.container
-      - if not user_signed_in?
-        %h2
-          vulnswatch vulnerability manager
-        %p
-          %em
-            vulnswatch lets you manage known vulnerabilities in your projects
-	
-        %br
-        %ul{ style: 'font-size: 130%'}
-          %li
-            Plenty of systems are affected by vulnerabilities every day.
-          
-          %li
-            With vulnswatch you can easily learn which of your projects 
-            might have been affected. 
-          
-          %li
-            Afterwards you can manage the discovered
-            vulnerabilities by tracking their fixing process.
-        %br
-        %p
-          Follow this simple workflow for starters:
-        %p
-          Register ⇨ Create a project ⇨ Manage vulnerabilities
-        
-        =render 'disclaimer'
-
-
-
-          
-
-      - if ! user_signed_in?
-        %p
-          = link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg'
-          = link_to 'Sign in', new_user_session_path, class: 'btn btn-lg'
+  - if ! user_signed_in?
+    = image_tag 'vulnswatch.800.png', class:'img-fluid mx-auto d-block'
+    %h2.h2.text-center.mt-2 vulnswatch - never miss a CVE again!
+    %p
+      = link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg'
+      = link_to 'Sign in', new_user_session_path, class: 'btn btn-lg'
+  - else
+    %p
+      = "Welcome #{current_user.name.split(' ')[0]}!" 
+    %p
+      Here is the way to go:
+    %p
+      - if current_user.projects.count == 0
+        = link_to "Create your first project", new_project_path, class: 'btn btn-primary'
       - else
-        %p
-          = "Welcome #{current_user.name.split(' ')[0]}!" 
-        %p
-          Here is the way to go:
-        %p
-          - if current_user.projects.count == 0
-            = link_to "Create your first project", new_project_path, class: 'btn btn-primary'
-          - else
-            = link_to "View my Projects", projects_path, class: 'btn'
-            = link_to "Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'
-            = link_to "All Vulnerabilities", vulnerabilities_path, class: 'btn'
-            = link_to "My Reactions", reactions_path, class: 'btn'
-      
+        = link_to "View my Projects", projects_path, class: 'btn'
+        = link_to "Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'
+        = link_to "All Vulnerabilities", vulnerabilities_path, class: 'btn'
+        = link_to "My Reactions", reactions_path, class: 'btn'
+  

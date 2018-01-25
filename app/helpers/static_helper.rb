@@ -13,6 +13,7 @@ module StaticHelper
 
   def link_to_issues(title='Report a Bug', other={})
     other[:target] = '_blank'
+    other[:class]='nav-link'
     other[:data] = {confirm:
 'You will be redirected to github Issues now.
 Please, check if there is an issue already.'}

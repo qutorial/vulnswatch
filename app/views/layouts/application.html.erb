@@ -81,18 +81,24 @@
       <%= yield %>
     </div>
   
-  <div class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container footer">
-      <ul class="nav navbar-nav">
-        <li><%= link_to 'Impressum', impressum_path %></li>
-        <li><%= link_to 'Contact', contact_path %></li>
-        <li><%= link_to 'Datenschutz', datenschutz_path %></li>
-        <li><%= link_to 'Terms of Use', terms_path %></li>
-        <li><%= link_to_issues %></li>
-        <li><%= link_to 'About', about_path %></li>
-      </ul>
-    </div>
-  </div>
+
+    <nav class="navbar navbar-light navbar-expand-lg">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavBottom" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="navbar-collapse collapse" id="navbarNavBottom">
+        <ul class='navbar-nav mr-auto'>
+          <li><%= link_to 'Impressum', impressum_path, class: 'nav-link' %></li>
+          <li><%= link_to 'Contact', contact_path, class: 'nav-link' %></li>
+          <li><%= link_to 'Datenschutz', datenschutz_path, class: 'nav-link' %></li>
+          <li><%= link_to 'Terms of Use', terms_path, class: 'nav-link' %></li>
+          <li><%= link_to_issues %></li>
+          <li><%= link_to 'About', about_path, class: 'nav-link' %></li>
+        </ul>
+      </div>
+    </nav>
 
   </body>
 
