@@ -46,15 +46,20 @@
 
 <%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
  
- <%= text_field_tag :search, 
-   params[:search], id: "vulnerabilities_search", 
-   class: "form-control short-search", placeholder: "Search in names, components or summary" %>
- 
- <%= submit_tag 'Search', class: 'search-button btn btn-primary' %>
- 
- <%= link_to 'Clear',\
-       '#', class: 'btn reset-search-btn',\
-       onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
+ <div class='container-fluid'>
+  <div class='input-group'>
+    <%= text_field_tag :search, 
+    params[:search], id: "vulnerabilities_search", 
+    class: "form-control", placeholder: "Search in names, components or summary" %>
+
+    <span class='input-group-btn'>
+      <%= submit_tag 'Search', class: 'btn btn-primary' %>
+      <%= link_to 'Clear',\
+        '#', class: 'btn reset-search-btn',\
+        onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
+    </span>
+  </div>
+ </div>
 
            
 <%= render 'shared/last_update_nvd' %>
@@ -86,7 +91,7 @@ Estimated affected component in a project.'>Project</th>
 
   <tr class='filters'>
   
-    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2017-',  class: "form-control table-search"%> </td>
+    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2018-',  class: "form-control table-search"%> </td>
   
     <td></td>
   
