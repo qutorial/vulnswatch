@@ -1,17 +1,10 @@
-<h3>Your Projects</h3>
 
 <div class="container">
+<p>Your Projects</p>
 
 <% if current_user.projects.count > 0 %>
 
-<table class="index_table table-striped">
-  <thead>
-    <tr>
-      <th><!--Name--></th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
+<table class="table table-responsive table-striped">
   <tbody>
     <% @projects.each do |project| %>
       <tr>

@@ -1,32 +1,44 @@
-td.component, td.status, td.relevance {
-  text-align: center;
-  max-width: 12em;
+.vuln-cell {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.vuln-component, .vuln-status, .vuln-relevance {
+  max-width: 14em;
 }
 
-td.vulnerability-summary {
+.vuln-summary {
   text-align: justify;
   font-size: 85%;
   margin-top: 5px;
   min-width: 25em;
 }
 
+.vuln-name {
+  min-width: 9em;
+}
+
+.vuln-updated {
+  min-width: 7em;
+}
+
+
 tr.filters{
   td {
    background-color: white;
    min-height: 4em;
      input, select {
-       max-width: 8em;
+       //max-width: 8em;
        font-size: 80%;
      }
      input#summary_filter {
        width: 24em;
-       max-width: 25em;
+       //max-width: 25em;
      }
      input.table-search, select.table-search {
        min-width: 8em;
      }
-  }  
-  border-bottom: solid gray 1px;
+     margin-bottom: 5px;
+  }
 }
 
 div.update_vulnerabilities_warning {
@@ -36,23 +48,11 @@ div.update_vulnerabilities_warning {
 form.search {
   position: relative;
   
-  input.short-search {
-    width: 100%;
-    padding-right: 14em;
-  }
-
-  input.search-button {
-    width: 8em;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  
   a.reset-search-btn {
-    width: 6em;
+    width: 4em;
     position: absolute;
     top: 0;
-    right: 8em;
+    right: 5em;
   }
 
 }
@@ -104,7 +104,7 @@ a.no_reaction {
 
 
 a.sorting-link {
-  color: black;
+  //color: black;
   text-decoration: none;
   &.descending:after {
     content: '▼';
@@ -134,11 +134,4 @@ div.continue-research{
   a {
     margin-left: 3em;
   }
-}
-
-
-div.pagination {
-  margin-left: 20%;
-  width: 70%;
-  display: block;
 }

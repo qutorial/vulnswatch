@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
 
 <% if @couch_db_down || @couch_db_busy %>
 
@@ -42,7 +42,9 @@
 <% pager = will_paginate %>
 <% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
 
-<%= pager%>
+<div class="row justify-content-md-center">
+  <%= pager %>
+</div>
 
 <%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
  
@@ -59,28 +61,29 @@
         onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
     </span>
   </div>
- </div>
+
 
            
 <%= render 'shared/last_update_nvd' %>
 
-<table id="vulns" class="index_table table-striped">
+
+<table id="vulns" class="mt-4 table-responsive table-hover table table-striped">
   <thead>
     <tr>
-      <th><%= sorting_link_to 'Name', 'name' %></th>
+      <th class="vuln-cell vuln-name"><%= sorting_link_to 'Name', 'name' %></th>
       
-      <th><%= sorting_link_to 'Updated', 'modified' %>
+      <th class="vuln-cell vuln-updated"><%= sorting_link_to 'Updated', 'modified' %>
       </th>
       
-      <th>Component</th>
+      <th class="vuln-cell vuln-component">Component</th>
       
-      <th title='Focus on a field, or click an icon in the next column to learn more.'>Summary</th>
-      <th title='' colspan=3>Read more details on</th>
-      <th title='Select a project.
+      <th class="vuln-cell vuln-summary" title='Focus on a field, or click an icon in the next column to learn more.'>Summary</th>
+      <th class="vuln-cell vuln-read-on" title='' colspan=3>Details</th>
+      <th class="vuln-cell vuln-project" title='Select a project.
 
 Estimated affected component in a project.'>Project</th>
 
-      <th><%= sorting_link_to 'Reaction', 'reaction' %>
+      <th class="vuln-cell vuln-reaction"><%= sorting_link_to 'Reaction', 'reaction' %>
 
 
       </th>
@@ -91,19 +94,21 @@ Estimated affected component in a project.'>Project</th>
 
   <tr class='filters'>
   
-    <td><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2018-',  class: "form-control table-search"%> </td>
+    <td class="vuln-cell"><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2018-...',  class: "form-control table-search"%> </td>
   
-    <td></td>
+    <td class="vuln-cell">
+      <%# no filter for update yet%>
+    </td>
   
-    <td>
+    <td class="vuln-cell">
       <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD',  class: "form-control table-search"%>
     </td>
   
-    <td>
+    <td class="vuln-cell">
       <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2',  class: "form-control table-search"%>
     </td>
   
-    <td colspan=3></td>
+    <td class="vuln-cell" colspan=3></td>
   
   <td>
 
@@ -144,18 +149,18 @@ or add more systems to your projects.</p>
 
     <% @vulnerabilities.each do |vulnerability| %>
       <tr>
-        <td><%= link_to_vulnerability vulnerability %></td>
-        <td><%= ago_helper(vulnerability.modified) %></td>
-        <td class="component">
+        <td class="vuln-cell vuln-name"><%= link_to_vulnerability vulnerability %></td>
+        <td class="vuln-cell vuln-updated"><%= ago_helper(vulnerability.modified) %></td>
+        <td class="vuln-cell vuln-component">
           <%= render 'shared/component', vulnerability: vulnerability %>
         </td>
-        <td class='vulnerability-summary'><%= link_to shorten(vulnerability.summary, 88), vulnerability, title: vulnerability.summary, 
+        <td class="vuln-cell vuln-summary"><%= link_to shorten(vulnerability.summary, 88), vulnerability, title: vulnerability.summary, 
                  class: 'black_text_link' %></td>
-        <td><%= link_to_nvd(vulnerability) %></td>
-        <td><%= link_to_cve_details(vulnerability) %></td>
-        <td><%= link_to_google(vulnerability) %></td>
-        <td class="relevance"><%= render('explanations', explanation: @explanations[vulnerability] )%></td>
-        <td class="status">
+        <td class="vuln-cell read-on-single"><%= link_to_nvd(vulnerability) %></td>
+        <td class="vuln-cell read-on-single"><%= link_to_cve_details(vulnerability) %></td>
+        <td class="vuln-cell read-on-single"><%= link_to_google(vulnerability) %></td>
+        <td class="vuln-cell vuln-project"><%= render('explanations', explanation: @explanations[vulnerability] )%></td>
+        <td class="vuln-cell vuln-reaction">
            <%= link_to_react(vulnerability) %>            
         </td>
       </tr>
@@ -163,17 +168,13 @@ or add more systems to your projects.</p>
   </tbody>
 </table>
 
+<div class="row justify-content-md-center mt-3">
+  <%= pager %>
+</div>
 
-<%= pager %>
-
-
-
-
-
-<br>
-<br>
-<br>
-<%= link_to "Show Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'%>
+<div class="mt-2">
+  <%= link_to "Show Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'%>
+</div>
 
 <% end %>
 <br>
@@ -183,7 +184,7 @@ or add more systems to your projects.</p>
   <%= reaction_legend.html_safe %>
 </p>
 
-
+ </div>
 
 <% end %>
 
