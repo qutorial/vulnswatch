@@ -1,6 +1,11 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource  
   before_action :alert_on_huge_projects
+  before_action :set_viewing_projects
+
+  def set_viewing_projects
+    @viewing_projects = true
+  end
 
   def index
   end

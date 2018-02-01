@@ -70,6 +70,7 @@
 <table id="vulns" class="mt-4 table-responsive table-hover table table-striped">
   <thead>
     <tr>
+      <th class="vuln-cell checkbox"></th>
       <th class="vuln-cell vuln-name"><%= sorting_link_to 'Name', 'name' %></th>
       
       <th class="vuln-cell vuln-updated"><%= sorting_link_to 'Updated', 'modified' %>
@@ -93,7 +94,7 @@ Estimated affected component in a project.'>Project</th>
   <tbody>
 
   <tr class='filters'>
-  
+    <td class="vuln-cell checkbox"><%= check_box_tag 'bulk-checkbox' %></td>
     <td class="vuln-cell"><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2018-...',  class: "form-control table-search"%> </td>
   
     <td class="vuln-cell">
@@ -149,6 +150,7 @@ or add more systems to your projects.</p>
 
     <% @vulnerabilities.each do |vulnerability| %>
       <tr>
+	<td class="vuln-cell checkbox"><%= check_box_tag vulnerability.name + "_check", vulnerability.id, false, class: 'vulnerability_checkbox'  %></td>
         <td class="vuln-cell vuln-name"><%= link_to_vulnerability vulnerability %></td>
         <td class="vuln-cell vuln-updated"><%= ago_helper(vulnerability.modified) %></td>
         <td class="vuln-cell vuln-component">
@@ -165,6 +167,13 @@ or add more systems to your projects.</p>
         </td>
       </tr>
     <% end %>
+
+    <tr class="last-button-row">
+      <td colspan="2">
+        <button type="button" id="bulk-react-button" class="btn btn-primary btn-block">React</button>
+      </td>
+      <td colspan="8"></td>
+    </tr>
   </tbody>
 </table>
 
@@ -173,7 +182,7 @@ or add more systems to your projects.</p>
 </div>
 
 <div class="mt-2">
-  <%= link_to "Show Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-primary'%>
+  <%= link_to "Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-success'%>
 </div>
 
 <% end %>

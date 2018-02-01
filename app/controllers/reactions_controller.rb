@@ -1,5 +1,10 @@
 class ReactionsController < ApplicationController
   before_action :set_reaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_viewing_reactions
+
+  def set_viewing_reactions
+    @viewing_reactions = true
+  end
 
   # GET /reactions
   # GET /reactions.json

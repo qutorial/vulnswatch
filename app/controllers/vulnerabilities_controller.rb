@@ -58,7 +58,9 @@ class VulnerabilitiesController < ApplicationController
       # Second in-memory procedures might start
       relevant_project = relevance_filter_params
 
-      if relevant_project == 0 || ! Project.find_by(id: relevant_project).nil?
+      @searching_relevants = relevant_project == 0 || ! Project.find_by(id: relevant_project).nil?
+
+      if @searching_relevants
         # relevance is requested project selected
         @couch_status = Couch.get_couchdb_status
         if !@couch_status[:success]
