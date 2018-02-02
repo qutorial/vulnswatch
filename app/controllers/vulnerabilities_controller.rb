@@ -82,7 +82,7 @@ class VulnerabilitiesController < ApplicationController
         if project.nil?
           # pass: no project selected
         elsif project.user != current_user
-          flash[:alert] = "You have selected a wrong project for filtering."
+          flash[:danger] = "You have selected a wrong project for filtering."
         else
           @vulnerabilities = RelevantVulnerability.filter_relevant_vulnerabilities_for_project(@vulnerabilities, project)
         end
@@ -110,7 +110,7 @@ class VulnerabilitiesController < ApplicationController
   # GET /vulnerabilities/nvd
   def nvd
     Vulnerability.load_new_vulnerabilities_from_nvd()
-    flash[:notice] = "Vulnerabilities Updated from NVD"
+    flash[:success] = "Vulnerabilities Updated from NVD"
     redirect_to vulnerabilities_path
   end
 
@@ -120,9 +120,9 @@ class VulnerabilitiesController < ApplicationController
     year = params[:year]
     year = year.to_i unless year.nil?
     if year.nil? or ! ( year.class == Fixnum ) or ! ( 2012 <= year and year <= Date.today.year.to_i)
-      flash[:alert] = "Year was not properly specified"
+      flash[:warning] = "Year was not properly specified"
     else
-      flash[:notice] = "Vulnerabilities for year #{year} loaded from NVD"
+      flash[:success] = "Vulnerabilities for year #{year} loaded from NVD"
       Vulnerability.load_vulnerabilities_from_nvd_for_year(year)
     end
     redirect_to vulnerabilities_path
@@ -137,7 +137,7 @@ class VulnerabilitiesController < ApplicationController
     def set_vulnerability
       @vulnerability = Vulnerability.find_by(id: params[:id])
       if @vulnerability.nil? 
-        flash[:alert] = "Invalid vulnerability specified"
+        flash[:danger] = "Invalid vulnerability specified"
         redirect_to vulnerabilities_path
       end
     end

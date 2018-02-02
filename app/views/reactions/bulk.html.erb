@@ -1,3 +1,6 @@
+<h4>Bulk Reaction</h4>
+
+
 <%= form_with(model: reaction, local: true) do |form| %>
   <% if reaction.errors.any? %>
     <div id="error_explanation">
@@ -17,8 +20,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :status, 'Status:' %>
-    <%= form.select :status, all_statusses()[1..4].each_with_index.map {|name, index| [name,index + 1]}, {}, {id: :reaction_status, class: 'form-control custom-select'} %>
+    <%= form.label :status %>
+    <%= form.select :status, all_statusses()[1..4].each_with_index.map {|name, index| [name,index + 1]}, id: :reaction_status, class: "form-control" %>
   </div>
 
   <div class="field">
@@ -27,7 +30,17 @@
   </div>
 
   <div class="actions">
-    <%= form.submit class: 'btn btn-primary' %>
+    <%= form.submit %>
   </div>
 
 <% end %>
+
+
+
+<br>
+
+<div class='back-links'>
+    <%= link_to 'Reactions', reactions_path %>
+    <%= render 'shared/back_links' %>
+</div>
+

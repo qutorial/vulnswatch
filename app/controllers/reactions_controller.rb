@@ -1,7 +1,7 @@
 class ReactionsController < ApplicationController
   before_action :set_reaction, only: [:show, :edit, :update, :destroy]
   before_action :set_viewing_reactions
-
+  before_action :set_bulk_vulnerabilities, only: [:bulk_new, :bulk_create]
   def set_viewing_reactions
     @viewing_reactions = true
   end
@@ -42,6 +42,40 @@ class ReactionsController < ApplicationController
     end
   end
 
+  def set_bulk_vulnerabilities
+    vulns = params.require(:vulns)
+    @vulnerabilities = Vulnerability.where(id: vulns)
+  end
+
+  # POST /reactions/bulk
+  def bulk_new
+    @reaction = current_user.reactions.new()
+  end
+  
+  # POST /reactions/bulk/create
+  def bulk_create
+    bulk_reaction = params.permit(:status, :text)
+    success = true;  
+    @vulnerabilities.each do |vuln|
+      @reaction = current_user.reactions.find_by(vulnerability: vuln)
+      if @reaction.nil?
+        @reaction = current_user.reactions.build(vulnerability: vuln, status: bulk_reaction[:status], text: bulk_reaction[:text])
+      else 
+        @reaction.status =  bulk_reaction[:status]
+        @reaction.text = bulk_reaction[:text]
+      end
+      success = success && @reaction.save
+    end
+
+    if success 
+      flash[:success] = "Bulk reaction saved"
+    else
+      flash[:danger] = "Saving bulk reaction failed"
+    end
+    redirect_to relevant_vulnerabilities_path
+  end
+  
+
   # PATCH/PUT /reactions/1
   # PATCH/PUT /reactions/1.json
   def update
@@ -72,13 +106,13 @@ class ReactionsController < ApplicationController
       @reaction = Reaction.find_by(id: params[:id])
 
       if @reaction.nil? 
-        flash[:alert] = "Invalid reaction specified"
+        flash[:danger] = "Invalid reaction specified"
         redirect_to reactions_path
         return 
       end     
 
       if @reaction.user != current_user 
-        flash[:alert] = "Manipulating someone else's reactions is not allowed"
+        flash[:danger] = "Manipulating someone else's reactions is not allowed"
         redirect_to relevant_vulnerabilities_path
       end
     end

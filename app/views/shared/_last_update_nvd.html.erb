@@ -1,6 +1,6 @@
 <% deadline = 8 #hours %>
 <% if NvdUpdate.last <= deadline.hours.ago %>
-  <div class="update_vulnerabilities_warning">
+  <div class="alert alert-warning" role="alert">
    The vulnerabilities are older than <%=deadline%> hours!
-<%= link_to "Update from NVD", nvd_update_path, class: 'btn', id: 'update', target: '_blank' %> </div>
+<%= link_to "Update", nvd_update_path, class: 'btn btn-primary', id: 'update', target: '_blank' %> </div>
 <% end %>

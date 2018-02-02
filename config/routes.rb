@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :tags
   authenticate :user do
     resources :reactions
+    post 'reactions/bulk', to: 'reactions#bulk_new', as: 'reactions_bulk_new'
+    post 'reactions/bulk/create', to: 'reactions#bulk_create', as: 'reactions_bulk_create'
     resources :tags
     resources :vulnerabilities, only: [:index, :show, :update, :edit]
     resources :projects

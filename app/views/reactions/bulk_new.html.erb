@@ -1,0 +1,49 @@
+<h4>Bulk Reaction</h4>
+
+
+<%= form_tag reactions_bulk_create_path, method: :post do  %>
+  <% if @reaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reaction.errors.count, "error") %> prohibited this reaction from being saved:</h2>
+
+      <ul>
+      <% reaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div>
+        Reacting to: 
+        <% @vulnerabilities.each do |vuln| %>
+            <%= link_to_vulnerability vuln %>
+            <%= hidden_field_tag 'vulns[]', vuln.id %>
+        <% end %>
+    </div>
+
+  <div class="field">
+    <%= label_tag :status, 'Status:' %>                                                                             <%# 3 = ok - not relevant (default)%>
+    <%= select_tag :status, options_for_select(all_statusses()[1..4].each_with_index.map {|name, index| [name,index + 1]}, 3), class: 'form-control custom-select' %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :text, "Comment:" %>
+    <%= text_area_tag :text, 'Falsely detected as relevant', class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag "Submit", class: 'btn btn-primary' %>
+  </div>
+
+<% end %>
+
+
+
+<br>
+
+<div class='back-links'>
+    <%= link_to 'Reactions', reactions_path %>
+    <%= render 'shared/back_links' %>
+</div>
+

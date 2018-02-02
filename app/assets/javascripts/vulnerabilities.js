@@ -1,5 +1,5 @@
 //= require jquery3
-
+//= require turbolinks
 
 bulk_checkbox_click_vulns = function() {
     var chkbox = $('#bulk-checkbox')
@@ -9,8 +9,38 @@ bulk_checkbox_click_vulns = function() {
     });
 }
 
-ready_vulns = function() {
+bulk_react_button_click_vulns = function() {
+    $(".vulnerability_checkbox:checked").each(function(){
+        var input = $("<input>").attr("type", "hidden")
+                .attr("name", "vulns[]")
+                .val($(this).val());
+        $('#bulk-reaction-form').append($(input));
+    });
+    $('#bulk-reaction-form').submit();
+}
+
+var doubleclickpreventor = 1;
+
+flip_the_checkbox_inside_vulns = function(event){
+    if(doubleclickpreventor==2){
+        doubleclickpreventor=0;
+    }
+    ++doubleclickpreventor;
+    if(doubleclickpreventor == 2){
+        $(this).find(":checkbox").click();
+    }
+}
+
+vulnerability_checkbox_event_propagation_stop = function(event){
+    event.stopPropagation();
+}
+
+bind_vulns_buttons = function() {
    $('#bulk-checkbox').click(bulk_checkbox_click_vulns);
+   $('#bulk-react-button').click(bulk_react_button_click_vulns);
+   $('tr.vuln-tr').click(flip_the_checkbox_inside_vulns);
+   $("input.vulnerability_checkbox").click(vulnerability_checkbox_event_propagation_stop);
 }
   
-$( document ).ready(ready_vulns);
+$( document ).ready(bind_vulns_buttons);
+$( document ).on('turbolinks:load', bind_vulns_buttons);

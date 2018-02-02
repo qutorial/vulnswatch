@@ -6,197 +6,177 @@
 
   <% if @couch_db_down %>
 
-  <% if @couch_exception && @couch_exception.results %>
+    <% if @couch_exception && @couch_exception.results %>
 
-<p class="alert alert-warning">
-        Seems that Couch DB is very busy at the moment, please,
-       give it a moment or two and try again. 
-</p>
+      <div class="alert alert-warning" role="alert">
+              Seems that Couch DB is very busy at the moment, please,
+            give it a moment or two and try again. 
+      </div>
 
     <% else %>
 
-    <p class="alert alert-warning">
-    Couch DB seems to be down or very busy. 
-      Please, try again in a minute, and then contact the administrator
-      if it is still not working.
-        </p>
+      <div class="alert alert-warning" role="alert">
+      Couch DB seems to be down or very busy. 
+        Please, try again in a minute, and then contact the administrator
+        if it is still not working.
+      </div>
     <% end %>
   
   <% elsif @couch_db_busy %>
-    
-    
-      <div class="container"> Couch DB is busy indexing at the moment. Please, come back in a minute. </div>
-    
-
-
-
+    <div class="container"> Couch DB is busy indexing at the moment. Please, come back in a minute. </div>
     <% @couch_status[:details].each do |process| %>
-      <div class="container alert alert-info">
+      <div class="container alert alert-info" role="alert">
         <%= "Indexer started on #{process[:started_on].to_s(:time)} is now at #{process[:progress]}%" %>
       </div>
     <% end %>
 
   <% end %>
 
-<% else %>
-<% pager = will_paginate %>
-<% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
+<% else # couch db is up %>
 
-<div class="row justify-content-md-center">
-  <%= pager %>
-</div>
+  <% pager = will_paginate %>
+  <%= render 'shared/last_update_nvd' %>
 
-<%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
- 
- <div class='container-fluid'>
-  <div class='input-group'>
-    <%= text_field_tag :search, 
-    params[:search], id: "vulnerabilities_search", 
-    class: "form-control", placeholder: "Search in names, components or summary" %>
+  <% @explanations = RelevantVulnerability.explanator(@vulnerabilities, current_user) %> 
 
-    <span class='input-group-btn'>
-      <%= submit_tag 'Search', class: 'btn btn-primary' %>
-      <%= link_to 'Clear',\
-        '#', class: 'btn reset-search-btn',\
-        onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
-    </span>
+  <div class="row justify-content-md-center">
+    <%= pager %>
   </div>
 
+<%= form_tag vulnerabilities_path, method: :get, class: 'search', id: 'search_form' do  %>
+  <div class='container-fluid'>
+    <div class='input-group search-and-clear'>
+      <%= text_field_tag :search, 
+        params[:search], id: "vulnerabilities_search", 
+        class: "form-control", placeholder: "Search in names, components or summary" %>
+      <span class='input-group-btn'>
+        <%= submit_tag 'Search', class: 'btn btn-primary' %>
+        <%= link_to 'Clear',\
+          '#', class: 'btn reset-search-btn',\
+          onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
+      </span>
+    </div>
 
-           
-<%= render 'shared/last_update_nvd' %>
-
-
-<table id="vulns" class="mt-4 table-responsive table-hover table table-striped">
-  <thead>
-    <tr>
-      <th class="vuln-cell checkbox"></th>
-      <th class="vuln-cell vuln-name"><%= sorting_link_to 'Name', 'name' %></th>
+    <table id="vulns" class="mt-4 table-responsive table-hover table table-striped">
+      <thead>
+        <tr>
+          <th class="vuln-cell checkbox"></th>
+          <th class="vuln-cell vuln-name"><%= sorting_link_to 'Name', 'name' %></th>
+          <th class="vuln-cell vuln-updated"><%= sorting_link_to 'Updated', 'modified' %></th>
+          <th class="vuln-cell vuln-component">Component</th>
+          <th class="vuln-cell vuln-summary" title='Focus on a field, or click an icon in the next column to learn more.'>Summary</th>
+          <th class="vuln-cell vuln-read-on" title='' colspan=3>Details</th>
+          <th class="vuln-cell vuln-project" title='Filters vulns for a given project only.'>Project</th>
+          <th class="vuln-cell vuln-reaction"><%= sorting_link_to 'Reaction', 'reaction' %></th>
+        </tr>
+      </thead>
       
-      <th class="vuln-cell vuln-updated"><%= sorting_link_to 'Updated', 'modified' %>
-      </th>
-      
-      <th class="vuln-cell vuln-component">Component</th>
-      
-      <th class="vuln-cell vuln-summary" title='Focus on a field, or click an icon in the next column to learn more.'>Summary</th>
-      <th class="vuln-cell vuln-read-on" title='' colspan=3>Details</th>
-      <th class="vuln-cell vuln-project" title='Select a project.
+      <tbody>
 
-Estimated affected component in a project.'>Project</th>
+        <tr class='filters'>
+          <td class="vuln-cell checkbox"><%= check_box_tag 'bulk-checkbox' %></td>
+          <td class="vuln-cell"><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2018-...',  class: "form-control table-search"%> </td>
+          <td class="vuln-cell">
+            <%# no filter for updated yet%>
+          </td>
+        
+          <td class="vuln-cell">
+            <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD',  class: "form-control table-search"%>
+          </td>
+        
+          <td class="vuln-cell">
+            <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2',  class: "form-control table-search"%>
+          </td>
+        
+          <td class="vuln-cell" colspan="3">
+                  <%# no filter for view-on linkst%>
+          </td>  
+          
+          <td>
+            <%= select_tag :project,\
+                        options_for_select(projects_filter_collection, params[:project]),\
+                        id: "project_filter",\
+                        include_blank: true,\
+                        onchange: "this.form.submit();",\
+                        class: "form-control table-search"
+                      %>
+          </td>
 
-      <th class="vuln-cell vuln-reaction"><%= sorting_link_to 'Reaction', 'reaction' %>
-
-
-      </th>
-    </tr>
-  </thead>
-  
-  <tbody>
-
-  <tr class='filters'>
-    <td class="vuln-cell checkbox"><%= check_box_tag 'bulk-checkbox' %></td>
-    <td class="vuln-cell"><%= text_field_tag :name, params[:name], id: "name_filter", placeholder: 'CVE-2018-...',  class: "form-control table-search"%> </td>
-  
-    <td class="vuln-cell">
-      <%# no filter for update yet%>
-    </td>
-  
-    <td class="vuln-cell">
-      <%= text_field_tag :component, params[:component], id: "component_filter", placeholder: 'e.g. BSD',  class: "form-control table-search"%>
-    </td>
-  
-    <td class="vuln-cell">
-      <%= text_field_tag :summary, params[:summary], id: "summary_filter", placeholder: 'e.g. Apache 2',  class: "form-control table-search"%>
-    </td>
-  
-    <td class="vuln-cell" colspan=3></td>
-  
-  <td>
-
-      <%= select_tag :project,\
-                  options_for_select(projects_filter_collection, params[:project]),\
-                  id: "project_filter",\
-                  include_blank: true,\
-                  onchange: "this.form.submit();",\
-                  class: "form-control table-search"
-                %>
-
-  </td>
-  <td>
-         <%= select_tag :reaction,\
-                  options_for_select(explanations_collection_short, params[:reaction].to_i),\
-                  id: "reaction_filter",\
-                  include_blank: true,\
-                  onchange: "this.form.submit();",\
-                  class: "form-control table-search"
-                %>
-
-  </td>
-  </tr>
-  
+          <td>
+                <%= select_tag :reaction,\
+                          options_for_select(explanations_collection_short, params[:reaction].to_i),\
+                          id: "reaction_filter",\
+                          include_blank: true,\
+                          onchange: "this.form.submit();",\
+                          class: "form-control table-search"
+                        %>
+          </td>
+        </tr>
+    
 
 <% if @vulnerabilities.count == 0 %>
 
-</tbody>
-</table>
+      </tbody>
+    </table>
 
 
-<p class='alert alert-notice'>No vulnerabilities were found.<br>
-Try to relax the search criteria, update vulnerabilities
-or add more systems to your projects.</p>
+    <div class='alert alert-info' role="alert">No vulnerabilities were found.<br>
+    Try to relax the search criteria, update vulnerabilities
+    or add more systems to your projects.</div>
 
 
-<% else %>
+<% else # vulneravility count > 0 %>
 
-    <% @vulnerabilities.each do |vulnerability| %>
-      <tr>
-	<td class="vuln-cell checkbox"><%= check_box_tag vulnerability.name + "_check", vulnerability.id, false, class: 'vulnerability_checkbox'  %></td>
-        <td class="vuln-cell vuln-name"><%= link_to_vulnerability vulnerability %></td>
-        <td class="vuln-cell vuln-updated"><%= ago_helper(vulnerability.modified) %></td>
-        <td class="vuln-cell vuln-component">
-          <%= render 'shared/component', vulnerability: vulnerability %>
-        </td>
-        <td class="vuln-cell vuln-summary"><%= link_to shorten(vulnerability.summary, 88), vulnerability, title: vulnerability.summary, 
-                 class: 'black_text_link' %></td>
-        <td class="vuln-cell read-on-single"><%= link_to_nvd(vulnerability) %></td>
-        <td class="vuln-cell read-on-single"><%= link_to_cve_details(vulnerability) %></td>
-        <td class="vuln-cell read-on-single"><%= link_to_google(vulnerability) %></td>
-        <td class="vuln-cell vuln-project"><%= render('explanations', explanation: @explanations[vulnerability] )%></td>
-        <td class="vuln-cell vuln-reaction">
-           <%= link_to_react(vulnerability) %>            
-        </td>
-      </tr>
+          <% @vulnerabilities.each do |vulnerability| %>
+            <tr class='vuln-tr'>
+              <td class="vuln-cell checkbox"><%= check_box_tag vulnerability.name + "_check", vulnerability.id, false, class: 'container-fluid vulnerability_checkbox form-control'  %></td>
+              <td class="vuln-cell vuln-name"><%= link_to_vulnerability vulnerability %></td>
+              <td class="vuln-cell vuln-updated"><%= ago_helper(vulnerability.modified) %></td>
+              <td class="vuln-cell vuln-component">
+                <%= render 'shared/component', vulnerability: vulnerability %>
+              </td>
+              <td class="vuln-cell vuln-summary"><%= link_to shorten(vulnerability.summary, 88), vulnerability, title: vulnerability.summary, 
+                      class: 'black_text_link' %></td>
+              <td class="vuln-cell read-on-single"><%= link_to_nvd(vulnerability) %></td>
+              <td class="vuln-cell read-on-single"><%= link_to_cve_details(vulnerability) %></td>
+              <td class="vuln-cell read-on-single"><%= link_to_google(vulnerability) %></td>
+              <td class="vuln-cell vuln-project"><%= render('explanations', explanation: @explanations[vulnerability] )%></td>
+              <td class="vuln-cell vuln-reaction">
+                <%= link_to_react(vulnerability) %>            
+              </td>
+            </tr>
+          <% end #loop on vulnerabilities %>
+
+      </tbody>
+    </table>
+</div> <%# big container fluid around table%>
+
+<% end # of the search/sort/filter form tag %>
+<% end #if on vulns count %>
+
+
+<% if @vulnerabilities.count > 0 %>
+  <div class="container-fluid">
+    <%= form_tag reactions_bulk_new_path, method: :post, id: 'bulk-reaction-form' do  %>
+      <%= submit_tag "React on Selected", id: "bulk-react-button", class:"btn btn-primary" %>
     <% end %>
+  </div>
 
-    <tr class="last-button-row">
-      <td colspan="2">
-        <button type="button" id="bulk-react-button" class="btn btn-primary btn-block">React</button>
-      </td>
-      <td colspan="8"></td>
-    </tr>
-  </tbody>
-</table>
 
-<div class="row justify-content-md-center mt-3">
-  <%= pager %>
-</div>
 
-<div class="mt-2">
-  <%= link_to "Relevant Vulnerabilities", relevant_vulnerabilities_path, class: 'btn btn-success'%>
-</div>
-
+  <div class="row justify-content-md-center mt-3">
+    <%= pager %>
+  </div>
 <% end %>
-<br>
-<br>
 
-<p>
+<div class="mt-4">
+
+<div class="container-fluid">
   <%= reaction_legend.html_safe %>
-</p>
+</div>
 
- </div>
-
-<% end %>
 
 </div>
 
-<% end %>
+
+<% end # if couch db is (not) down%>
