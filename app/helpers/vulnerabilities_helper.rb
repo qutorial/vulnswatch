@@ -36,7 +36,7 @@ module VulnerabilitiesHelper
   end
 
   def flip_sorting_way()
-    par = request.query_parameters["sorting_way"]
+    par = @search_params[:sorting_way]
     if par.nil? or par == 'asc'
       return 'desc'
     else
@@ -45,7 +45,7 @@ module VulnerabilitiesHelper
   end
 
   def class_for_sorting_link(sorting_param)
-    par = request.query_parameters["sorting"]
+    par = @search_params[:sorting]
     if par.nil? or par.blank? or  par != sorting_param 
       return 'sorting-link unsorted'
     end

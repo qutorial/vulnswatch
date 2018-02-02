@@ -162,6 +162,10 @@ class VulnerabilitiesController < ApplicationController
       else
         @search_params = extend_params_from_session(@search_params, allowed_params, prefix)
       end
+      if @search_params[:sorting].nil?
+        @search_params[:sorting] = 'modified'
+        @search_params[:sorting_way] = 'desc'
+      end
       @search_params
     end
 
