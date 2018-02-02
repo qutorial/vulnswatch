@@ -151,8 +151,9 @@ class VulnerabilitiesController < ApplicationController
       if ! @search_params.nil?
         return @search_params
       end
-
-      allowed_params = [:name, :summary, :component, :search, :project, :reaction, :clearsearch, :sorting, :sorting_way, :page]
+      # they will be stored and picked up from session
+      # they are shared between relevant vulnerabilities and all, thus page makes no sense here
+      allowed_params = [:name, :summary, :component, :search, :project, :reaction, :clearsearch, :sorting, :sorting_way]
       prefix = :vulnsindex
       @search_params = params.permit(:name, :summary, :component, :search, :project, :reaction, :clearsearch, :sorting, :sorting_way, :page)
       if @search_params[:clearsearch].present?
