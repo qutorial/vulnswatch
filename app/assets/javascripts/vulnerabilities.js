@@ -35,11 +35,21 @@ vulnerability_checkbox_event_propagation_stop = function(event){
     event.stopPropagation();
 }
 
+clear_vulnerabilities_search_vulns = function(event) {
+    $('#search_form').find("input[type=text], textarea").val("");
+    var input = $("<input>").attr("type", "hidden")
+                .attr("name", "clearsearch")
+                .val("yes");
+    $('#search_form').append($(input));
+    $('#search_form').submit();
+}
+
 bind_vulns_buttons = function() {
    $('#bulk-checkbox').click(bulk_checkbox_click_vulns);
    $('#bulk-react-button').click(bulk_react_button_click_vulns);
    $('tr.vuln-tr').click(flip_the_checkbox_inside_vulns);
    $("input.vulnerability_checkbox").click(vulnerability_checkbox_event_propagation_stop);
+   $('#vulns-index-search-clear').click(clear_vulnerabilities_search_vulns);
 }
   
 $( document ).ready(bind_vulns_buttons);

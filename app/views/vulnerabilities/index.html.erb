@@ -1,3 +1,4 @@
+<% params = @search_params %>
 <div class="container-fluid">
 
 <% if @couch_db_down || @couch_db_busy %>
@@ -51,9 +52,7 @@
         class: "form-control", placeholder: "Search in names, components or summary" %>
       <span class='input-group-btn'>
         <%= submit_tag 'Search', class: 'btn btn-primary' %>
-        <%= link_to 'Clear',\
-          '#', class: 'btn reset-search-btn',\
-          onclick: "$('#vulnerabilities_search')[0].value = ''; $('#search_form').submit();" %>
+        <%= link_to 'Clear', '#', class: 'btn reset-search-btn', id: 'vulns-index-search-clear' %>
       </span>
     </div>
 

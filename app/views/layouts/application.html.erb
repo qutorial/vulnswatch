@@ -43,7 +43,7 @@
         <ul class='navbar-nav mr-auto'>
           <% if user_signed_in? %>
               <li class='nav-item'><%= link_to 'Relevant Vulnerabilities', relevant_vulnerabilities_path, class: (!@searching_relevants.nil? && @searching_relevants) ? 'nav-link active' : 'nav-link' %></li>
-              <li class='nav-item'><%= link_to 'All Vulnerabilities', vulnerabilities_path,  class: (!@searching_relevants.nil? && !@searching_relevants)  ? 'nav-link active' : 'nav-link' %></li>
+              <li class='nav-item'><%= link_to 'All Vulnerabilities', vulnerabilities_path(project: ""),  class: (!@searching_relevants.nil? && !@searching_relevants)  ? 'nav-link active' : 'nav-link' %></li>
               <li class='nav-item'><%= link_to 'Projects', projects_path, class: @viewing_projects? 'nav-link active' : 'nav-link' %></li>
               <li class='nav-item'><%= link_to 'Reactions', reactions_path, class: @viewing_reactions? 'nav-link active' : 'nav-link' %></li>
 

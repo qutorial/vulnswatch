@@ -12,12 +12,12 @@ Rails.application.routes.draw do
     get 'relevant_vulnerabilities', to: 'vulnerabilities#relevant', as: 'relevant_vulnerabilities'
   end
   
-  DisableRegistration = Rails.env.production? && false
-  if DisableRegistration
-    devise_for :users, :controllers => { :registrations => "registrations" } 
-  else
+#  DisableRegistration = Rails.env.production? && false
+#  if DisableRegistration
+#    devise_for :users, :controllers => { :registrations => "registrations" } 
+#  else
     devise_for :users
-  end
+#  end
 
   root to: 'static#home'
 

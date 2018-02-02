@@ -22,14 +22,14 @@ class VulnerabilitiesController < ApplicationController
     # filter on component using tags
     @vulnerabilities = Vulnerability.join_tags_and_reactions(current_user, @vulnerabilities)
 
-    if not component_filter_param.nil?
-      @vulnerabilities = @vulnerabilities.where("LOWER(tags.component) = ?", component_filter_param.to_s.downcase) 
+    if component_filter_params[:component].present?
+      @vulnerabilities = @vulnerabilities.where("LOWER(tags.component) = ?", component_filter_params[:component].to_s.downcase) 
     end
 
     # fulfil search
-    if params[:search].present?
+    if search_params[:search].present?
       conditions =['']
-      params[:search].split(/\s+/).each do |term|
+      search_params[:search].split(/\s+/).each do |term|
         term.downcase!
         # tags shall come here
         newpart = '(LOWER(summary) LIKE ? OR LOWER(name) LIKE ? OR LOWER(tags.component) LIKE ?)'
@@ -104,7 +104,7 @@ class VulnerabilitiesController < ApplicationController
         @vulnerabilities = @vulnerabilities.order(sorting_param.to_sym => sorting_way_param)
     end
 
-    @vulnerabilities = @vulnerabilities.paginate(page: params[:page], :per_page => 15)
+    @vulnerabilities = @vulnerabilities.paginate(page: all_search_params[:page], :per_page => 15)
   end
 
   # GET /vulnerabilities/nvd
@@ -147,26 +147,63 @@ class VulnerabilitiesController < ApplicationController
       params.require(:vulnerability)
     end
 
-    def filtering_params
-      params.permit(:name, :summary)
+    def all_search_params
+      if ! @search_params.nil?
+        return @search_params
+      end
+
+      allowed_params = [:name, :summary, :component, :search, :project, :reaction, :clearsearch, :sorting, :sorting_way, :page]
+      prefix = :vulnsindex
+      @search_params = params.permit(:name, :summary, :component, :search, :project, :reaction, :clearsearch, :sorting, :sorting_way, :page)
+      if @search_params[:clearsearch].present?
+        allowed_params.each do |param|
+          @search_params.delete(param)
+        end
+      else
+        @search_params = extend_params_from_session(@search_params, allowed_params, prefix)
+      end
+      @search_params
     end
 
-    def extract_parameter(parameter, default = nil)
-      par = params.permit(parameter)
-      if not par.has_key?(parameter) or not par[parameter].present?
-        return default
-      else
-        return par[parameter]
-      end      
+    # params - params object, extended_params - arrays of symbol-names of which params to extend, 
+    # prefix - name prefix in session store
+    def extend_params_from_session(destination_params, extended_params, prefix)
+      extended_params.each do |param|
+        destination_params = extend_from_session(destination_params, param, prefix)
+      end
+      destination_params
     end
     
-    def component_filter_param
-      return extract_parameter(:component)
+
+
+    def extend_from_session(destination_params, extended_param, prefix, default = nil)
+      session_index = (prefix.to_s + "_" + extended_param.to_s).to_sym
+      if destination_params[extended_param].nil?
+        if session.has_key?(session_index)
+          destination_params[extended_param] = session[session_index]
+        elsif ! default.nil?
+          destination_params[extended_param] = default
+        end
+      else
+        session[session_index] = destination_params[extended_param]
+      end
+      destination_params
+    end
+
+    def filtering_params
+      all_search_params.permit(:name, :summary)
+    end
+    
+    def component_filter_params
+      all_search_params.permit(:component)
+    end
+
+    def search_params
+      all_search_params.permit(:search)
     end
 
     def relevance_filter_params
-      # TODO use extract_parameter here
-      par = params.permit(:project)
+      par = all_search_params.permit(:project)
       if not par.has_key?(:project) or not par[:project].present?
         return nil
       elsif par[:project].to_i == 0 
@@ -182,7 +219,7 @@ class VulnerabilitiesController < ApplicationController
     end
 
     def sorting_way_param
-      par = params.permit(:sorting_way)
+      par = all_search_params.permit(:sorting_way)
       if par.has_key?(:sorting_way)
         case par[:sorting_way]
           when 'asc'
@@ -195,7 +232,7 @@ class VulnerabilitiesController < ApplicationController
     end
         
     def sorting_param
-      par = params.permit(:sorting)
+      par = all_search_params.permit(:sorting)
       if par.has_key?(:sorting) and (allowed_sorting_params.include? par[:sorting])
         return par[:sorting]
       end
@@ -203,7 +240,7 @@ class VulnerabilitiesController < ApplicationController
     end
 
     def reaction_filter_param
-      par = params.permit(:reaction)
+      par = all_search_params.permit(:reaction)
       if not par.has_key?(:reaction) or not par[:reaction].present?
         return nil
       elsif par.has_key?(:reaction) and (1..5).include? par[:reaction].to_i
