@@ -53,7 +53,7 @@ class VulnerabilitiesController < ApplicationController
       end   
      end    
     
-     begin # talkin to couch inside exception block
+     begin # talking to Couch DB inside exception block
 
       # Second in-memory procedures might start
       relevant_project = relevance_filter_params

@@ -41,7 +41,7 @@ en:
         other: "%{count} hours"
       about_x_months:
         one: "1 month"
-        other: "%{count} hours"
+        other: "%{count} months"
       about_x_years:
         one: "1 year"
         other: "%{count} years"

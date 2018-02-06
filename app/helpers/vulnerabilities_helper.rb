@@ -32,6 +32,7 @@ module VulnerabilitiesHelper
    if modified.nil?
     return "?"
    end
+   debugger
    return (time_ago_in_words(modified.to_datetime).sub(' ', '&nbsp') + '&nbspago').to_s.html_safe 
   end
 
