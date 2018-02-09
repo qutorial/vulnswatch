@@ -32,9 +32,13 @@
 </p>
 
 <p>
-  <strong>Components affected:</strong>
+  <strong>Tagged to affect components:</strong>
     <div class='vulnerability-tags'>
-      <%= render @vulnerability.tags %>
+      <% if @vulnerability.tags.count > 0 %>
+        <%= render @vulnerability.tags %>
+      <% else %>
+        Not tagged by users yet.
+      <% end %>
       <%= link_to_tag(@vulnerability, style: 'display: inline-block; margin-left: 2em;') %>
     </div>
 </p>
