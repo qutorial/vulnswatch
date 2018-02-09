@@ -35,6 +35,7 @@ This is how the rails app is installed:
 gem install bundler
 bundle install --with production --force
 export RAILS_ENV=production
+source ~/.secrets.sh # where environment variables are set!
 rails assets:precompile
 rails db:migrate
 ```
