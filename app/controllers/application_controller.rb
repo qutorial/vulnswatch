@@ -13,13 +13,13 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
       respond_to do |format|
-        format.html { redirect_to main_app.root_url, notice: exception.message }
+        format.html { redirect_to main_app.root_url, flash: { warning: exception.message } }
       end
   end  
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
       respond_to do |format|
-        format.html { redirect_to main_app.root_url, notice: exception.message }
+        format.html { redirect_to main_app.root_url, flash: { danger: exception.message } }
       end
   end  
   
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
           message = "The app reached Heroku's limit on the database size, please, report it to the maintainer of the app"
         end
         logger.debug exception.message
-        format.html { redirect_to main_app.root_url, notice: message}
+        format.html { redirect_to main_app.root_url, flash: { danger: message} }
       end
   end
   

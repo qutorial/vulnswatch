@@ -1,6 +1,6 @@
 - content_for :top_content do
   - if ! user_signed_in?
-    = image_tag 'vulnswatch.800.png', class:'img-fluid mx-auto d-block'
+    =image_tag 'vulnswatch.800.png', class:'mt-5 mb-5 img-fluid mx-auto d-block', id: 'main-logo'
     %h2.h2.text-center.mt-2 vulnswatch - never miss a vulnerability again!
     %p
       = link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg'

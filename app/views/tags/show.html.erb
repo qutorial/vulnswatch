@@ -1,6 +1,6 @@
 <h3>Tag</h3>
 <p>
-  <strong>Component:</strong>
+  <strong>Component affected by vulnerability:</strong>
   <%= @tag.component %>
 </p>
 
@@ -8,6 +8,10 @@
   <strong>Vulnerability:</strong>
   <%= link_to_vulnerability @tag.vulnerability %>
 </p>
+
+<div class="vulnerability-summary"><%= @tag.vulnerability.summary %></div>
+
+
 
 <p>
   <strong>By:</strong>

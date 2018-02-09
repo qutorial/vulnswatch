@@ -21,7 +21,7 @@
     <%= form.text_field :vulnerability, id: :tag_vulnerability, class: "form-control", value: name_or_nil(form.object.vulnerability), placeholder: 'CVE-2017-1234' %>
   </div>
 
-  <div class="vulnerability-summary"><pre><code><%= form.object.vulnerability.name %>:&nbsp; <%= form.object.vulnerability.summary %></code></pre></div>
+  <div class="vulnerability-summary"><%= form.object.vulnerability.name %>:&nbsp; <%= form.object.vulnerability.summary %></div>
 
   <div class="actions">
     <%= form.submit %>

@@ -64,8 +64,12 @@
       </div> <!-- nav bar --!>
     </nav>
 
-    <div class="container"> <!-- flash messages -->
+    <div class="container"> 
+     <!-- flash messages -->
      <% flash.each do |key, value| %>
+        <% if key =="notice" %>
+        <%   key="info"  %>
+        <% end %>
        <div class="alert alert-<%= key %>" role="alert">
          <%= value %>
        </div>
