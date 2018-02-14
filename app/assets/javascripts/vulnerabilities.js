@@ -50,6 +50,7 @@ bind_vulns_buttons = function() {
    $('tr.vuln-tr').click(flip_the_checkbox_inside_vulns);
    $("input.vulnerability_checkbox").click(vulnerability_checkbox_event_propagation_stop);
    $('#vulns-index-search-clear').click(clear_vulnerabilities_search_vulns);
+   $('#vulns-relax-search').click(clear_vulnerabilities_search_vulns);
 }
   
 $( document ).ready(bind_vulns_buttons);
