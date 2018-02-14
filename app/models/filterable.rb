@@ -11,7 +11,7 @@ module Filterable
       params.each do |key, value|
         if allowed_params.include?(key.to_s) and value.present?
           condition = "#{key.to_s} LIKE ?"
-          results = results.where(condition, "%#{value}%") 
+          results = results.where(condition, "%#{value.downcase}%") 
         end
       end      
       return results
