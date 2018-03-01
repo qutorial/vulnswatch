@@ -163,8 +163,8 @@ module Couch
         template="function (doc) {
     var re = /$RE$/i;
     if(doc.tags) {
-        if (doc.tags.length > 0){
-            if(re.test(doc.tags.join())){
+        if (doc.tags.length > 0) {
+            if(re.test(doc.tags.join())) {
                 emit(doc.id, 1);
             }
             // not matching on summary then
@@ -174,14 +174,14 @@ module Couch
     if (re.test(doc.summary)) {
         emit(doc.id, 1);
     }
-    
-    }"
+}"
         return template
     end
 
     def self.view_for_systems systems
         res = view_template
         re = systems.collect{ |x| "\\b" + Regexp.escape(x) + "\\b" }.join("|")
+        re = "I-Shall-Not-Ever-Match-Anything-At-All13123123123123123" if re.blank?
         return res.sub("$RE$", re)
     end
 
