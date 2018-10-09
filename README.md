@@ -41,6 +41,27 @@ rails db:migrate
 ```
 
 
+## Getting Data
+
+The data in the app is loaded from NVD database.
+To load a specific year, please, visit this route:
+```
+http://whereyouapp.is/nvd_load_year/2018
+```
+
+Replace `2018` with the year you want to start with. Then 
+repeat the process with the consecutive years. 
+
+Finally, load the last delta into the app by visiting:
+```
+http://whereyouapp.is/nvd_update
+```
+
+Visiting this URL time-to-time will update your database of 
+vulnerabilities. Vulnswatch will remind you if the 
+last update is too old.
+
+
 ## Example Passenger Configuration
 
 This is how we configure nginx and passenger:
