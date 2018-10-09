@@ -78,10 +78,12 @@ Scenario: Filtering works, part two
 
 Scenario: Sorting on name works on vulnerabilities
   When I go to vulnerabilities page
-  And I sort descending on name
-  Then vulnerability CVE-2017-2 should stand before CVE-2017-1
+  When I sort descending on name
+  Then I should see vulnerabilities: CVE-2017-2, CVE-2017-1
+  And vulnerability CVE-2017-2 should stand before CVE-2017-1
   When I sort ascending on name
-  Then vulnerability CVE-2017-1 should stand before CVE-2017-2
+  Then I should see vulnerabilities: CVE-2017-2, CVE-2017-1
+  And vulnerability CVE-2017-1 should stand before CVE-2017-2
 
 Scenario: Sorting on name works on vulnerabilities
   When I go to relevant vulnerabilities page

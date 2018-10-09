@@ -78,8 +78,8 @@ When(/^I sort (\w+) on (\w+)$/) do |sorting_way, sorting_column|
 end
 
 When(/^vulnerability ([^\s]+) should stand before ([^\s]+)$/) do |v1, v2|
-  expect(page.text).to match(/#{v1}.*#{v2}/)
-  expect(page.text).not_to match(/#{v2}.*#{v1}/)
+  expect(page.text).to match(/#{Regexp.escape(v1)}.*#{Regexp.escape(v2)}/m)
+  expect(page.text).not_to match(/#{Regexp.escape(v2)}.*#{Regexp.escape(v1)}/m)
 end
 
 #When(/^follow register link$/) do
